@@ -9,8 +9,13 @@ import UIKit
 import RxSwift
 import RxCocoa
 import ReactorKit
+import Moya
+import RxMoya
+
 
 class ViewController: BaseViewController, View {
+    let provider = MoyaProvider<APITarget>()
+
     private let idTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "id"
