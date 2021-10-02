@@ -22,6 +22,7 @@
 		9EDDD65B26EDB11F00456352 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDDD65A26EDB11F00456352 /* UIView+Extension.swift */; };
 		9EE8C5F627087DB800627CFA /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = 9EE8C5F527087DB800627CFA /* Moya */; };
 		9EE8C5F827087DB800627CFA /* RxMoya in Frameworks */ = {isa = PBXBuildFile; productRef = 9EE8C5F727087DB800627CFA /* RxMoya */; };
+		B16DD52B2708823000537DC9 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = B16DD52A2708823000537DC9 /* Logger.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +36,7 @@
 		9EDDD65626EDAC9700456352 /* NewReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewReactor.swift; sourceTree = "<group>"; };
 		9EDDD65826EDAEA800456352 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		9EDDD65A26EDB11F00456352 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
+		B16DD52A2708823000537DC9 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +81,7 @@
 				9E9C338B26E735640036175C /* SceneDelegate.swift */,
 				9E9C338D26E735640036175C /* ViewController.swift */,
 				9EDDD65A26EDB11F00456352 /* UIView+Extension.swift */,
+				B16DD52A2708823000537DC9 /* Logger.swift */,
 				9EDDD65826EDAEA800456352 /* BaseViewController.swift */,
 				9EDDD65626EDAC9700456352 /* NewReactor.swift */,
 				9E9C339226E735680036175C /* Assets.xcassets */,
@@ -182,6 +185,7 @@
 				9EDDD65926EDAEA800456352 /* BaseViewController.swift in Sources */,
 				9E9C338E26E735640036175C /* ViewController.swift in Sources */,
 				9EDDD65726EDAC9700456352 /* NewReactor.swift in Sources */,
+				B16DD52B2708823000537DC9 /* Logger.swift in Sources */,
 				9E9C338A26E735640036175C /* AppDelegate.swift in Sources */,
 				9E9C338C26E735640036175C /* SceneDelegate.swift in Sources */,
 			);
