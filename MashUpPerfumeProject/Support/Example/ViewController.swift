@@ -48,6 +48,7 @@ class ViewController: BaseViewController, View {
 //    }
     override func setLayout() {
         super.setLayout()
+
         view.addSubview(idTextField, passwordTextField, confirmButton)
 
         NSLayoutConstraint.activate([

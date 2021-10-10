@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9D3098AA2708CD1100EAB60B /* NoteGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D3098A92708CD1100EAB60B /* NoteGroupViewController.swift */; };
+		9D3098AC2708CD2F00EAB60B /* NoteGroupReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D3098AB2708CD2F00EAB60B /* NoteGroupReactor.swift */; };
+		9D32256D2712F3FA00054927 /* DynamicTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D32256C2712F3FA00054927 /* DynamicTableView.swift */; };
+		9D627348271287380091A190 /* NoteGroupModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D627347271287380091A190 /* NoteGroupModel.swift */; };
+		9D62734E2712B1FD0091A190 /* NoteGroupTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D62734D2712B1FD0091A190 /* NoteGroupTableViewCell.swift */; };
 		9E9C338A26E735640036175C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9C338926E735640036175C /* AppDelegate.swift */; };
 		9E9C338C26E735640036175C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9C338B26E735640036175C /* SceneDelegate.swift */; };
 		9E9C338E26E735640036175C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9C338D26E735640036175C /* ViewController.swift */; };
@@ -28,6 +33,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9D3098A92708CD1100EAB60B /* NoteGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteGroupViewController.swift; sourceTree = "<group>"; };
+		9D3098AB2708CD2F00EAB60B /* NoteGroupReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteGroupReactor.swift; sourceTree = "<group>"; };
+		9D32256C2712F3FA00054927 /* DynamicTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableView.swift; sourceTree = "<group>"; };
+		9D627347271287380091A190 /* NoteGroupModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteGroupModel.swift; sourceTree = "<group>"; };
+		9D62734D2712B1FD0091A190 /* NoteGroupTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteGroupTableViewCell.swift; sourceTree = "<group>"; };
 		9E9C338626E735640036175C /* MashUpPerfumeProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MashUpPerfumeProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E9C338926E735640036175C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9E9C338B26E735640036175C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -61,6 +71,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9D3098A82708CCB800EAB60B /* NoteGroupViewController */ = {
+			isa = PBXGroup;
+			children = (
+				9D3098A92708CD1100EAB60B /* NoteGroupViewController.swift */,
+				9D3098AB2708CD2F00EAB60B /* NoteGroupReactor.swift */,
+				9D627347271287380091A190 /* NoteGroupModel.swift */,
+				9D62734D2712B1FD0091A190 /* NoteGroupTableViewCell.swift */,
+				9D32256C2712F3FA00054927 /* DynamicTableView.swift */,
+			);
+			path = NoteGroupViewController;
+			sourceTree = "<group>";
+		};
 		9E9C337D26E735640036175C = {
 			isa = PBXGroup;
 			children = (
@@ -112,6 +134,7 @@
 		9EE8C5FB2708847900627CFA /* Flow */ = {
 			isa = PBXGroup;
 			children = (
+				9D3098A82708CCB800EAB60B /* NoteGroupViewController */,
 			);
 			path = Flow;
 			sourceTree = "<group>";
@@ -251,15 +274,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9D3098AA2708CD1100EAB60B /* NoteGroupViewController.swift in Sources */,
 				9EDDD65B26EDB11F00456352 /* UIView+Extension.swift in Sources */,
 				9EDDD65926EDAEA800456352 /* BaseViewController.swift in Sources */,
 				9E9C338E26E735640036175C /* ViewController.swift in Sources */,
 				9EDDD65726EDAC9700456352 /* NewReactor.swift in Sources */,
+				9D627348271287380091A190 /* NoteGroupModel.swift in Sources */,
+				9D62734E2712B1FD0091A190 /* NoteGroupTableViewCell.swift in Sources */,
 				B16DD52B2708823000537DC9 /* Logger.swift in Sources */,
 				9E9C338A26E735640036175C /* AppDelegate.swift in Sources */,
+				9D3098AC2708CD2F00EAB60B /* NoteGroupReactor.swift in Sources */,
 				9EE8C5FE2708850F00627CFA /* APITarget.swift in Sources */,
 				9EE8C6002708855B00627CFA /* APIService.swift in Sources */,
 				9E9C338C26E735640036175C /* SceneDelegate.swift in Sources */,
+				9D32256D2712F3FA00054927 /* DynamicTableView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
