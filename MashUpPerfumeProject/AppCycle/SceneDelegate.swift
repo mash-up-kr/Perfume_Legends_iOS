@@ -19,8 +19,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let scene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: scene)
         let viewController = ViewController()
+        let noteGroupViewController = NoteGroupViewController()
         viewController.reactor = NewReactor()
-        window?.rootViewController = viewController
+        noteGroupViewController.reactor = NoteGroupReactor()
+        window?.backgroundColor = UIColor(red: 250/255, green: 250/255, blue: 250/255, alpha: 1)
+        window?.rootViewController = noteGroupViewController
         window?.makeKeyAndVisible()
     }
 
