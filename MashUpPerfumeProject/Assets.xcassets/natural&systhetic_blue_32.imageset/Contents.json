@@ -1,0 +1,15 @@
+{
+  "images" : [
+    {
+      "filename" : "natural&systhetic_blue_32.pdf",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  },
+  "properties" : {
+    "preserves-vector-representation" : true
+  }
+}
