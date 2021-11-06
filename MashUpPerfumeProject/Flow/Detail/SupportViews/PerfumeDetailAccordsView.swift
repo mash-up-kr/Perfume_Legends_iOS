@@ -11,8 +11,8 @@ final class PerfumeDetailAccordsView: UIView {
     private let titleLabel: UILabel = {
        let label = UILabel()
         label.textColor = .black
-        label.font = .systemFont(ofSize: 18, weight: .semibold)
-        label.text = "titleLabel"
+        label.font = .systemFont(ofSize: 18, weight: .bold)
+        label.text = "구성 성분"
         
         return label
     }()
@@ -36,6 +36,7 @@ final class PerfumeDetailAccordsView: UIView {
             titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 30),
             titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
+            titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -30)
             
         ])
     }

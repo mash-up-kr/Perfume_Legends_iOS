@@ -22,6 +22,8 @@ final class PerfumeDetailViewController: BaseViewController {
     private let perfumeImageView = UIImageView()
     
     private let detailNameView = PerfumeDetailNameView()
+    private let accordsView = PerfumeDetailAccordsView()
+    private let notesView = PerfumeDetailNotesView()
     
 //    private let
     var disposeBag = DisposeBag()
@@ -30,7 +32,7 @@ final class PerfumeDetailViewController: BaseViewController {
         super.setLayout()
         view.addSubviews(scrollView)
         scrollView.addSubviews(stackView)
-        stackView.addArrangedSubviews(perfumeImageView, detailNameView)
+        stackView.addArrangedSubviews(perfumeImageView, detailNameView, accordsView, notesView)
         
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
