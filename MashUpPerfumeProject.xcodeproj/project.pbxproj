@@ -33,6 +33,7 @@
 		B12EB6FD2736861700103E42 /* PerfumeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12EB6FC2736861700103E42 /* PerfumeDetailViewController.swift */; };
 		B12EB6FF2736862F00103E42 /* PerfumeDetailReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12EB6FE2736862F00103E42 /* PerfumeDetailReactor.swift */; };
 		B12EB7022736887900103E42 /* PerfumeDetailNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12EB7012736887900103E42 /* PerfumeDetailNameView.swift */; };
+		B12EB704273689D300103E42 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12EB703273689D300103E42 /* UIColor+Extension.swift */; };
 		B16DD52B2708823000537DC9 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = B16DD52A2708823000537DC9 /* Logger.swift */; };
 /* End PBXBuildFile section */
 
@@ -58,6 +59,7 @@
 		B12EB6FC2736861700103E42 /* PerfumeDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerfumeDetailViewController.swift; sourceTree = "<group>"; };
 		B12EB6FE2736862F00103E42 /* PerfumeDetailReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerfumeDetailReactor.swift; sourceTree = "<group>"; };
 		B12EB7012736887900103E42 /* PerfumeDetailNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerfumeDetailNameView.swift; sourceTree = "<group>"; };
+		B12EB703273689D300103E42 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		B16DD52A2708823000537DC9 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -158,6 +160,7 @@
 			isa = PBXGroup;
 			children = (
 				9EDDD65A26EDB11F00456352 /* UIView+Extension.swift */,
+				B12EB703273689D300103E42 /* UIColor+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -344,6 +347,7 @@
 				9EE8C6002708855B00627CFA /* APIService.swift in Sources */,
 				9E9C338C26E735640036175C /* SceneDelegate.swift in Sources */,
 				B126E59E27301DF3007248D9 /* NoteGroupReactor.swift in Sources */,
+				B12EB704273689D300103E42 /* UIColor+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
