@@ -47,7 +47,7 @@ final class PerfumeDetailNotesView: UIView {
 }
 
 extension PerfumeDetailNotesView {
-    final class NoteButton: UIView {
+    private final class NoteButton: UIView {
         private let stackView: UIStackView = {
             let stackView = UIStackView()
             stackView.axis = .horizontal

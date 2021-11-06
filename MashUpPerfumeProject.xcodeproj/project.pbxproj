@@ -37,6 +37,7 @@
 		B12EB70627368E5B00103E42 /* UIStackView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12EB70527368E5B00103E42 /* UIStackView+Extension.swift */; };
 		B12EB7082736958100103E42 /* PerfumeDetailAccordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12EB7072736958100103E42 /* PerfumeDetailAccordsView.swift */; };
 		B12EB70A2736972E00103E42 /* PerfumeDetailNotesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12EB7092736972E00103E42 /* PerfumeDetailNotesView.swift */; };
+		B12EB70C27369EA300103E42 /* PerfumeDetailSimilarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12EB70B27369EA300103E42 /* PerfumeDetailSimilarView.swift */; };
 		B16DD52B2708823000537DC9 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = B16DD52A2708823000537DC9 /* Logger.swift */; };
 /* End PBXBuildFile section */
 
@@ -66,6 +67,7 @@
 		B12EB70527368E5B00103E42 /* UIStackView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+Extension.swift"; sourceTree = "<group>"; };
 		B12EB7072736958100103E42 /* PerfumeDetailAccordsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerfumeDetailAccordsView.swift; sourceTree = "<group>"; };
 		B12EB7092736972E00103E42 /* PerfumeDetailNotesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerfumeDetailNotesView.swift; sourceTree = "<group>"; };
+		B12EB70B27369EA300103E42 /* PerfumeDetailSimilarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerfumeDetailSimilarView.swift; sourceTree = "<group>"; };
 		B16DD52A2708823000537DC9 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -251,6 +253,7 @@
 				B12EB7012736887900103E42 /* PerfumeDetailNameView.swift */,
 				B12EB7072736958100103E42 /* PerfumeDetailAccordsView.swift */,
 				B12EB7092736972E00103E42 /* PerfumeDetailNotesView.swift */,
+				B12EB70B27369EA300103E42 /* PerfumeDetailSimilarView.swift */,
 			);
 			path = SupportViews;
 			sourceTree = "<group>";
@@ -350,6 +353,7 @@
 				B12EB6FF2736862F00103E42 /* PerfumeDetailReactor.swift in Sources */,
 				9EDDD65726EDAC9700456352 /* NewReactor.swift in Sources */,
 				B16DD52B2708823000537DC9 /* Logger.swift in Sources */,
+				B12EB70C27369EA300103E42 /* PerfumeDetailSimilarView.swift in Sources */,
 				9E9C338A26E735640036175C /* AppDelegate.swift in Sources */,
 				B126E5A127301E85007248D9 /* NoteCollectionViewController.swift in Sources */,
 				B12EB7082736958100103E42 /* PerfumeDetailAccordsView.swift in Sources */,

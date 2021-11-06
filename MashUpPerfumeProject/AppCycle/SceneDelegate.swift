@@ -18,8 +18,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let scene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: scene)
-        let viewController = ViewController()
-        viewController.reactor = NewReactor()
+        let viewController = PerfumeDetailViewController()
+//        viewController.reactor = NewReactor()
         window?.rootViewController = viewController
         window?.makeKeyAndVisible()
     }
