@@ -38,6 +38,7 @@
 		B12EB7082736958100103E42 /* PerfumeDetailAccordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12EB7072736958100103E42 /* PerfumeDetailAccordsView.swift */; };
 		B12EB70A2736972E00103E42 /* PerfumeDetailNotesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12EB7092736972E00103E42 /* PerfumeDetailNotesView.swift */; };
 		B12EB70C27369EA300103E42 /* PerfumeDetailSimilarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12EB70B27369EA300103E42 /* PerfumeDetailSimilarView.swift */; };
+		B12EB70F2736A1E900103E42 /* SeparatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12EB70E2736A1E900103E42 /* SeparatorView.swift */; };
 		B16DD52B2708823000537DC9 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = B16DD52A2708823000537DC9 /* Logger.swift */; };
 /* End PBXBuildFile section */
 
@@ -68,6 +69,7 @@
 		B12EB7072736958100103E42 /* PerfumeDetailAccordsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerfumeDetailAccordsView.swift; sourceTree = "<group>"; };
 		B12EB7092736972E00103E42 /* PerfumeDetailNotesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerfumeDetailNotesView.swift; sourceTree = "<group>"; };
 		B12EB70B27369EA300103E42 /* PerfumeDetailSimilarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerfumeDetailSimilarView.swift; sourceTree = "<group>"; };
+		B12EB70E2736A1E900103E42 /* SeparatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeparatorView.swift; sourceTree = "<group>"; };
 		B16DD52A2708823000537DC9 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -133,6 +135,7 @@
 				9EE8C6052708CB6D00627CFA /* Base */,
 				9EE8C6022708CB2200627CFA /* Extension */,
 				9EE8C5FC270884E900627CFA /* Service */,
+				B12EB70D2736A1C100103E42 /* Components */,
 			);
 			path = Global;
 			sourceTree = "<group>";
@@ -256,6 +259,14 @@
 				B12EB70B27369EA300103E42 /* PerfumeDetailSimilarView.swift */,
 			);
 			path = SupportViews;
+            sourceTree = "<group>";
+        };
+		B12EB70D2736A1C100103E42 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				B12EB70E2736A1E900103E42 /* SeparatorView.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -358,6 +369,7 @@
 				B126E5A127301E85007248D9 /* NoteCollectionViewController.swift in Sources */,
 				B12EB7082736958100103E42 /* PerfumeDetailAccordsView.swift in Sources */,
 				B11E60422708CCB5002B1294 /* SearchReactor.swift in Sources */,
+				B12EB70F2736A1E900103E42 /* SeparatorView.swift in Sources */,
 				9EE8C5FE2708850F00627CFA /* APITarget.swift in Sources */,
 				9EE8C6002708855B00627CFA /* APIService.swift in Sources */,
 				9E9C338C26E735640036175C /* SceneDelegate.swift in Sources */,
