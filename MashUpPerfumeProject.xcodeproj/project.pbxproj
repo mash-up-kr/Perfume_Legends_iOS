@@ -35,6 +35,7 @@
 		B12EB7022736887900103E42 /* PerfumeDetailNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12EB7012736887900103E42 /* PerfumeDetailNameView.swift */; };
 		B12EB704273689D300103E42 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12EB703273689D300103E42 /* UIColor+Extension.swift */; };
 		B12EB70627368E5B00103E42 /* UIStackView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12EB70527368E5B00103E42 /* UIStackView+Extension.swift */; };
+		B12EB7082736958100103E42 /* PerfumeDetailAccordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12EB7072736958100103E42 /* PerfumeDetailAccordsView.swift */; };
 		B16DD52B2708823000537DC9 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = B16DD52A2708823000537DC9 /* Logger.swift */; };
 /* End PBXBuildFile section */
 
@@ -62,6 +63,7 @@
 		B12EB7012736887900103E42 /* PerfumeDetailNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerfumeDetailNameView.swift; sourceTree = "<group>"; };
 		B12EB703273689D300103E42 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		B12EB70527368E5B00103E42 /* UIStackView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+Extension.swift"; sourceTree = "<group>"; };
+		B12EB7072736958100103E42 /* PerfumeDetailAccordsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerfumeDetailAccordsView.swift; sourceTree = "<group>"; };
 		B16DD52A2708823000537DC9 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -245,6 +247,7 @@
 			isa = PBXGroup;
 			children = (
 				B12EB7012736887900103E42 /* PerfumeDetailNameView.swift */,
+				B12EB7072736958100103E42 /* PerfumeDetailAccordsView.swift */,
 			);
 			path = SupportViews;
 			sourceTree = "<group>";
@@ -345,6 +348,7 @@
 				B16DD52B2708823000537DC9 /* Logger.swift in Sources */,
 				9E9C338A26E735640036175C /* AppDelegate.swift in Sources */,
 				B126E5A127301E85007248D9 /* NoteCollectionViewController.swift in Sources */,
+				B12EB7082736958100103E42 /* PerfumeDetailAccordsView.swift in Sources */,
 				B11E60422708CCB5002B1294 /* SearchReactor.swift in Sources */,
 				9EE8C5FE2708850F00627CFA /* APITarget.swift in Sources */,
 				9EE8C6002708855B00627CFA /* APIService.swift in Sources */,

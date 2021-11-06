@@ -71,10 +71,10 @@ final class PerfumeDetailNameView: UIView {
         stackView.setCustomSpacing(12, after: titleLabel)
         
         NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: topAnchor),
+            stackView.topAnchor.constraint(equalTo: topAnchor, constant: 20),
             stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             stackView.trailingAnchor.constraint(equalTo: diggingButton.leadingAnchor, constant: -20),
-            stackView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20),
             
             diggingButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
             diggingButton.heightAnchor.constraint(equalToConstant: 50),
