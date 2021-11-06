@@ -26,6 +26,7 @@
 		9EE8C6002708855B00627CFA /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE8C5FF2708855B00627CFA /* APIService.swift */; };
 		B12EB704273689D300103E42 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12EB703273689D300103E42 /* UIColor+Extension.swift */; };
 		B12EB70627368E5B00103E42 /* UIStackView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12EB70527368E5B00103E42 /* UIStackView+Extension.swift */; };
+		B12EB70F2736A1E900103E42 /* SeparatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12EB70E2736A1E900103E42 /* SeparatorView.swift */; };
 		B16DD52B2708823000537DC9 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = B16DD52A2708823000537DC9 /* Logger.swift */; };
 /* End PBXBuildFile section */
 
@@ -44,6 +45,7 @@
 		9EE8C5FF2708855B00627CFA /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		B12EB703273689D300103E42 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		B12EB70527368E5B00103E42 /* UIStackView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+Extension.swift"; sourceTree = "<group>"; };
+		B12EB70E2736A1E900103E42 /* SeparatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeparatorView.swift; sourceTree = "<group>"; };
 		B16DD52A2708823000537DC9 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -109,6 +111,7 @@
 				9EE8C6052708CB6D00627CFA /* Base */,
 				9EE8C6022708CB2200627CFA /* Extension */,
 				9EE8C5FC270884E900627CFA /* Service */,
+				B12EB70D2736A1C100103E42 /* Components */,
 			);
 			path = Global;
 			sourceTree = "<group>";
@@ -172,6 +175,14 @@
 				9EDDD65826EDAEA800456352 /* BaseViewController.swift */,
 			);
 			path = Base;
+			sourceTree = "<group>";
+		};
+		B12EB70D2736A1C100103E42 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				B12EB70E2736A1E900103E42 /* SeparatorView.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -263,6 +274,7 @@
 				9EDDD65726EDAC9700456352 /* NewReactor.swift in Sources */,
 				B16DD52B2708823000537DC9 /* Logger.swift in Sources */,
 				9E9C338A26E735640036175C /* AppDelegate.swift in Sources */,
+				B12EB70F2736A1E900103E42 /* SeparatorView.swift in Sources */,
 				9EE8C5FE2708850F00627CFA /* APITarget.swift in Sources */,
 				9EE8C6002708855B00627CFA /* APIService.swift in Sources */,
 				9E9C338C26E735640036175C /* SceneDelegate.swift in Sources */,
