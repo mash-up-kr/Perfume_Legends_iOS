@@ -7,6 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9D41F94B2725985B00C762D5 /* OnboardingFourthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D41F94A2725985B00C762D5 /* OnboardingFourthViewController.swift */; };
+		9D41F94D2725991900C762D5 /* OnboardingFourthReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D41F94C2725991900C762D5 /* OnboardingFourthReactor.swift */; };
+		9D7C24262721ACC7002C1218 /* OnboardingThirdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7C24252721ACC7002C1218 /* OnboardingThirdViewController.swift */; };
+		9D7C24282721ADF1002C1218 /* OnboardingThirdReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7C24272721ADF1002C1218 /* OnboardingThirdReactor.swift */; };
+		9D891B3F2723913500580950 /* SeletableButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D891B3E2723913500580950 /* SeletableButton.swift */; };
+		9DD0F99F271EF2EB00EFAE4D /* OnboardingSecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DD0F99E271EF2EB00EFAE4D /* OnboardingSecondViewController.swift */; };
+		9DD0F9A1271EF33100EFAE4D /* OnboardingSecondReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DD0F9A0271EF33100EFAE4D /* OnboardingSecondReactor.swift */; };
+		9DDC4DFF271BF3A3003398A9 /* OnboardingFirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DDC4DFE271BF3A3003398A9 /* OnboardingFirstViewController.swift */; };
+		9DDC4E01271BF50B003398A9 /* OnboardingReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DDC4E00271BF50B003398A9 /* OnboardingReactor.swift */; };
+		9DE79E15272BC35300886B19 /* ContentsizedCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE79E14272BC35300886B19 /* ContentsizedCollectionView.swift */; };
+		9DE79E17272BD33D00886B19 /* Color.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9DE79E16272BD33D00886B19 /* Color.xcassets */; };
+		9DFE46022726D7D800BF01E2 /* OnboardingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFE46012726D7D800BF01E2 /* OnboardingCollectionViewCell.swift */; };
 		9E9C338A26E735640036175C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9C338926E735640036175C /* AppDelegate.swift */; };
 		9E9C338C26E735640036175C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9C338B26E735640036175C /* SceneDelegate.swift */; };
 		9E9C338E26E735640036175C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9C338D26E735640036175C /* ViewController.swift */; };
@@ -31,6 +43,18 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9D41F94A2725985B00C762D5 /* OnboardingFourthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingFourthViewController.swift; sourceTree = "<group>"; };
+		9D41F94C2725991900C762D5 /* OnboardingFourthReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingFourthReactor.swift; sourceTree = "<group>"; };
+		9D7C24252721ACC7002C1218 /* OnboardingThirdViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingThirdViewController.swift; sourceTree = "<group>"; };
+		9D7C24272721ADF1002C1218 /* OnboardingThirdReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingThirdReactor.swift; sourceTree = "<group>"; };
+		9D891B3E2723913500580950 /* SeletableButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeletableButton.swift; sourceTree = "<group>"; };
+		9DD0F99E271EF2EB00EFAE4D /* OnboardingSecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingSecondViewController.swift; sourceTree = "<group>"; };
+		9DD0F9A0271EF33100EFAE4D /* OnboardingSecondReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingSecondReactor.swift; sourceTree = "<group>"; };
+		9DDC4DFE271BF3A3003398A9 /* OnboardingFirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingFirstViewController.swift; sourceTree = "<group>"; };
+		9DDC4E00271BF50B003398A9 /* OnboardingReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingReactor.swift; sourceTree = "<group>"; };
+		9DE79E14272BC35300886B19 /* ContentsizedCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentsizedCollectionView.swift; sourceTree = "<group>"; };
+		9DE79E16272BD33D00886B19 /* Color.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Color.xcassets; sourceTree = "<group>"; };
+		9DFE46012726D7D800BF01E2 /* OnboardingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCollectionViewCell.swift; sourceTree = "<group>"; };
 		9E9C338626E735640036175C /* MashUpPerfumeProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MashUpPerfumeProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E9C338926E735640036175C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9E9C338B26E735640036175C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -67,6 +91,71 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9D6D71A1272BDC9F00DE8A85 /* OnbordingFirstVIew */ = {
+			isa = PBXGroup;
+			children = (
+				9DDC4DFE271BF3A3003398A9 /* OnboardingFirstViewController.swift */,
+				9DDC4E00271BF50B003398A9 /* OnboardingReactor.swift */,
+			);
+			path = OnbordingFirstVIew;
+			sourceTree = "<group>";
+		};
+		9D6D71A2272BDCB700DE8A85 /* OnboardingSecondView */ = {
+			isa = PBXGroup;
+			children = (
+				9DD0F99E271EF2EB00EFAE4D /* OnboardingSecondViewController.swift */,
+				9DD0F9A0271EF33100EFAE4D /* OnboardingSecondReactor.swift */,
+			);
+			path = OnboardingSecondView;
+			sourceTree = "<group>";
+		};
+		9D6D71A3272BDCF500DE8A85 /* OnboardingThirdView */ = {
+			isa = PBXGroup;
+			children = (
+				9D7C24252721ACC7002C1218 /* OnboardingThirdViewController.swift */,
+				9D7C24272721ADF1002C1218 /* OnboardingThirdReactor.swift */,
+			);
+			path = OnboardingThirdView;
+			sourceTree = "<group>";
+		};
+		9D6D71A4272BDD0E00DE8A85 /* OnboardingFourthView */ = {
+			isa = PBXGroup;
+			children = (
+				9D41F94A2725985B00C762D5 /* OnboardingFourthViewController.swift */,
+				9D41F94C2725991900C762D5 /* OnboardingFourthReactor.swift */,
+				9DFE46012726D7D800BF01E2 /* OnboardingCollectionViewCell.swift */,
+			);
+			path = OnboardingFourthView;
+			sourceTree = "<group>";
+		};
+		9D891B3D2723910300580950 /* Component */ = {
+			isa = PBXGroup;
+			children = (
+				9D891B3E2723913500580950 /* SeletableButton.swift */,
+				9DE79E14272BC35300886B19 /* ContentsizedCollectionView.swift */,
+			);
+			path = Component;
+			sourceTree = "<group>";
+		};
+		9DB15614271EF1E40001787E /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				9D6D71A1272BDC9F00DE8A85 /* OnbordingFirstVIew */,
+				9D6D71A2272BDCB700DE8A85 /* OnboardingSecondView */,
+				9D6D71A3272BDCF500DE8A85 /* OnboardingThirdView */,
+				9D6D71A4272BDD0E00DE8A85 /* OnboardingFourthView */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		9DDC4DFD271BF352003398A9 /* Flow */ = {
+			isa = PBXGroup;
+			children = (
+				9DB15614271EF1E40001787E /* Onboarding */,
+			);
+			path = Flow;
+			sourceTree = "<group>";
+		};
 		9E9C337D26E735640036175C = {
 			isa = PBXGroup;
 			children = (
@@ -89,9 +178,10 @@
 			children = (
 				9EE8C6032708CB3C00627CFA /* Support */,
 				9EE8C6012708CB0F00627CFA /* AppCycle */,
-				9EE8C5FB2708847900627CFA /* Flow */,
+				9DDC4DFD271BF352003398A9 /* Flow */,
 				9EE8C5FA2708841600627CFA /* Global */,
 				9E9C339226E735680036175C /* Assets.xcassets */,
+				9DE79E16272BD33D00886B19 /* Color.xcassets */,
 				9E9C339426E735680036175C /* LaunchScreen.storyboard */,
 				9E9C339726E735680036175C /* Info.plist */,
 			);
@@ -114,13 +204,6 @@
 				B12EB70D2736A1C100103E42 /* Components */,
 			);
 			path = Global;
-			sourceTree = "<group>";
-		};
-		9EE8C5FB2708847900627CFA /* Flow */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Flow;
 			sourceTree = "<group>";
 		};
 		9EE8C5FC270884E900627CFA /* Service */ = {
@@ -258,6 +341,7 @@
 			files = (
 				9E9C339626E735680036175C /* LaunchScreen.storyboard in Resources */,
 				9E9C339326E735680036175C /* Assets.xcassets in Resources */,
+				9DE79E17272BD33D00886B19 /* Color.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -269,14 +353,25 @@
 			buildActionMask = 2147483647;
 			files = (
 				9EDDD65B26EDB11F00456352 /* UIView+Extension.swift in Sources */,
+				9D7C24262721ACC7002C1218 /* OnboardingThirdViewController.swift in Sources */,
+				9DD0F99F271EF2EB00EFAE4D /* OnboardingSecondViewController.swift in Sources */,
+				9DD0F9A1271EF33100EFAE4D /* OnboardingSecondReactor.swift in Sources */,
 				9EDDD65926EDAEA800456352 /* BaseViewController.swift in Sources */,
+				9D7C24282721ADF1002C1218 /* OnboardingThirdReactor.swift in Sources */,
+				9DFE46022726D7D800BF01E2 /* OnboardingCollectionViewCell.swift in Sources */,
 				9E9C338E26E735640036175C /* ViewController.swift in Sources */,
 				9EDDD65726EDAC9700456352 /* NewReactor.swift in Sources */,
 				B16DD52B2708823000537DC9 /* Logger.swift in Sources */,
 				9E9C338A26E735640036175C /* AppDelegate.swift in Sources */,
 				B12EB70F2736A1E900103E42 /* SeparatorView.swift in Sources */,
 				9EE8C5FE2708850F00627CFA /* APITarget.swift in Sources */,
+				9D41F94D2725991900C762D5 /* OnboardingFourthReactor.swift in Sources */,
+				9DDC4DFF271BF3A3003398A9 /* OnboardingFirstViewController.swift in Sources */,
 				9EE8C6002708855B00627CFA /* APIService.swift in Sources */,
+				9D891B3F2723913500580950 /* SeletableButton.swift in Sources */,
+				9DE79E15272BC35300886B19 /* ContentsizedCollectionView.swift in Sources */,
+				9D41F94B2725985B00C762D5 /* OnboardingFourthViewController.swift in Sources */,
+				9DDC4E01271BF50B003398A9 /* OnboardingReactor.swift in Sources */,
 				9E9C338C26E735640036175C /* SceneDelegate.swift in Sources */,
 				B12EB704273689D300103E42 /* UIColor+Extension.swift in Sources */,
 				B12EB70627368E5B00103E42 /* UIStackView+Extension.swift in Sources */,
