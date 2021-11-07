@@ -36,6 +36,9 @@
 		9EE8C5F827087DB800627CFA /* RxMoya in Frameworks */ = {isa = PBXBuildFile; productRef = 9EE8C5F727087DB800627CFA /* RxMoya */; };
 		9EE8C5FE2708850F00627CFA /* APITarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE8C5FD2708850F00627CFA /* APITarget.swift */; };
 		9EE8C6002708855B00627CFA /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE8C5FF2708855B00627CFA /* APIService.swift */; };
+		B12EB704273689D300103E42 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12EB703273689D300103E42 /* UIColor+Extension.swift */; };
+		B12EB70627368E5B00103E42 /* UIStackView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12EB70527368E5B00103E42 /* UIStackView+Extension.swift */; };
+		B12EB70F2736A1E900103E42 /* SeparatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12EB70E2736A1E900103E42 /* SeparatorView.swift */; };
 		B16DD52B2708823000537DC9 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = B16DD52A2708823000537DC9 /* Logger.swift */; };
 /* End PBXBuildFile section */
 
@@ -64,6 +67,9 @@
 		9EDDD65A26EDB11F00456352 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		9EE8C5FD2708850F00627CFA /* APITarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APITarget.swift; sourceTree = "<group>"; };
 		9EE8C5FF2708855B00627CFA /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
+		B12EB703273689D300103E42 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
+		B12EB70527368E5B00103E42 /* UIStackView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+Extension.swift"; sourceTree = "<group>"; };
+		B12EB70E2736A1E900103E42 /* SeparatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeparatorView.swift; sourceTree = "<group>"; };
 		B16DD52A2708823000537DC9 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -195,7 +201,7 @@
 				9EE8C6052708CB6D00627CFA /* Base */,
 				9EE8C6022708CB2200627CFA /* Extension */,
 				9EE8C5FC270884E900627CFA /* Service */,
-				9D891B3D2723910300580950 /* Component */,
+				B12EB70D2736A1C100103E42 /* Components */,
 			);
 			path = Global;
 			sourceTree = "<group>";
@@ -222,6 +228,8 @@
 			isa = PBXGroup;
 			children = (
 				9EDDD65A26EDB11F00456352 /* UIView+Extension.swift */,
+				B12EB70527368E5B00103E42 /* UIStackView+Extension.swift */,
+				B12EB703273689D300103E42 /* UIColor+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -250,6 +258,14 @@
 				9EDDD65826EDAEA800456352 /* BaseViewController.swift */,
 			);
 			path = Base;
+			sourceTree = "<group>";
+		};
+		B12EB70D2736A1C100103E42 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				B12EB70E2736A1E900103E42 /* SeparatorView.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -347,6 +363,7 @@
 				9EDDD65726EDAC9700456352 /* NewReactor.swift in Sources */,
 				B16DD52B2708823000537DC9 /* Logger.swift in Sources */,
 				9E9C338A26E735640036175C /* AppDelegate.swift in Sources */,
+				B12EB70F2736A1E900103E42 /* SeparatorView.swift in Sources */,
 				9EE8C5FE2708850F00627CFA /* APITarget.swift in Sources */,
 				9D41F94D2725991900C762D5 /* OnboardingFourthReactor.swift in Sources */,
 				9DDC4DFF271BF3A3003398A9 /* OnboardingFirstViewController.swift in Sources */,
@@ -356,6 +373,8 @@
 				9D41F94B2725985B00C762D5 /* OnboardingFourthViewController.swift in Sources */,
 				9DDC4E01271BF50B003398A9 /* OnboardingReactor.swift in Sources */,
 				9E9C338C26E735640036175C /* SceneDelegate.swift in Sources */,
+				B12EB704273689D300103E42 /* UIColor+Extension.swift in Sources */,
+				B12EB70627368E5B00103E42 /* UIStackView+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
