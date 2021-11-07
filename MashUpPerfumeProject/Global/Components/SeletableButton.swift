@@ -9,12 +9,6 @@ import UIKit
 
 class SeletableButton: UIButton {
 
-    //    var normalBackgroundColor: UIColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1) {
-    //        didSet {
-    //            update()
-    //        }
-    //    }
-
     var normalBackgroundColor: UIColor? {
         didSet {
             update()
@@ -89,4 +83,5 @@ class SeletableButton: UIButton {
         layer.borderColor = isSelected ? selectBorderColor?.cgColor : normalBorderColor?.cgColor
     }
 }
+
 

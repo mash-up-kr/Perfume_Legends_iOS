@@ -121,7 +121,7 @@ class OnboardingFourthViewController: BaseViewController, View {
 
         self.view.addSubview(self.scrollView)
         self.scrollView.addSubview(self.baseView)
-        self.baseView.addSubview(self.setiondotImageView, self.skipButton, self.mainLabel, self.contentLabel, self.collectionViewLabel, self.collectionView, self.nextButton)
+        self.baseView.addSubviews(self.setiondotImageView, self.skipButton, self.mainLabel, self.contentLabel, self.collectionViewLabel, self.collectionView, self.nextButton)
 
         self.scrollView.translatesAutoresizingMaskIntoConstraints = false
         self.baseView.translatesAutoresizingMaskIntoConstraints = false

@@ -65,7 +65,7 @@ class OnboardingSecondViewController: BaseViewController, View {
     override func setLayout() {
         super.setLayout()
 
-        self.view.addSubview(self.setiondotImageView, self.mainLabel, self.textField, self.nextButton)
+        self.view.addSubviews(self.setiondotImageView, self.mainLabel, self.textField, self.nextButton)
         NSLayoutConstraint.activate([
 
             self.setiondotImageView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 44),

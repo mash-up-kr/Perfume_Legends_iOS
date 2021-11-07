@@ -58,7 +58,7 @@ class OnboardingCollectionViewCell: UICollectionViewCell {
     }
 
     private func setLayout() {
-        self.contentView.addSubview(self.imageView ,self.titleLabel)
+        self.contentView.addSubviews(self.imageView ,self.titleLabel)
 
         NSLayoutConstraint.activate([
 

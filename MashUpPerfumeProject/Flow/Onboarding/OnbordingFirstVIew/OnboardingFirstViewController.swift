@@ -69,7 +69,7 @@ class OnboardingFirstViewController: BaseViewController, View {
     override func setLayout() {
         super.setLayout()
 
-        self.view.addSubview(self.nextButton, self.mainTitleLabel, self.contentLabel, self.diggingImageView, self.onboardingBackgroundImageVIew)
+        self.view.addSubviews(self.nextButton, self.mainTitleLabel, self.contentLabel, self.diggingImageView, self.onboardingBackgroundImageVIew)
 
         NSLayoutConstraint.activate([
 

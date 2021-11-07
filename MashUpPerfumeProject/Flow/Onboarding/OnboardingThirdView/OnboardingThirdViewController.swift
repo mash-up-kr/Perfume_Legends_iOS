@@ -190,7 +190,7 @@ class OnboardingThirdViewController: BaseViewController, View {
     override func setLayout() {
         super.setLayout()
 
-        self.view.addSubview(self.setiondotImageView, self.skipButton, self.mainLabel, self.genderTitleLabel, self.genderButtonStackView, self.ageTitleLabel, self.ageButtonStackView, self.nextButton)
+        self.view.addSubviews(self.setiondotImageView, self.skipButton, self.mainLabel, self.genderTitleLabel, self.genderButtonStackView, self.ageTitleLabel, self.ageButtonStackView, self.nextButton)
 
         NSLayoutConstraint.activate([
             self.setiondotImageView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 44),
