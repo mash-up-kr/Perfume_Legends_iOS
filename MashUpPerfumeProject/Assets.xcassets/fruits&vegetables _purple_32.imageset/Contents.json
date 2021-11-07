@@ -1,0 +1,15 @@
+{
+  "images" : [
+    {
+      "filename" : "fruits&vegetables _purple_32.pdf",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  },
+  "properties" : {
+    "preserves-vector-representation" : true
+  }
+}
