@@ -33,7 +33,7 @@ final class PerfumeDetailViewController: BaseViewController {
         super.setLayout()
         view.addSubviews(scrollView)
         scrollView.addSubviews(stackView)
-        stackView.addArrangedSubviews(perfumeImageView, detailNameView, accordsView, notesView, similarView)
+        stackView.addArrangedSubviews(perfumeImageView, detailNameView, accordsView, SeparatorView(), notesView, SeparatorView(), similarView)
         
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
