@@ -139,7 +139,6 @@ final class SearchViewController: BaseViewController, View {
     }
 }
 
-
 extension SearchViewController {
     func bind(reactor: SearchReactor) {
         searchTextField.rx.controlEvent(.editingDidBegin)
@@ -162,9 +161,25 @@ extension SearchViewController {
             .disposed(by: disposeBag)
         
         reactor.state.map { $0.notes }
-        .bind(to: self.collectionView.rx.items(cellIdentifier: "OnboardingCollectionViewCell", cellType: OnboardingCollectionViewCell.self)) {
-            index, element, cell in
-            cell.configure(element)
-        }.disposed(by: disposeBag)
+            .bind(to: collectionView.rx.items(cellIdentifier: "OnboardingCollectionViewCell", cellType:   OnboardingCollectionViewCell.self)) { index, element, cell in
+                cell.configure(element)
+            }.disposed(by: disposeBag)
+        
+        collectionView.rx.modelSelected(OnboardingFourthViewController.CollectionViewModel.self)
+            .subscribe(onNext: { [weak self] in
+                guard let self = self else { return }
+                self.pushNoteGroupViewController(id: $0.id)
+            })
+            .disposed(by: disposeBag)
+    }
+}
+
+extension SearchViewController {
+    private func pushNoteGroupViewController(id: Int?) {
+        let viewController = NoteGroupViewController()
+        let reactor = NoteGroupReactor(id: id)
+        viewController.reactor = reactor
+        
+        navigationController?.pushViewController(viewController, animated: true)
     }
 }

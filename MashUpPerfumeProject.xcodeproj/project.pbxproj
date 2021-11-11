@@ -52,6 +52,8 @@
 		B12EB70A2736972E00103E42 /* PerfumeDetailNotesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12EB7092736972E00103E42 /* PerfumeDetailNotesView.swift */; };
 		B12EB70C27369EA300103E42 /* PerfumeDetailSimilarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12EB70B27369EA300103E42 /* PerfumeDetailSimilarView.swift */; };
 		B12EB70F2736A1E900103E42 /* SeparatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12EB70E2736A1E900103E42 /* SeparatorView.swift */; };
+		B13B7B84273D6E6400156CEC /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = B13B7B83273D6E6400156CEC /* Note.swift */; };
+		B13B7B87273D73D600156CEC /* NoteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B13B7B86273D73D600156CEC /* NoteTableViewCell.swift */; };
 		B16DD52B2708823000537DC9 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = B16DD52A2708823000537DC9 /* Logger.swift */; };
 /* End PBXBuildFile section */
 
@@ -96,6 +98,8 @@
 		B12EB7092736972E00103E42 /* PerfumeDetailNotesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerfumeDetailNotesView.swift; sourceTree = "<group>"; };
 		B12EB70B27369EA300103E42 /* PerfumeDetailSimilarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerfumeDetailSimilarView.swift; sourceTree = "<group>"; };
 		B12EB70E2736A1E900103E42 /* SeparatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeparatorView.swift; sourceTree = "<group>"; };
+		B13B7B83273D6E6400156CEC /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
+		B13B7B86273D73D600156CEC /* NoteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteTableViewCell.swift; sourceTree = "<group>"; };
 		B16DD52A2708823000537DC9 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -198,6 +202,7 @@
 				9EE8C6032708CB3C00627CFA /* Support */,
 				9EE8C6012708CB0F00627CFA /* AppCycle */,
 				9DDC4DFD271BF352003398A9 /* Flow */,
+				B13B7B82273D6E5700156CEC /* Model */,
 				9EE8C5FA2708841600627CFA /* Global */,
 				9E9C339226E735680036175C /* Assets.xcassets */,
 				9DE79E16272BD33D00886B19 /* Color.xcassets */,
@@ -312,6 +317,7 @@
 			children = (
 				B126E59B27301DEA007248D9 /* NoteGroupViewController.swift */,
 				B126E59D27301DF3007248D9 /* NoteGroupReactor.swift */,
+				B13B7B85273D73BA00156CEC /* SupportViews */,
 			);
 			path = NoteGroup;
 			sourceTree = "<group>";
@@ -354,6 +360,22 @@
 				9D2D5C3C2737F74A005E1AF6 /* SeletableButton.swift */,
 			);
 			path = Components;
+			sourceTree = "<group>";
+		};
+		B13B7B82273D6E5700156CEC /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B13B7B83273D6E6400156CEC /* Note.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		B13B7B85273D73BA00156CEC /* SupportViews */ = {
+			isa = PBXGroup;
+			children = (
+				B13B7B86273D73D600156CEC /* NoteTableViewCell.swift */,
+			);
+			path = SupportViews;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -447,6 +469,7 @@
 				9D7C24262721ACC7002C1218 /* OnboardingThirdViewController.swift in Sources */,
 				9D2D5C3B2737F730005E1AF6 /* ContentsizedCollectionView.swift in Sources */,
 				9DD0F99F271EF2EB00EFAE4D /* OnboardingSecondViewController.swift in Sources */,
+				B13B7B87273D73D600156CEC /* NoteTableViewCell.swift in Sources */,
 				9DD0F9A1271EF33100EFAE4D /* OnboardingSecondReactor.swift in Sources */,
 				9EDDD65926EDAEA800456352 /* BaseViewController.swift in Sources */,
 				9D7C24282721ADF1002C1218 /* OnboardingThirdReactor.swift in Sources */,
@@ -475,6 +498,7 @@
 				B126E59E27301DF3007248D9 /* NoteGroupReactor.swift in Sources */,
 				B12EB704273689D300103E42 /* UIColor+Extension.swift in Sources */,
 				B12EB70627368E5B00103E42 /* UIStackView+Extension.swift in Sources */,
+				B13B7B84273D6E6400156CEC /* Note.swift in Sources */,
 				B11DBFFC273AC910008166AF /* SearchTextField.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

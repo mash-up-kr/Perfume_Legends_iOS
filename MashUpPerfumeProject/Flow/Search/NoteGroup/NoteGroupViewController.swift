@@ -9,20 +9,49 @@ import UIKit
 import RxSwift
 import ReactorKit
 
-final class NoteGroupViewController: BaseViewController {
-    private let titleLabel: UILabel = {
-        let label = UILabel()
-        label.font = .systemFont(ofSize: 24, weight: .bold)
-        label.text = "검색"
+final class NoteGroupViewController: BaseViewController, View {
+    private let tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.register(NoteTableViewCell.self, forCellReuseIdentifier: NoteTableViewCell.reuseIdentifier)
+        tableView.backgroundColor = .clear
+        tableView.separatorStyle = .none
+        tableView.contentInset.top = 133
         
-        return label
+        return tableView
     }()
     
     var disposeBag = DisposeBag()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        navigationController?.isNavigationBarHidden = false
+        navigationItem.title = "NOTE"
+    }
+    
+    override func setLayout() {
+        super.setLayout()
+        view.addSubviews(tableView)
+        
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+        ])
+    }
 }
 
 extension NoteGroupViewController {
-    func bind(reactor: SearchReactor) {
+    func bind(reactor: NoteGroupReactor) {
+        reactor.action.onNext(.requestNotes)
+        
+        reactor.state.map { $0.notes }
+            .distinctUntilChanged()
+            .bind(to: tableView.rx.items(cellIdentifier: NoteTableViewCell.reuseIdentifier, cellType: NoteTableViewCell.self)) { index, note, cell in
+                cell.configure(note: note)
+            }
+            .disposed(by: disposeBag)
         
     }
 }

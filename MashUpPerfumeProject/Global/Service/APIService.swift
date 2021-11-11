@@ -20,3 +20,9 @@ struct APIService {
         provider.rx.request(.login(access: access))
     }
 }
+
+extension APIService {
+    func requestNoteGroups(id: Int) -> Single<Response> {
+        provider.rx.request(.requestNoteGroups(id: id))
+    }
+}

@@ -11,10 +11,11 @@ import Moya
 enum APITarget: TargetType {
     // 1. User - Authorization
     case login(access: String) // 로그인
+    case requestNoteGroups(id: Int)
     
     var baseURL: URL {
         // baseURL - 서버의 도메인
-        return URL(string: "")!
+        return URL(string: "http://3.35.167.190/api/v1")!
     }
     
     // 세부 경로
@@ -23,6 +24,9 @@ enum APITarget: TargetType {
         // 1. User - Authorization
         case .login:
             return "/user/login"
+            
+        case let .requestNoteGroups(id):
+            return "/note-groups/\(id)"
         }
     }
     var method: Moya.Method {
@@ -30,6 +34,9 @@ enum APITarget: TargetType {
         switch self {
         case .login:
             return .post
+            
+        case .requestNoteGroups:
+            return .get
         }
     }
     
@@ -46,6 +53,9 @@ enum APITarget: TargetType {
         switch self {
         case .login(let access):
             return .requestParameters(parameters: ["access_token": access], encoding: JSONEncoding.default)
+            
+        case .requestNoteGroups:
+            return .requestPlain
         }
         
     }
@@ -59,9 +69,10 @@ enum APITarget: TargetType {
     /// The headers to be used in the request.
     var headers: [String: String]? {
         // headers - HTTP header
-        switch self {
-        case .login:
-            return ["Content-Type":"application/json"]
-        }
+//        switch self {
+//        case .login:
+//            return ["Content-Type":"application/json"]
+//        }
+        return ["Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhY20tYXBpLWRldmVsb3AiLCJtZW1iZXJJZCI6MjQ1ODU5fQ.t2stUH5_C8HcpjJb_IFtwG5o4xN5AAPgozvHxIPbTbM"]
     }
 }
