@@ -72,12 +72,9 @@ final class SearchViewController: BaseViewController, View {
         flowlayout.itemSize = CGSize(width: itemWidth, height: 104)
 
         let collectionView = ContentsizedCollectionView(frame: .zero, collectionViewLayout: flowlayout)
-        collectionView.allowsMultipleSelection = true
         collectionView.backgroundColor = .clear
-//        collectionView.isScrollEnabled = false
         collectionView.register(OnboardingCollectionViewCell.self, forCellWithReuseIdentifier: OnboardingCollectionViewCell.reuseIdentifier)
 
-//        collectionView.keyboardDismissMode = .onDrag
         return collectionView
     }()
     
@@ -91,6 +88,8 @@ final class SearchViewController: BaseViewController, View {
     private let tableView: UITableView = {
         let tableView = UITableView()
         tableView.backgroundColor = .clear
+        tableView.register(SearchBrandTableViewCell.self, forCellReuseIdentifier: SearchBrandTableViewCell.reuseIdentifier)
+        tableView.register(SearchPerfumeTableViewCell.self, forCellReuseIdentifier: SearchPerfumeTableViewCell.reuseIdentifier)
         
         return tableView
     }()
