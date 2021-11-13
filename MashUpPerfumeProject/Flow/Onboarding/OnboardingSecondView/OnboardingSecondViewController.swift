@@ -49,6 +49,15 @@ class OnboardingSecondViewController: BaseViewController, View {
         return textField
     }()
 
+    private let nicknameInValidTitleLabel: UILabel = {
+        let label = UILabel()
+        label.text = "이미 존재하는 닉네임입니다."
+        label.textColor = UIColor(red: 249/255, green: 71/255, blue: 71/255, alpha: 1)
+        label.font = UIFont.systemFont(ofSize: 13, weight: .regular)
+        label.textAlignment = .center
+        return label
+    }()
+
     private let nextButton: UIButton = {
         let button = UIButton()
         button.layer.cornerRadius = 8
@@ -65,7 +74,7 @@ class OnboardingSecondViewController: BaseViewController, View {
     override func setLayout() {
         super.setLayout()
 
-        self.view.addSubviews(self.setiondotImageView, self.mainLabel, self.textField, self.nextButton)
+        self.view.addSubviews(self.setiondotImageView, self.mainLabel, self.textField, self.nicknameInValidTitleLabel,self.nextButton)
         NSLayoutConstraint.activate([
 
             self.setiondotImageView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 44),
@@ -81,6 +90,9 @@ class OnboardingSecondViewController: BaseViewController, View {
             self.textField.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
             self.textField.heightAnchor.constraint(equalToConstant: 52),
 
+            self.nicknameInValidTitleLabel.topAnchor.constraint(equalTo: self.textField.bottomAnchor, constant: 14),
+            self.nicknameInValidTitleLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+
             self.nextButton.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
             self.nextButton.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             self.nextButton.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
@@ -92,9 +104,9 @@ class OnboardingSecondViewController: BaseViewController, View {
         super.viewDidLoad()
 
         self.navigationController?.isNavigationBarHidden = true
+        self.nicknameInValidTitleLabel.isHidden = true
 
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
-
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
 
@@ -135,6 +147,11 @@ extension OnboardingSecondViewController {
             .disposed(by: disposeBag)
 
         self.nextButton.rx.tap
+            .map { Reactor.Action.setNickname(reactor.currentState.nickname) }
+            .bind(to: reactor.action)
+            .disposed(by: self.disposeBag)
+
+        self.nextButton.rx.tap
             .subscribe(onNext: {
                 let onboardingThirdViewController = OnboardingThirdViewController()
                 onboardingThirdViewController.reactor = OnboardingThirdReactor()
@@ -149,6 +166,9 @@ extension OnboardingSecondViewController {
                 self.nextButton.backgroundColor = isEnabled ? UIColor(named: "Black") : UIColor(named: "Gray100")
             })
             .disposed(by: disposeBag)
+
+        // 텍스트 필드 색깔 바꿀 때 사용하는 state 변수 받아와서 사용하는 코드 만들어야함
+
     }
 
     private func trimNickname(_ nickname: String) {

@@ -56,7 +56,7 @@ class OnboardingThirdViewController: BaseViewController, View {
         return label
     }()
 
-    private let womanButton: SeletableButton = {
+    private let femaleButton: SeletableButton = {
         let button = SeletableButton()
         button.setImage(UIImage(named: "ic_gender_woman_white_disabled_157"), for: .normal)
         button.setImage(UIImage(named: "ic_gender_woman_white_inabled_157"), for: .selected)
@@ -70,7 +70,7 @@ class OnboardingThirdViewController: BaseViewController, View {
         return button
     }()
 
-    private let manButton: SeletableButton = {
+    private let maleButton: SeletableButton = {
         let button = SeletableButton()
         button.setImage(UIImage(named: "ic_gender_man_white_disabled_157"), for: .normal)
         button.setImage(UIImage(named: "ic_gender_man_white_inabled_157"), for: .selected)
@@ -84,7 +84,7 @@ class OnboardingThirdViewController: BaseViewController, View {
         return button
     }()
 
-    private let tenAgeButton: SeletableButton = {
+    private let teenagerButton: SeletableButton = {
         let button = SeletableButton.init(frame: CGRect(x: 0, y: 0, width: 60, height: 60))
         button.cornerRadius = 0.5 * button.bounds.size.width
         button.setTitle("10대", for: .normal)
@@ -99,7 +99,7 @@ class OnboardingThirdViewController: BaseViewController, View {
         return button
     }()
 
-    private let twentyAgeButton: SeletableButton = {
+    private let twentiesButton: SeletableButton = {
         let button = SeletableButton.init(frame: CGRect(x: 0, y: 0, width: 60, height: 60))
         button.cornerRadius = 0.5 * button.bounds.size.width
         button.setTitle("20대", for: .normal)
@@ -114,7 +114,7 @@ class OnboardingThirdViewController: BaseViewController, View {
         return button
     }()
 
-    private let thirtyAgeButton: SeletableButton = {
+    private let thirtiesButton: SeletableButton = {
         let button = SeletableButton.init(frame: CGRect(x: 0, y: 0, width: 60, height: 60))
         button.cornerRadius = 0.5 * button.bounds.size.width
         button.setTitle("30대", for: .normal)
@@ -129,7 +129,7 @@ class OnboardingThirdViewController: BaseViewController, View {
         return button
     }()
 
-    private let fourtyAgeButton: SeletableButton = {
+    private let fouriesButton: SeletableButton = {
         let button = SeletableButton.init(frame: CGRect(x: 0, y: 0, width: 60, height: 60))
         button.cornerRadius = 0.5 * button.bounds.size.width
         button.setTitle("40대", for: .normal)
@@ -144,7 +144,7 @@ class OnboardingThirdViewController: BaseViewController, View {
         return button
     }()
 
-    private let fiftyAgeButton: SeletableButton = {
+    private let fiftiesButton: SeletableButton = {
         let button = SeletableButton.init(frame: CGRect(x: 0, y: 0, width: 60, height: 60))
         button.cornerRadius = 0.5 * button.bounds.size.width
         button.setTitle("50대", for: .normal)
@@ -170,7 +170,7 @@ class OnboardingThirdViewController: BaseViewController, View {
     }()
 
     private lazy var genderButtonStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [self.womanButton, self.manButton])
+        let stackView = UIStackView(arrangedSubviews: [self.femaleButton, self.maleButton])
         stackView.axis = .horizontal
         stackView.spacing = 21
         stackView.distribution = .fillEqually
@@ -178,7 +178,7 @@ class OnboardingThirdViewController: BaseViewController, View {
     }()
 
     private lazy var ageButtonStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [self.tenAgeButton, self.twentyAgeButton, self.thirtyAgeButton, self.fourtyAgeButton, self.fiftyAgeButton])
+        let stackView = UIStackView(arrangedSubviews: [self.teenagerButton, self.twentiesButton, self.thirtiesButton, self.fouriesButton, self.fiftiesButton])
         stackView.axis = .horizontal
         stackView.spacing = 8
         stackView.distribution = .fillEqually
@@ -237,94 +237,94 @@ class OnboardingThirdViewController: BaseViewController, View {
 extension OnboardingThirdViewController {
     func bind(reactor: OnboardingThirdReactor) {
 
-        self.womanButton.rx.tap
-            .map { Reactor.Action.selectGender(self.womanButton.isSelected ? nil : .woman) }
+        self.femaleButton.rx.tap
+            .map { Reactor.Action.selectGender(self.femaleButton.isSelected ? nil : .female) }
             .bind(to: reactor.action)
             .disposed(by: self.disposeBag)
 
-        self.manButton.rx.tap
-            .map { Reactor.Action.selectGender(self.manButton.isSelected ? nil : .man) }
+        self.maleButton.rx.tap
+            .map { Reactor.Action.selectGender(self.maleButton.isSelected ? nil : .male) }
             .bind(to: reactor.action)
             .disposed(by: self.disposeBag)
 
-        self.tenAgeButton.rx.tap
-            .map { Reactor.Action.selectAge(self.tenAgeButton.isSelected ? nil : .ten) }
+        self.teenagerButton.rx.tap
+            .map { Reactor.Action.selectAge(self.teenagerButton.isSelected ? nil : .teenager) }
             .bind(to: reactor.action)
             .disposed(by: self.disposeBag)
 
-        self.twentyAgeButton.rx.tap
-            .map { Reactor.Action.selectAge(self.twentyAgeButton.isSelected ? nil : .twenty) }
+        self.twentiesButton.rx.tap
+            .map { Reactor.Action.selectAge(self.twentiesButton.isSelected ? nil : .twenties) }
             .bind(to: reactor.action)
             .disposed(by: self.disposeBag)
 
-        self.thirtyAgeButton.rx.tap
-            .map { Reactor.Action.selectAge(self.thirtyAgeButton.isSelected ? nil : .thirty) }
+        self.thirtiesButton.rx.tap
+            .map { Reactor.Action.selectAge(self.thirtiesButton.isSelected ? nil : .thirties) }
             .bind(to: reactor.action)
             .disposed(by: self.disposeBag)
 
-        self.fourtyAgeButton.rx.tap
-            .map { Reactor.Action.selectAge(self.fourtyAgeButton.isSelected ? nil : .fourty) }
+        self.fouriesButton.rx.tap
+            .map { Reactor.Action.selectAge(self.fouriesButton.isSelected ? nil : .fouries) }
             .bind(to: reactor.action)
             .disposed(by: self.disposeBag)
 
-        self.fiftyAgeButton.rx.tap
-            .map { Reactor.Action.selectAge(self.fiftyAgeButton.isSelected ? nil : .fifty) }
+        self.fiftiesButton.rx.tap
+            .map { Reactor.Action.selectAge(self.fiftiesButton.isSelected ? nil : .fifties) }
             .bind(to: reactor.action)
             .disposed(by: self.disposeBag)
 
-        self.womanButton.rx.tap
+        self.femaleButton.rx.tap
             .subscribe(onNext: {
-                self.womanButton.isSelected = !self.womanButton.isSelected
-                self.manButton.isSelected = false
+                self.femaleButton.isSelected = !self.femaleButton.isSelected
+                self.maleButton.isSelected = false
             })
             .disposed(by: self.disposeBag)
 
-        self.manButton.rx.tap
+        self.maleButton.rx.tap
             .subscribe(onNext: {
-                self.manButton.isSelected = !self.manButton.isSelected
-                self.womanButton.isSelected = false
+                self.maleButton.isSelected = !self.maleButton.isSelected
+                self.femaleButton.isSelected = false
             })
             .disposed(by: self.disposeBag)
 
-        self.tenAgeButton.rx.tap
+        self.teenagerButton.rx.tap
             .subscribe(onNext: {
-                self.tenAgeButton.isSelected = !self.tenAgeButton.isSelected
-                self.deselectedButtons(seletedButton: self.tenAgeButton, buttons: [self.tenAgeButton, self.twentyAgeButton, self.thirtyAgeButton, self.fourtyAgeButton, self.fiftyAgeButton])
+                self.teenagerButton.isSelected = !self.teenagerButton.isSelected
+                self.deselectedButtons(seletedButton: self.teenagerButton, buttons: [self.teenagerButton, self.twentiesButton, self.thirtiesButton, self.fouriesButton, self.fiftiesButton])
             })
             .disposed(by: self.disposeBag)
 
-        self.twentyAgeButton.rx.tap
+        self.twentiesButton.rx.tap
             .subscribe(onNext: {
-                self.twentyAgeButton.isSelected = !self.twentyAgeButton.isSelected
-                self.deselectedButtons(seletedButton: self.twentyAgeButton, buttons: [self.tenAgeButton, self.twentyAgeButton, self.thirtyAgeButton, self.fourtyAgeButton, self.fiftyAgeButton])
+                self.twentiesButton.isSelected = !self.twentiesButton.isSelected
+                self.deselectedButtons(seletedButton: self.twentiesButton, buttons: [self.teenagerButton, self.twentiesButton, self.thirtiesButton, self.fouriesButton, self.fiftiesButton])
             })
             .disposed(by: self.disposeBag)
 
-        self.thirtyAgeButton.rx.tap
+        self.thirtiesButton.rx.tap
             .subscribe(onNext: {
-                self.thirtyAgeButton.isSelected = !self.thirtyAgeButton.isSelected
-                self.deselectedButtons(seletedButton: self.thirtyAgeButton, buttons: [self.tenAgeButton, self.twentyAgeButton, self.thirtyAgeButton, self.fourtyAgeButton, self.fiftyAgeButton])
+                self.thirtiesButton.isSelected = !self.thirtiesButton.isSelected
+                self.deselectedButtons(seletedButton: self.thirtiesButton, buttons: [self.teenagerButton, self.twentiesButton, self.thirtiesButton, self.fouriesButton, self.fiftiesButton])
             })
             .disposed(by: self.disposeBag)
 
-        self.fourtyAgeButton.rx.tap
+        self.fouriesButton.rx.tap
             .subscribe(onNext: {
-                self.fourtyAgeButton.isSelected = !self.fourtyAgeButton.isSelected
-                self.deselectedButtons(seletedButton: self.fourtyAgeButton, buttons: [self.tenAgeButton, self.twentyAgeButton, self.thirtyAgeButton, self.fourtyAgeButton, self.fiftyAgeButton])
+                self.fouriesButton.isSelected = !self.fouriesButton.isSelected
+                self.deselectedButtons(seletedButton: self.fouriesButton, buttons: [self.teenagerButton, self.twentiesButton, self.thirtiesButton, self.fouriesButton, self.fiftiesButton])
             })
             .disposed(by: self.disposeBag)
 
-        self.fiftyAgeButton.rx.tap
+        self.fiftiesButton.rx.tap
             .subscribe(onNext: {
-                self.fiftyAgeButton.isSelected = !self.fiftyAgeButton.isSelected
-                self.deselectedButtons(seletedButton: self.fiftyAgeButton, buttons: [self.tenAgeButton, self.twentyAgeButton, self.thirtyAgeButton, self.fourtyAgeButton, self.fiftyAgeButton])
+                self.fiftiesButton.isSelected = !self.fiftiesButton.isSelected
+                self.deselectedButtons(seletedButton: self.fiftiesButton, buttons: [self.teenagerButton, self.twentiesButton, self.thirtiesButton, self.fouriesButton, self.fiftiesButton])
             })
             .disposed(by: self.disposeBag)
 
         self.nextButton.rx.tap
             .subscribe(onNext: {
                 let onboardingFourthViewController = OnboardingFourthViewController()
-                onboardingFourthViewController.reactor = OnboardingFourthReactor()
+                onboardingFourthViewController.reactor = OnboardingFourthReactor(gender: reactor.currentState.gender?.rawValue, age: reactor.currentState.age?.rawValue)
                 self.navigationController?.pushViewController(onboardingFourthViewController, animated: false)
             })
             .disposed(by: self.disposeBag)
@@ -332,7 +332,7 @@ extension OnboardingThirdViewController {
         self.skipButton.rx.tap
             .subscribe(onNext: {
                 let onboardingFourthViewController = OnboardingFourthViewController()
-                onboardingFourthViewController.reactor = OnboardingFourthReactor()
+                onboardingFourthViewController.reactor = OnboardingFourthReactor(gender: nil, age: nil)
                 self.navigationController?.pushViewController(onboardingFourthViewController, animated: false)
             })
             .disposed(by: self.disposeBag)
@@ -353,16 +353,16 @@ extension OnboardingThirdViewController {
 
 extension OnboardingThirdViewController {
 
-    enum Gender {
-        case man
-        case woman
+    enum Gender: String {
+        case male = "남성"
+        case female = "여성"
     }
 
-    enum Age {
-        case ten
-        case twenty
-        case thirty
-        case fourty
-        case fifty
+    enum Age: String {
+        case teenager = "10대"
+        case twenties = "20대"
+        case thirties = "30대"
+        case fouries = "40대"
+        case fifties = "50대"
     }
 }

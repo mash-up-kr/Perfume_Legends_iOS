@@ -14,6 +14,8 @@ import RxMoya
 
 class OnboardingFourthViewController: BaseViewController, View {
 
+//    private var age: BehaviorRelay<OnboardingThirdViewController.Gender>?
+//    private var gender: BehaviorRelay<OnboardingThirdViewController.Age>?
     private let perfumeTypesModel = BehaviorRelay<[Int]>(value: [])
 
     private var collectionViewModel = Observable.of([CollectionViewModel(image: UIImage(named: "citrus_yellow_32"), title: "CITRUS"), CollectionViewModel(image: UIImage(named: "fruits&vegetables _purple_32"), title: "FRUITS &\nVEGETABLE"), CollectionViewModel(image: UIImage(named: "flowers_pink_32"), title: "FLOWERS"), CollectionViewModel(image: UIImage(named: "whiteFlowers_skyblue_32"), title: "WHITE FLOWERS"), CollectionViewModel(image: UIImage(named: "greens_green_32"), title: "GREENS"), CollectionViewModel(image: UIImage(named: "spices_brown_32"), title: "SPICES"), CollectionViewModel(image: UIImage(named: "sweets&gourmand_pink_32"), title: "SWEETS &\nGOURMAND"), CollectionViewModel(image: UIImage(named: "woods_brown_32"), title: "WOODS"), CollectionViewModel(image: UIImage(named: "resins&balsams_brown_32"), title: "RESINS & BALSAMS"), CollectionViewModel(image: UIImage(named: "animalic_orange_32"), title: "ANIMALIC"), CollectionViewModel(image: UIImage(named: "beverages_red"), title: "BEVERAGES"), CollectionViewModel(image: UIImage(named: "natural&systhetic_blue_32"), title: "NATURAL &\nSYNTHETIC")])
@@ -218,22 +220,26 @@ extension OnboardingFourthViewController {
             })
             .disposed(by: self.disposeBag)
 
-        // 스킵버튼 및 다음버튼 액션은 추후에 활성화 할 예정
-        //        self.skipButton.rx.tap
-        //            .subscribe(onNext: {
-        //                let onboardingFourthViewController = OnboardingFourthViewController()
-        //                onboardingFourthViewController.reactor = OnboardingFourthReactor()
-        //                self.navigationController?.pushViewController(onboardingFourthViewController, animated: false)
-        //            })
-        //            .disposed(by: self.disposeBag)
+        self.nextButton.rx.tap
+            .map { return Reactor.Action.setMemberInitialize(reactor.currentState.gender, reactor.currentState.age, reactor.currentState.perfumeTypes) }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
 
-        //        self.nextButton.rx.tap
-        //            .subscribe(onNext: {
-        //                let onboardingFourthViewController = OnboardingFourthViewController()
-        //                onboardingFourthViewController.reactor = OnboardingFourthReactor()
-        //                self.navigationController?.pushViewController(onboardingFourthViewController, animated: false)
-        //            })
-        //            .disposed(by: self.disposeBag)
+//        self.skipButton.rx.tap
+//            .subscribe(onNext: {
+//                let onboardingFourthViewController = OnboardingFourthViewController()
+//                onboardingFourthViewController.reactor = OnboardingFourthReactor()
+//                self.navigationController?.pushViewController(onboardingFourthViewController, animated: false)
+//            })
+//            .disposed(by: self.disposeBag)
+
+//        self.nextButton.rx.tap
+//            .subscribe(onNext: {
+//                let onboardingFourthViewController = OnboardingFourthViewController()
+//                onboardingFourthViewController.reactor = OnboardingFourthReactor()
+//                self.navigationController?.pushViewController(onboardingFourthViewController, animated: false)
+//            })
+//            .disposed(by: self.disposeBag
     }
 }
 
