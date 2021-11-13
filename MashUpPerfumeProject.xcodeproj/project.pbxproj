@@ -40,6 +40,9 @@
 		B12EB70627368E5B00103E42 /* UIStackView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12EB70527368E5B00103E42 /* UIStackView+Extension.swift */; };
 		B12EB70F2736A1E900103E42 /* SeparatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12EB70E2736A1E900103E42 /* SeparatorView.swift */; };
 		B16DD52B2708823000537DC9 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = B16DD52A2708823000537DC9 /* Logger.swift */; };
+		B1DAC718273FEA3E009326C0 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = B1DAC717273FEA3E009326C0 /* Kingfisher */; };
+		B1DAC71B273FEA7A009326C0 /* Differentiator in Frameworks */ = {isa = PBXBuildFile; productRef = B1DAC71A273FEA7A009326C0 /* Differentiator */; };
+		B1DAC71D273FEA7A009326C0 /* RxDataSources in Frameworks */ = {isa = PBXBuildFile; productRef = B1DAC71C273FEA7A009326C0 /* RxDataSources */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -81,9 +84,12 @@
 				9E9C33A226E737900036175C /* RxSwift in Frameworks */,
 				9E9C33AA26E737900036175C /* RxBlocking in Frameworks */,
 				9EE8C5F627087DB800627CFA /* Moya in Frameworks */,
+				B1DAC71D273FEA7A009326C0 /* RxDataSources in Frameworks */,
 				9E9C33A826E737900036175C /* RxCocoa in Frameworks */,
+				B1DAC718273FEA3E009326C0 /* Kingfisher in Frameworks */,
 				9EE8C5F827087DB800627CFA /* RxMoya in Frameworks */,
 				9E9C33A626E737900036175C /* RxRelay in Frameworks */,
+				B1DAC71B273FEA7A009326C0 /* Differentiator in Frameworks */,
 				9E9C339F26E7371B0036175C /* ReactorKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -285,6 +291,9 @@
 				9E9C33A926E737900036175C /* RxBlocking */,
 				9EE8C5F527087DB800627CFA /* Moya */,
 				9EE8C5F727087DB800627CFA /* RxMoya */,
+				B1DAC717273FEA3E009326C0 /* Kingfisher */,
+				B1DAC71A273FEA7A009326C0 /* Differentiator */,
+				B1DAC71C273FEA7A009326C0 /* RxDataSources */,
 			);
 			productName = MashUpPerfumeProject;
 			productReference = 9E9C338626E735640036175C /* MashUpPerfumeProject.app */;
@@ -317,6 +326,8 @@
 				9E9C339D26E7371B0036175C /* XCRemoteSwiftPackageReference "ReactorKit" */,
 				9E9C33A026E737900036175C /* XCRemoteSwiftPackageReference "RxSwift" */,
 				9EE8C5F427087DB800627CFA /* XCRemoteSwiftPackageReference "Moya" */,
+				B1DAC716273FEA3E009326C0 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				B1DAC719273FEA7A009326C0 /* XCRemoteSwiftPackageReference "RxDataSources" */,
 			);
 			productRefGroup = 9E9C338726E735640036175C /* Products */;
 			projectDirPath = "";
@@ -595,6 +606,22 @@
 				version = 15.0.0;
 			};
 		};
+		B1DAC716273FEA3E009326C0 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.0;
+			};
+		};
+		B1DAC719273FEA7A009326C0 /* XCRemoteSwiftPackageReference "RxDataSources" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RxSwiftCommunity/RxDataSources.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -632,6 +659,21 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 9EE8C5F427087DB800627CFA /* XCRemoteSwiftPackageReference "Moya" */;
 			productName = RxMoya;
+		};
+		B1DAC717273FEA3E009326C0 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B1DAC716273FEA3E009326C0 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
+		B1DAC71A273FEA7A009326C0 /* Differentiator */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B1DAC719273FEA7A009326C0 /* XCRemoteSwiftPackageReference "RxDataSources" */;
+			productName = Differentiator;
+		};
+		B1DAC71C273FEA7A009326C0 /* RxDataSources */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B1DAC719273FEA7A009326C0 /* XCRemoteSwiftPackageReference "RxDataSources" */;
+			productName = RxDataSources;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
