@@ -12,6 +12,7 @@ enum APITarget: TargetType {
     // 1. User - Authorization
     case login(access: String) // 로그인
     case requestNoteGroups(id: Int)
+    case requestSearch(query: String)
     
     var baseURL: URL {
         // baseURL - 서버의 도메인
@@ -27,6 +28,9 @@ enum APITarget: TargetType {
             
         case let .requestNoteGroups(id):
             return "/note-groups/\(id)"
+            
+        case .requestSearch:
+            return "/search"
         }
     }
     var method: Moya.Method {
@@ -37,6 +41,9 @@ enum APITarget: TargetType {
             
         case .requestNoteGroups:
             return .get
+            
+        case .requestSearch:
+            return .post
         }
     }
     
@@ -56,6 +63,9 @@ enum APITarget: TargetType {
             
         case .requestNoteGroups:
             return .requestPlain
+            
+        case let .requestSearch(query):
+            return .requestParameters(parameters: ["name": query], encoding: JSONEncoding.default)
         }
         
     }

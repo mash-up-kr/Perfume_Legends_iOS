@@ -25,4 +25,9 @@ extension APIService {
     func requestNoteGroups(id: Int) -> Single<Response> {
         provider.rx.request(.requestNoteGroups(id: id))
     }
+    
+    func requestSearch(query: String) -> Single<Response> {
+        provider.rx.request(.requestSearch(query: query
+                                          ))
+    }
 }

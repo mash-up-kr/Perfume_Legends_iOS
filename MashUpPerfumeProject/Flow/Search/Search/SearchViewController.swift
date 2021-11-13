@@ -215,6 +215,12 @@ extension SearchViewController {
             })
             .disposed(by: disposeBag)
         
+        searchTextField.rx.text.changed
+            .throttle(.milliseconds(300), latest: true, scheduler: MainScheduler.asyncInstance)
+            .map { Reactor.Action.requestSearch(text: $0) }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
         cancelButton.rx.tap
             .subscribe(onNext: { [weak self] in
                 self?.view.endEditing(true)
@@ -226,6 +232,21 @@ extension SearchViewController {
         .bind(to: collectionView.rx.items(cellIdentifier: OnboardingCollectionViewCell.reuseIdentifier, cellType:   OnboardingCollectionViewCell.self)) { index, element, cell in
                 cell.configure(element)
             }.disposed(by: disposeBag)
+        
+        reactor.state.compactMap { $0.items }
+        .bind(to: tableView.rx.items) { tableView, row, element in
+            let indexPath = IndexPath(row: row, section: 0)
+            if element.type == .brand {
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchBrandTableViewCell.reuseIdentifier, for: indexPath) as? SearchBrandTableViewCell else { return .init() }
+                cell.configure(item: element)
+                return cell
+            } else {
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchPerfumeTableViewCell.reuseIdentifier, for: indexPath) as? SearchPerfumeTableViewCell else { return .init() }
+                cell.configure(item: element)
+                return cell
+            }
+        }
+        .disposed(by: disposeBag)
         
         collectionView.rx.modelSelected(OnboardingFourthViewController.CollectionViewModel.self)
             .subscribe(onNext: { [weak self] in

@@ -8,13 +8,15 @@
 import UIKit
 import RxSwift
 import ReactorKit
+import Moya
 
 final class SearchReactor: Reactor {
     enum Action {
-        case request
+        case requestSearch(text: String?)
     }
     
     enum Mutation {
+        case setSearchResult([SearchResult.Item])
         case setIsLoading(Bool)
     }
     
@@ -33,6 +35,7 @@ final class SearchReactor: Reactor {
             .init(image: UIImage(named: "beverages_red"), title: "BEVERAGES", id: 21190),
             .init(image: UIImage(named: "natural&systhetic_blue_32"), title: "NATURAL &\nSYNTHETIC", id: 21191)
         ]
+        var items: [SearchResult.Item]?
         var isLoading = false
     }
     
@@ -40,9 +43,18 @@ final class SearchReactor: Reactor {
     
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
-        case .request:
+        case let .requestSearch(query):
+            guard let query = query, query != "" else { return .just(.setSearchResult([])) }
             return Observable.concat([
                 .just(.setIsLoading(true)),
+                
+                requestSearch(query: query)
+                    .asObservable()
+                    .map(SearchResult.self, atKeyPath: "data", using: JSONDecoder(), failsOnEmptyData: false)
+                    .map {
+                        log($0)
+                        return Mutation.setSearchResult($0.items)
+                    },
             
                 .just(.setIsLoading(false))
             ])
@@ -52,9 +64,18 @@ final class SearchReactor: Reactor {
     func reduce(state: State, mutation: Mutation) -> State {
         var newState = state
         switch mutation {
+        case let .setSearchResult(items):
+            newState.items = items
+            
         case let .setIsLoading(isLoading):
             newState.isLoading = isLoading
         }
         return newState
+    }
+}
+
+extension SearchReactor {
+    private func requestSearch(query: String) -> Single<Response> {
+        APIService.shared.requestSearch(query: query)
     }
 }

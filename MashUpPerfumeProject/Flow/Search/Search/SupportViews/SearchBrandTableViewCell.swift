@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 final class SearchBrandTableViewCell: UITableViewCell {
     private let brandImageView = UIImageView()
@@ -28,10 +29,20 @@ final class SearchBrandTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
+        setLayout()
+        contentView.backgroundColor = .clear
+        backgroundColor = .clear
+        selectionStyle = .none
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+        
+        setLayout()
+        contentView.backgroundColor = .clear
+        backgroundColor = .clear
+        selectionStyle = .none
     }
     
     private func setLayout() {
@@ -53,5 +64,14 @@ final class SearchBrandTableViewCell: UITableViewCell {
             indicatorImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
             indicatorImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
         ])
+    }
+}
+
+extension SearchBrandTableViewCell {
+    func configure(item: SearchResult.Item) {
+        brandNameLabel.text = item.name
+        if let imageURL = URL(string: item.thumbnailImageUrl) {
+            brandImageView.kf.setImage(with: imageURL, placeholder: nil, options: nil, completionHandler: nil)
+        }
     }
 }

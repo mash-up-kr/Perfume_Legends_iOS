@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 final class SearchPerfumeTableViewCell: UITableViewCell {
     private let perfumeImageView = UIImageView()
@@ -33,10 +34,20 @@ final class SearchPerfumeTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
+        setLayout()
+        contentView.backgroundColor = .clear
+        backgroundColor = .clear
+        selectionStyle = .none
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+        
+        setLayout()
+        contentView.backgroundColor = .clear
+        backgroundColor = .clear
+        selectionStyle = .none
     }
     
     private func setLayout() {
@@ -65,3 +76,13 @@ final class SearchPerfumeTableViewCell: UITableViewCell {
         ])
     }
 }
+
+extension SearchPerfumeTableViewCell {
+    func configure(item: SearchResult.Item) {
+        titleLabel.text = item.name
+        if let imageURL = URL(string: item.thumbnailImageUrl) {
+            perfumeImageView.kf.setImage(with: imageURL, placeholder: nil, options: nil, completionHandler: nil)
+        }
+    }
+}
+
