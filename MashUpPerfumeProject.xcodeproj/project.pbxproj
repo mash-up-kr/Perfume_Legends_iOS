@@ -56,6 +56,10 @@
 		B13B7B87273D73D600156CEC /* NoteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B13B7B86273D73D600156CEC /* NoteTableViewCell.swift */; };
 		B16DD52B2708823000537DC9 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = B16DD52A2708823000537DC9 /* Logger.swift */; };
 		B1F1E750273FB00600C519E8 /* NoteGroupTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F1E74F273FB00600C519E8 /* NoteGroupTableViewHeader.swift */; };
+		B1F1E752273FDEA400C519E8 /* SearchBrandTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F1E751273FDEA400C519E8 /* SearchBrandTableViewCell.swift */; };
+		B1F1E754273FE0B200C519E8 /* UITableViewCell+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F1E753273FE0B200C519E8 /* UITableViewCell+Extension.swift */; };
+		B1F1E756273FE14700C519E8 /* UICollectionViewCell+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F1E755273FE14700C519E8 /* UICollectionViewCell+Extension.swift */; };
+		B1F1E758273FE1A900C519E8 /* SearchPerfumeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F1E757273FE1A900C519E8 /* SearchPerfumeTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -103,6 +107,10 @@
 		B13B7B86273D73D600156CEC /* NoteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteTableViewCell.swift; sourceTree = "<group>"; };
 		B16DD52A2708823000537DC9 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		B1F1E74F273FB00600C519E8 /* NoteGroupTableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteGroupTableViewHeader.swift; sourceTree = "<group>"; };
+		B1F1E751273FDEA400C519E8 /* SearchBrandTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBrandTableViewCell.swift; sourceTree = "<group>"; };
+		B1F1E753273FE0B200C519E8 /* UITableViewCell+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+Extension.swift"; sourceTree = "<group>"; };
+		B1F1E755273FE14700C519E8 /* UICollectionViewCell+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionViewCell+Extension.swift"; sourceTree = "<group>"; };
+		B1F1E757273FE1A900C519E8 /* SearchPerfumeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPerfumeTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -255,6 +263,8 @@
 			children = (
 				9EDDD65A26EDB11F00456352 /* UIView+Extension.swift */,
 				B12EB70527368E5B00103E42 /* UIStackView+Extension.swift */,
+				B1F1E755273FE14700C519E8 /* UICollectionViewCell+Extension.swift */,
+				B1F1E753273FE0B200C519E8 /* UITableViewCell+Extension.swift */,
 				B12EB703273689D300103E42 /* UIColor+Extension.swift */,
 			);
 			path = Extension;
@@ -290,6 +300,8 @@
 			isa = PBXGroup;
 			children = (
 				B11DBFFB273AC910008166AF /* SearchTextField.swift */,
+				B1F1E751273FDEA400C519E8 /* SearchBrandTableViewCell.swift */,
+				B1F1E757273FE1A900C519E8 /* SearchPerfumeTableViewCell.swift */,
 			);
 			path = SupportViews;
 			sourceTree = "<group>";
@@ -466,6 +478,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				B11E60402708CCA5002B1294 /* SearchViewController.swift in Sources */,
+				B1F1E752273FDEA400C519E8 /* SearchBrandTableViewCell.swift in Sources */,
+				B1F1E756273FE14700C519E8 /* UICollectionViewCell+Extension.swift in Sources */,
 				9EDDD65B26EDB11F00456352 /* UIView+Extension.swift in Sources */,
 				B126E5A327301E9E007248D9 /* NoteCollectionReactor.swift in Sources */,
 				B12EB7022736887900103E42 /* PerfumeDetailNameView.swift in Sources */,
@@ -500,6 +514,8 @@
 				9E9C338C26E735640036175C /* SceneDelegate.swift in Sources */,
 				B126E59E27301DF3007248D9 /* NoteGroupReactor.swift in Sources */,
 				B12EB704273689D300103E42 /* UIColor+Extension.swift in Sources */,
+				B1F1E754273FE0B200C519E8 /* UITableViewCell+Extension.swift in Sources */,
+				B1F1E758273FE1A900C519E8 /* SearchPerfumeTableViewCell.swift in Sources */,
 				B12EB70627368E5B00103E42 /* UIStackView+Extension.swift in Sources */,
 				B1F1E750273FB00600C519E8 /* NoteGroupTableViewHeader.swift in Sources */,
 				B13B7B84273D6E6400156CEC /* Note.swift in Sources */,

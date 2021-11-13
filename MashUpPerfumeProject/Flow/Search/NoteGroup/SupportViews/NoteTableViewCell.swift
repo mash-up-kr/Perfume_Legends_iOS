@@ -8,8 +8,6 @@
 import UIKit
 
 final class NoteTableViewCell: UITableViewCell {
-    static let reuseIdentifier = "NoteTableViewCell"
-    
     private let cellBackgroundView: UIView = {
         let view = UIView()
         view.layer.cornerRadius = 8

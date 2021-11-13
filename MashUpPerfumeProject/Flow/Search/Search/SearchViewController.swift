@@ -51,6 +51,16 @@ final class SearchViewController: BaseViewController, View {
         return view
     }()
     
+    private let noteCollectionBackgroundView = UIView()
+    
+    private let noteGroupCollectionTitleLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 18, weight: .bold)
+        label.text = "노트로 향수 찾기"
+        
+        return label
+    }()
+    
     private var collectionView: ContentsizedCollectionView = {
 
         let flowlayout = UICollectionViewFlowLayout()
@@ -65,10 +75,24 @@ final class SearchViewController: BaseViewController, View {
         collectionView.allowsMultipleSelection = true
         collectionView.backgroundColor = .clear
 //        collectionView.isScrollEnabled = false
-        collectionView.register(OnboardingCollectionViewCell.self, forCellWithReuseIdentifier: "OnboardingCollectionViewCell")
+        collectionView.register(OnboardingCollectionViewCell.self, forCellWithReuseIdentifier: OnboardingCollectionViewCell.reuseIdentifier)
 
 //        collectionView.keyboardDismissMode = .onDrag
         return collectionView
+    }()
+    
+    private let perfumeTableBackgroundView: UIView = {
+        let view = UIView()
+        view.isHidden = true
+        
+        return view
+    }()
+    
+    private let tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.backgroundColor = .clear
+        
+        return tableView
     }()
     
     var disposeBag = DisposeBag()
@@ -79,15 +103,27 @@ final class SearchViewController: BaseViewController, View {
             textFieldStackViewTopConstraint?.isActive = isHiddenTitle
             cancelButton.isHidden = !isHiddenTitle
             
+            if isHiddenTitle {
+                self.perfumeTableBackgroundView.isHidden = false
+            } else {
+                self.noteCollectionBackgroundView.isHidden = false
+            }
+            
             UIView.animate(withDuration: 0.3,
                            delay: 0,
                            options: .curveEaseOut,
                            animations: {
-                self.collectionView.alpha = self.isHiddenTitle ? 0 : 1
+                self.noteCollectionBackgroundView.alpha = self.isHiddenTitle ? 0 : 1
+                self.perfumeTableBackgroundView.alpha = self.isHiddenTitle ? 1 : 0
                 self.view.layoutIfNeeded()
             },
                            completion: { _ in
                 
+                if self.isHiddenTitle {
+                    self.noteCollectionBackgroundView.isHidden = true
+                } else {
+                    self.perfumeTableBackgroundView.isHidden = true
+                }
             })
         }
     }
@@ -99,15 +135,23 @@ final class SearchViewController: BaseViewController, View {
         super.viewDidLoad()
         
         self.navigationController?.isNavigationBarHidden = true
-    
+//        navigationController?.setNavigationBarHidden(true, animated: false)
 //        isHiddenTitle = true
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        navigationController?.setNavigationBarHidden(true, animated: false)
     }
     
     override func setLayout() {
         super.setLayout()
-        view.addSubviews(titleLabel, textFieldStackView, collectionView)
+        view.addSubviews(titleLabel, textFieldStackView, noteCollectionBackgroundView, perfumeTableBackgroundView)
         view.addSubviews(topDummyView)
         textFieldStackView.addArrangedSubviews(searchTextField, cancelButton)
+        noteCollectionBackgroundView.addSubviews(noteGroupCollectionTitleLabel, collectionView)
+        perfumeTableBackgroundView.addSubviews(tableView)
         
         
         titleLabelTopConstraint = titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 23)
@@ -131,10 +175,29 @@ final class SearchViewController: BaseViewController, View {
             
             cancelButton.widthAnchor.constraint(equalToConstant: 46),
             
-            collectionView.topAnchor.constraint(equalTo: textFieldStackView.bottomAnchor),
-            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            noteCollectionBackgroundView.topAnchor.constraint(equalTo: textFieldStackView.bottomAnchor),
+            noteCollectionBackgroundView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            noteCollectionBackgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            noteCollectionBackgroundView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            
+            noteGroupCollectionTitleLabel.topAnchor.constraint(equalTo: noteCollectionBackgroundView.topAnchor, constant: 24),
+            noteGroupCollectionTitleLabel.leadingAnchor.constraint(equalTo: noteCollectionBackgroundView.leadingAnchor, constant: 20),
+            noteGroupCollectionTitleLabel.trailingAnchor.constraint(equalTo: noteCollectionBackgroundView.trailingAnchor, constant: -20),
+            
+            collectionView.topAnchor.constraint(equalTo: noteGroupCollectionTitleLabel.bottomAnchor),
+            collectionView.leadingAnchor.constraint(equalTo: noteCollectionBackgroundView.leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: noteCollectionBackgroundView.trailingAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: noteCollectionBackgroundView.bottomAnchor),
+                        
+            perfumeTableBackgroundView.topAnchor.constraint(equalTo: textFieldStackView.bottomAnchor),
+            perfumeTableBackgroundView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            perfumeTableBackgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            perfumeTableBackgroundView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            
+            tableView.topAnchor.constraint(equalTo: perfumeTableBackgroundView.topAnchor),
+            tableView.leadingAnchor.constraint(equalTo: perfumeTableBackgroundView.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: perfumeTableBackgroundView.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: perfumeTableBackgroundView.bottomAnchor),
         ])
     }
 }
@@ -161,7 +224,7 @@ extension SearchViewController {
             .disposed(by: disposeBag)
         
         reactor.state.map { $0.notes }
-            .bind(to: collectionView.rx.items(cellIdentifier: "OnboardingCollectionViewCell", cellType:   OnboardingCollectionViewCell.self)) { index, element, cell in
+        .bind(to: collectionView.rx.items(cellIdentifier: OnboardingCollectionViewCell.reuseIdentifier, cellType:   OnboardingCollectionViewCell.self)) { index, element, cell in
                 cell.configure(element)
             }.disposed(by: disposeBag)
         
