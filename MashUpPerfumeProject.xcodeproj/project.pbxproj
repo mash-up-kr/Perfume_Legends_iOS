@@ -55,6 +55,7 @@
 		B13B7B84273D6E6400156CEC /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = B13B7B83273D6E6400156CEC /* Note.swift */; };
 		B13B7B87273D73D600156CEC /* NoteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B13B7B86273D73D600156CEC /* NoteTableViewCell.swift */; };
 		B16DD52B2708823000537DC9 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = B16DD52A2708823000537DC9 /* Logger.swift */; };
+		B1F1E750273FB00600C519E8 /* NoteGroupTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F1E74F273FB00600C519E8 /* NoteGroupTableViewHeader.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -101,6 +102,7 @@
 		B13B7B83273D6E6400156CEC /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
 		B13B7B86273D73D600156CEC /* NoteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteTableViewCell.swift; sourceTree = "<group>"; };
 		B16DD52A2708823000537DC9 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
+		B1F1E74F273FB00600C519E8 /* NoteGroupTableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteGroupTableViewHeader.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -374,6 +376,7 @@
 			isa = PBXGroup;
 			children = (
 				B13B7B86273D73D600156CEC /* NoteTableViewCell.swift */,
+				B1F1E74F273FB00600C519E8 /* NoteGroupTableViewHeader.swift */,
 			);
 			path = SupportViews;
 			sourceTree = "<group>";
@@ -498,6 +501,7 @@
 				B126E59E27301DF3007248D9 /* NoteGroupReactor.swift in Sources */,
 				B12EB704273689D300103E42 /* UIColor+Extension.swift in Sources */,
 				B12EB70627368E5B00103E42 /* UIStackView+Extension.swift in Sources */,
+				B1F1E750273FB00600C519E8 /* NoteGroupTableViewHeader.swift in Sources */,
 				B13B7B84273D6E6400156CEC /* Note.swift in Sources */,
 				B11DBFFC273AC910008166AF /* SearchTextField.swift in Sources */,
 			);

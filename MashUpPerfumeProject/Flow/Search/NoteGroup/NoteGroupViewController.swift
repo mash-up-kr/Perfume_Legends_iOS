@@ -11,14 +11,16 @@ import ReactorKit
 
 final class NoteGroupViewController: BaseViewController, View {
     private let tableView: UITableView = {
-        let tableView = UITableView()
+        let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.register(NoteTableViewCell.self, forCellReuseIdentifier: NoteTableViewCell.reuseIdentifier)
         tableView.backgroundColor = .clear
         tableView.separatorStyle = .none
-        tableView.contentInset.top = 133
+//        tableView.contentInset.top = 133
         
         return tableView
     }()
+    
+    private let headerView = NoteGroupTableViewHeader()
     
     var disposeBag = DisposeBag()
     
@@ -27,6 +29,8 @@ final class NoteGroupViewController: BaseViewController, View {
         
         navigationController?.isNavigationBarHidden = false
         navigationItem.title = "NOTE"
+        
+     tableView.tableHeaderView = headerView
     }
     
     override func setLayout() {
@@ -37,8 +41,10 @@ final class NoteGroupViewController: BaseViewController, View {
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
+        
+        setIndicator()
     }
 }
 
@@ -53,6 +59,10 @@ extension NoteGroupViewController {
             }
             .disposed(by: disposeBag)
         
+        reactor.state.map { $0.isLoading }
+        .distinctUntilChanged()
+        .bind(to: activityIndicator.rx.isAnimating)
+        .disposed(by: disposeBag)
     }
 }
 
