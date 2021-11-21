@@ -88,6 +88,7 @@ final class SearchViewController: BaseViewController, View {
     private let tableView: UITableView = {
         let tableView = UITableView()
         tableView.backgroundColor = .clear
+        tableView.separatorStyle = .none
         tableView.register(SearchBrandTableViewCell.self, forCellReuseIdentifier: SearchBrandTableViewCell.reuseIdentifier)
         tableView.register(SearchPerfumeTableViewCell.self, forCellReuseIdentifier: SearchPerfumeTableViewCell.reuseIdentifier)
         

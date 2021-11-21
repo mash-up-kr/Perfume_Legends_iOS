@@ -9,12 +9,17 @@ import UIKit
 import Kingfisher
 
 final class SearchPerfumeTableViewCell: UITableViewCell {
-    private let perfumeImageView = UIImageView()
+    private let perfumeImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        
+        return imageView
+    }()
     
     private let brandLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 16)
-        label.textColor = .gray700
+        label.font = .systemFont(ofSize: 12, weight: .bold)
+        label.textColor = .gray100
         label.text = "brandName"
         
         return label
@@ -22,15 +27,20 @@ final class SearchPerfumeTableViewCell: UITableViewCell {
     
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 16)
-        label.textColor = .gray700
+        label.font = .systemFont(ofSize: 14, weight: .bold)
+        label.textColor = .black
         label.text = "brandName"
-        label.numberOfLines = 2
         
         return label
     }()
     
-    private let perfumeBackgroundView = UIView()
+    private let perfumeBackgroundView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .white
+        view.layer.cornerRadius = 8
+        
+        return view
+    }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -68,12 +78,19 @@ final class SearchPerfumeTableViewCell: UITableViewCell {
         
             brandLabel.topAnchor.constraint(equalTo: perfumeBackgroundView.topAnchor, constant: 30),
             brandLabel.leadingAnchor.constraint(equalTo: perfumeImageView.trailingAnchor, constant: 16),
-            brandLabel.trailingAnchor.constraint(equalTo: perfumeBackgroundView.trailingAnchor, constant: -12),
+            brandLabel.trailingAnchor.constraint(equalTo: perfumeBackgroundView.trailingAnchor, constant: -20),
             
             titleLabel.topAnchor.constraint(equalTo: brandLabel.bottomAnchor, constant: 4),
             titleLabel.leadingAnchor.constraint(equalTo: brandLabel.leadingAnchor),
             titleLabel.trailingAnchor.constraint(equalTo: brandLabel.trailingAnchor),
         ])
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        perfumeImageView.kf.cancelDownloadTask()
+        perfumeImageView.image = nil
     }
 }
 

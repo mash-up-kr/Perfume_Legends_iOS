@@ -9,7 +9,12 @@ import UIKit
 import Kingfisher
 
 final class SearchBrandTableViewCell: UITableViewCell {
-    private let brandImageView = UIImageView()
+    private let brandImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        
+        return imageView
+    }()
     
     private let brandNameLabel: UILabel = {
         let label = UILabel()
