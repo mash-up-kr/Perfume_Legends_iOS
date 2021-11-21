@@ -89,6 +89,7 @@ final class SearchViewController: BaseViewController, View {
         let tableView = UITableView()
         tableView.backgroundColor = .clear
         tableView.separatorStyle = .none
+        tableView.keyboardDismissMode = .onDrag
         tableView.register(SearchBrandTableViewCell.self, forCellReuseIdentifier: SearchBrandTableViewCell.reuseIdentifier)
         tableView.register(SearchPerfumeTableViewCell.self, forCellReuseIdentifier: SearchPerfumeTableViewCell.reuseIdentifier)
         
@@ -210,13 +211,14 @@ extension SearchViewController {
             })
             .disposed(by: disposeBag)
         
-        searchTextField.rx.controlEvent(.editingDidEnd)
-            .subscribe(onNext: { [weak self] in
-                self?.isHiddenTitle = false
-            })
-            .disposed(by: disposeBag)
+//        searchTextField.rx.controlEvent(.editingDidEnd)
+//            .subscribe(onNext: { [weak self] in
+//                self?.isHiddenTitle = false
+//            })
+//            .disposed(by: disposeBag)
         
         searchTextField.rx.text.changed
+            .distinctUntilChanged()
             .throttle(.milliseconds(300), latest: true, scheduler: MainScheduler.asyncInstance)
             .map { Reactor.Action.requestSearch(text: $0) }
             .bind(to: reactor.action)
@@ -226,15 +228,17 @@ extension SearchViewController {
             .subscribe(onNext: { [weak self] in
                 self?.view.endEditing(true)
                 self?.searchTextField.text = nil
+                self?.isHiddenTitle = false
             })
             .disposed(by: disposeBag)
         
         reactor.state.map { $0.notes }
         .bind(to: collectionView.rx.items(cellIdentifier: OnboardingCollectionViewCell.reuseIdentifier, cellType:   OnboardingCollectionViewCell.self)) { index, element, cell in
-                cell.configure(element)
-            }.disposed(by: disposeBag)
+            cell.configure(element)
+        }.disposed(by: disposeBag)
         
         reactor.state.compactMap { $0.items }
+        .distinctUntilChanged()
         .bind(to: tableView.rx.items) { tableView, row, element in
             let indexPath = IndexPath(row: row, section: 0)
             if element.type == .brand {
@@ -255,6 +259,20 @@ extension SearchViewController {
                 self.pushNoteGroupViewController(id: $0.id)
             })
             .disposed(by: disposeBag)
+        
+        tableView.rx.modelSelected(SearchResult.Item.self)
+            .subscribe(onNext: { [weak self] in
+                guard let self = self else { return }
+                switch $0.type {
+                case .brand:
+                    break
+                case .perfume:
+                    self.pushPerfumeDetailViewController(id: $0.id)
+                case .none:
+                    break
+                }
+            })
+            .disposed(by: disposeBag)
     }
 }
 
@@ -266,4 +284,14 @@ extension SearchViewController {
         
         navigationController?.pushViewController(viewController, animated: true)
     }
+    
+    private func pushPerfumeDetailViewController(id: Int) {
+        let viewController = PerfumeDetailViewController()
+        let reactor = PerfumeDetailReactor(id: id)
+        viewController.reactor = reactor
+        
+        navigationController?.pushViewController(viewController, animated: true)
+    }
+    
+    
 }

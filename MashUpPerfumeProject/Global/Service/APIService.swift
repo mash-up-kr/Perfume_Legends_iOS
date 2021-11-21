@@ -27,7 +27,10 @@ extension APIService {
     }
     
     func requestSearch(query: String) -> Single<Response> {
-        provider.rx.request(.requestSearch(query: query
-                                          ))
+        provider.rx.request(.requestSearch(query: query))
+    }
+    
+    func requestPerfume(id: Int) -> Single<Response> {
+        provider.rx.request(.requestPerfume(id: id))
     }
 }

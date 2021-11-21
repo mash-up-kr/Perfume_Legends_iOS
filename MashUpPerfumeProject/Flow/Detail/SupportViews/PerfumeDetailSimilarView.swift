@@ -59,6 +59,14 @@ final class PerfumeDetailSimilarView: UIView {
 }
 
 extension PerfumeDetailSimilarView {
+    func setView(perfumeDetail: PerfumeDetail) {
+        perfumeDetail.similarPerfumes.enumerated().forEach {
+            self.perfumeViews[$0.offset].setView(item: $0.element)
+        }
+    }
+}
+
+extension PerfumeDetailSimilarView {
     private final class PerfumeView: UIView {
         private let perfumeImageView = UIImageView()
         
@@ -115,5 +123,11 @@ extension PerfumeDetailSimilarView {
             ])
         }
         
+        func setView(item: SearchResult.Item) {
+            titleLabel.text = item.name
+            if let imageURL = URL(string: item.thumbnailImageUrl) {
+                perfumeImageView.kf.setImage(with: imageURL, placeholder: nil, options: nil, completionHandler: nil)
+            }
+        }
     }
 }

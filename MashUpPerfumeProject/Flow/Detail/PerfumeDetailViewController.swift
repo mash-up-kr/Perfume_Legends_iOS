@@ -7,9 +7,10 @@
 
 import UIKit
 import RxSwift
+import Kingfisher
 import ReactorKit
 
-final class PerfumeDetailViewController: BaseViewController {
+final class PerfumeDetailViewController: BaseViewController, View {
     private let scrollView = UIScrollView()
     
     private let stackView: UIStackView = {
@@ -18,8 +19,13 @@ final class PerfumeDetailViewController: BaseViewController {
         
         return stackView
     }()
-    
-    private let perfumeImageView = UIImageView()
+
+    private let perfumeImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        
+        return imageView
+    }()
     
     private let detailNameView = PerfumeDetailNameView()
     private let accordsView = PerfumeDetailAccordsView()
@@ -28,6 +34,19 @@ final class PerfumeDetailViewController: BaseViewController {
     
 //    private let
     var disposeBag = DisposeBag()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        view.backgroundColor = .white
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+//        navigationController?.setNavigationBarHidden(false, animated: false)
+        self.navigationController?.isNavigationBarHidden = false
+    }
     
     override func setLayout() {
         super.setLayout()
@@ -53,8 +72,24 @@ final class PerfumeDetailViewController: BaseViewController {
     }
 }
 
-extension NoteCollectionViewController {
+extension PerfumeDetailViewController {
     func bind(reactor: PerfumeDetailReactor) {
+        reactor.action.onNext(.requestPerfume)
         
+        reactor.state.compactMap { $0.perfumeDetail }
+        .subscribe(onNext: { [weak self] in
+            guard let self = self else { return }
+            if let imageURL = URL(string: $0.thumbnailImageUrl) {
+                self.perfumeImageView.kf.setImage(with: imageURL)
+            }
+            self.detailNameView.setView(perfumeDetail: $0)
+            self.similarView.setView(perfumeDetail: $0)
+            
+        })
+        .disposed(by: disposeBag)
     }
+}
+
+extension PerfumeDetailViewController {
+
 }

@@ -38,6 +38,7 @@ final class PerfumeDetailNameView: UIView {
         label.textColor = .black
         label.font = .systemFont(ofSize: 12, weight: .bold)
         label.text = "0명이 이 향수를 가지고 있어요."
+        label.isHidden = true
         
         return label
     }()
@@ -81,5 +82,12 @@ final class PerfumeDetailNameView: UIView {
             diggingButton.widthAnchor.constraint(equalTo: diggingButton.heightAnchor),
             diggingButton.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor)
         ])
+    }
+}
+
+extension PerfumeDetailNameView {
+    func setView(perfumeDetail: PerfumeDetail) {
+        brandLabel.text = perfumeDetail.brandName
+        titleLabel.text = perfumeDetail.name
     }
 }

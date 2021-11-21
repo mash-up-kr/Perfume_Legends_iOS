@@ -51,10 +51,7 @@ final class SearchReactor: Reactor {
                 requestSearch(query: query)
                     .asObservable()
                     .map(SearchResult.self, atKeyPath: "data", using: JSONDecoder(), failsOnEmptyData: false)
-                    .map {
-                        log($0)
-                        return Mutation.setSearchResult($0.items)
-                    },
+                    .map { Mutation.setSearchResult($0.items) },
             
                 .just(.setIsLoading(false))
             ])
