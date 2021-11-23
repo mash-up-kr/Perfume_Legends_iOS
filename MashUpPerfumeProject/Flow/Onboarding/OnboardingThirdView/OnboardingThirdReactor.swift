@@ -32,6 +32,7 @@ final class OnboardingThirdReactor: Reactor {
         switch action {
         case let .selectGender(gender):
             return .just(.setGender(gender))
+
         case let .selectAge(age):
             return .just(.setAge(age))
         }

@@ -14,6 +14,8 @@ enum APITarget: TargetType {
     case login(login: Login) // 로그인
     case getMe
     case updateNickName(nickName: NickName)
+    case getNoteGroups
+
 
     var baseURL: URL {
         // baseURL - 서버의 도메인
@@ -28,8 +30,11 @@ enum APITarget: TargetType {
         case .login: return "/members/login"
         case .getMe: return "/members/me"
         case .updateNickName: return "/members/me/nickname"
+        case .getNoteGroups:
+            return "/note-groups"
         }
     }
+
     var method: Moya.Method {
         // method - 통신 method (get, post, put, delete ...)
         switch self {
@@ -37,6 +42,8 @@ enum APITarget: TargetType {
         case .login: return .post
         case .getMe: return .get
         case .updateNickName: return .put
+        case .getNoteGroups:
+            return .get
         }
     }
     
@@ -44,19 +51,6 @@ enum APITarget: TargetType {
     var sampleData: Data {
         return Data()
     }
-
-//    var sampleData: Data {
-//        switch self {
-//        case .signIn:
-//            return Data()
-//        case .signUp:
-//            return User.SignUp.sampleData
-//        case .notificationDetail:
-//            return Data()
-//        case .user:
-//            return Data()
-//        }
-//    }
     
     /// The type of HTTP task to be performed.
     var task: Task {
@@ -70,8 +64,12 @@ enum APITarget: TargetType {
             return .requestJSONEncodable(login)
         case .getMe:
             return .requestPlain
-        case .updateNickName(let nickname):
-            return .requestJSONEncodable(nickname)
+//        case .updateNickName(let nickname):
+//            return .requestParameters(parameters: ["nickname": nickname], encoding: JSONEncoding.default)
+        case .updateNickName(let nickName):
+            return .requestJSONEncodable(nickName)
+        case .getNoteGroups:
+            return .requestPlain
         }
     }
     
@@ -84,12 +82,13 @@ enum APITarget: TargetType {
     /// The headers to be used in the request.
     var headers: [String: String]? {
         // headers - HTTP header
-//        switch self {
-//        case .initialize: return ["Content-Type":"application/json"]
-//        case .login: return ["Content-Type":"application/json"]
-//        case .getMe: return ["Content-Type":"application/json"]
-//        case .updateNickName: return ["Content-Type":"application/json"]
-//        }
-        return ["Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhY20tYXBpLWRldmVsb3AiLCJtZW1iZXJJZCI6MjQ1ODU5fQ.t2stUH5_C8HcpjJb_IFtwG5o4xN5AAPgozvHxIPbTbM"]
+
+        if let accesstoken = UserDefaults.standard.string(forKey: "accesstoken") {
+            return ["Authorization": "Bearer \(accesstoken)"]
+        } else {
+            return ["Authorization": ""]
+        }
+
+//        return ["Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhY20tYXBpLWRldmVsb3AiLCJtZW1iZXJJZCI6MjQ1ODU5fQ.t2stUH5_C8HcpjJb_IFtwG5o4xN5AAPgozvHxIPbTbM"]
     }
 }

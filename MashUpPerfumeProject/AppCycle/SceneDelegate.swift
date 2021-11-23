@@ -19,29 +19,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let scene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: scene)
 
-//        let uuid = UIDevice.current.identifierForVendor!.uuidString
+        let idProviderType = "UUID"
+        let idProviderUserId = UIDevice.current.identifierForVendor!.uuidString
+        let accesstoken = UserDefaults.standard.string(forKey: "accesstoken")
 
-//        let loginModel: Login = Login(idProviderType: "UUID", idProviderUserId: "111")
-//        APIService.shared.login(logInInfo: loginModel) { [weak self] result in
-//            switch result {
-//            case let .success(logIn):
-//                print(logIn)
-//                let viewController = ViewController()
-//                viewController.reactor = NewReactor()
-//                let rootNavigationViewController = UINavigationController(rootViewController: viewController)
-//                self?.window?.rootViewController = rootNavigationViewController
-//            case let .failure(error):
-//                let onboardingViewController = OnboardingFirstViewController()
-//                onboardingViewController.reactor = OnboardingReactor()
-//                let rootNavigationViewController = UINavigationController(rootViewController: onboardingViewController)
-//                self?.window?.rootViewController = rootNavigationViewController
-//            }
-//        }
-        
-        let onboardingViewController = OnboardingFirstViewController()
-        onboardingViewController.reactor = OnboardingReactor()
-        let rootNavigationViewController = UINavigationController(rootViewController: onboardingViewController)
-        window?.rootViewController = rootNavigationViewController
+        let signInViewController = SignInViewController()
+        signInViewController.reactor = SignInReactor(idProviderType: idProviderType, idProviderUserId: idProviderUserId, accesstoken: accesstoken)
+        let rootNavigationViewController = UINavigationController(rootViewController: signInViewController)
+        self.window?.rootViewController = rootNavigationViewController
         window?.makeKeyAndVisible()
     }
 

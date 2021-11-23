@@ -8,6 +8,6 @@
 import Foundation
 
 struct Login: Codable {
-    let idProviderType: String
-    let idProviderUserId: String
+    let idProviderType: String?
+    let idProviderUserId: String?
 }

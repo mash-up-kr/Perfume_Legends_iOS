@@ -18,7 +18,7 @@ class OnboardingCollectionViewCell: UICollectionViewCell {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
-        label.font = UIFont.systemFont(ofSize: 16, weight: .bold)
+        label.font = UIFont.systemFont(ofSize: 12, weight: .bold)
         label.textColor = UIColor(red: 136/255, green: 136/255, blue: 136/255, alpha: 1)
         label.numberOfLines = 0
         return label
@@ -66,12 +66,13 @@ class OnboardingCollectionViewCell: UICollectionViewCell {
             self.imageView.centerXAnchor.constraint(equalTo: self.contentView.centerXAnchor),
 
             self.titleLabel.centerYAnchor.constraint(equalTo: self.imageView.bottomAnchor, constant: 25),
-            self.titleLabel.centerXAnchor.constraint(equalTo: self.contentView.centerXAnchor)
+            self.titleLabel.centerXAnchor.constraint(equalTo: self.contentView.centerXAnchor),
+            self.titleLabel.widthAnchor.constraint(equalToConstant: 114)
         ])
     }
 
-    internal func configure(_ model: OnboardingFourthViewController.CollectionViewModel) {
-        self.imageView.image = model.image
-        self.titleLabel.text = model.title
+    internal func configure(_ model: NoteGroup) {
+        self.imageView.image = UIImage(named: model.customName)
+        self.titleLabel.text = model.name
     }
 }

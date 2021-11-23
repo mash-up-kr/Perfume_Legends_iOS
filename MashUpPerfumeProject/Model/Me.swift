@@ -8,9 +8,9 @@
 import Foundation
 
 struct Me: Codable {
-    let ageGroup: String
-    let gender: String
-    let id: Int
-    let name: String
-    let status: String
+    let ageGroup: String?
+    let gender: String?
+    let id: Int?
+    let name: String?
+    let status: String?
 }

@@ -18,7 +18,7 @@ class OnboardingFourthViewController: BaseViewController, View {
 //    private var gender: BehaviorRelay<OnboardingThirdViewController.Age>?
     private let perfumeTypesModel = BehaviorRelay<[Int]>(value: [])
 
-    private var collectionViewModel = Observable.of([CollectionViewModel(image: UIImage(named: "citrus_yellow_32"), title: "CITRUS"), CollectionViewModel(image: UIImage(named: "fruits&vegetables _purple_32"), title: "FRUITS &\nVEGETABLE"), CollectionViewModel(image: UIImage(named: "flowers_pink_32"), title: "FLOWERS"), CollectionViewModel(image: UIImage(named: "whiteFlowers_skyblue_32"), title: "WHITE FLOWERS"), CollectionViewModel(image: UIImage(named: "greens_green_32"), title: "GREENS"), CollectionViewModel(image: UIImage(named: "spices_brown_32"), title: "SPICES"), CollectionViewModel(image: UIImage(named: "sweets&gourmand_pink_32"), title: "SWEETS &\nGOURMAND"), CollectionViewModel(image: UIImage(named: "woods_brown_32"), title: "WOODS"), CollectionViewModel(image: UIImage(named: "resins&balsams_brown_32"), title: "RESINS & BALSAMS"), CollectionViewModel(image: UIImage(named: "animalic_orange_32"), title: "ANIMALIC"), CollectionViewModel(image: UIImage(named: "beverages_red"), title: "BEVERAGES"), CollectionViewModel(image: UIImage(named: "natural&systhetic_blue_32"), title: "NATURAL &\nSYNTHETIC")])
+//    private var collectionViewModel = Observable.of([CollectionViewModel(image: UIImage(named: "citrus_yellow"), title: "CITRUS"), CollectionViewModel(image: UIImage(named: "fruits&vegetables _purple"), title: "FRUITS &\nVEGETABLE"), CollectionViewModel(image: UIImage(named: "flowers_pink"), title: "FLOWERS"), CollectionViewModel(image: UIImage(named: "whiteFlowers_skyblue"), title: "WHITE FLOWERS"), CollectionViewModel(image: UIImage(named: "greens_green"), title: "GREENS"), CollectionViewModel(image: UIImage(named: "spices_brown"), title: "SPICES"), CollectionViewModel(image: UIImage(named: "sweets&gourmand_pink"), title: "SWEETS &\nGOURMAND"), CollectionViewModel(image: UIImage(named: "woods_brown"), title: "WOODS"), CollectionViewModel(image: UIImage(named: "resins&balsams_brown"), title: "RESINS & BALSAMS"), CollectionViewModel(image: UIImage(named: "animalic_orange"), title: "ANIMALIC"), CollectionViewModel(image: UIImage(named: "beverages_red"), title: "BEVERAGES"), CollectionViewModel(image: UIImage(named: "natural&systhetic_blue"), title: "NATURAL &\nSYNTHETIC"), CollectionViewModel(image: UIImage(named: "uncategorized_black"), title: "UNCATEGORIZED")])
 
     let provider = MoyaProvider<APITarget>()
 
@@ -175,10 +175,22 @@ class OnboardingFourthViewController: BaseViewController, View {
 extension OnboardingFourthViewController {
     func bind(reactor: OnboardingFourthReactor) {
 
-        self.collectionViewModel.bind(to: self.collectionView.rx.items(cellIdentifier: "OnboardingCollectionViewCell", cellType: OnboardingCollectionViewCell.self)) {
+        reactor.action.onNext(.requestNote)
+
+        reactor.state.compactMap { $0.noteGroups }
+            .distinctUntilChanged()
+            .bind(to: self.collectionView.rx.items(cellIdentifier: "OnboardingCollectionViewCell", cellType: OnboardingCollectionViewCell.self)) {
             index, element, cell in
             cell.configure(element)
         }.disposed(by: disposeBag)
+
+        reactor.state
+            .map { !($0.perfumeTypes?.isEmpty ?? true) }.compactMap { $0 }
+            .subscribe(onNext: { isEnabled in
+                self.nextButton.isEnabled = isEnabled
+                self.nextButton.backgroundColor = isEnabled ? UIColor(named: "Black") : UIColor(named: "Gray100")
+            })
+            .disposed(by: self.disposeBag)
 
         self.collectionView.rx.itemSelected
             .subscribe(onNext: { indexPath in
@@ -212,34 +224,26 @@ extension OnboardingFourthViewController {
             .bind(to: reactor.action)
             .disposed(by: self.disposeBag)
 
-        reactor.state
-            .map { !($0.perfumeTypes?.isEmpty ?? true) }.compactMap { $0 }
-            .subscribe(onNext: { isEnabled in
-                self.nextButton.isEnabled = isEnabled
-                self.nextButton.backgroundColor = isEnabled ? UIColor(named: "Black") : UIColor(named: "Gray100")
-            })
-            .disposed(by: self.disposeBag)
-
         self.nextButton.rx.tap
             .map { return Reactor.Action.setMemberInitialize(reactor.currentState.gender, reactor.currentState.age, reactor.currentState.perfumeTypes) }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
 
-//        self.skipButton.rx.tap
-//            .subscribe(onNext: {
-//                let onboardingFourthViewController = OnboardingFourthViewController()
-//                onboardingFourthViewController.reactor = OnboardingFourthReactor()
-//                self.navigationController?.pushViewController(onboardingFourthViewController, animated: false)
-//            })
-//            .disposed(by: self.disposeBag)
+        self.skipButton.rx.tap
+            .subscribe(onNext: {
+                let viewController = ViewController()
+                viewController.reactor = NewReactor()
+                self.navigationController?.pushViewController(viewController, animated: false)
+            })
+            .disposed(by: self.disposeBag)
 
-//        self.nextButton.rx.tap
-//            .subscribe(onNext: {
-//                let onboardingFourthViewController = OnboardingFourthViewController()
-//                onboardingFourthViewController.reactor = OnboardingFourthReactor()
-//                self.navigationController?.pushViewController(onboardingFourthViewController, animated: false)
-//            })
-//            .disposed(by: self.disposeBag
+        self.nextButton.rx.tap
+            .subscribe(onNext: {
+                let viewController = ViewController()
+                viewController.reactor = NewReactor()
+                self.navigationController?.pushViewController(viewController, animated: false)
+            })
+            .disposed(by: self.disposeBag)
     }
 }
 

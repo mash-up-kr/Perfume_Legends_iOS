@@ -12,38 +12,36 @@ import ReactorKit
 final class OnboardingSecondReactor: Reactor {
 
     enum Action { // 정의만 한다
-        case makeNickname(String?)
-        case setNickname(String?)
+        case setNickname(String)
     }
 
     enum Mutation {
-        case makeNickname(String?)
-        case setNickname(String?)
+        case setNickname(String?, Bool?)
     }
 
     struct State {
         var nickname: String?
-        // nickname return에 대한 상태값을 받아야지 텍스트필드와 label을 띄울 수 있다.
+        var isValideNickname: Bool?
     }
 
     let initialState = State()
 
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
-        case let .makeNickname(nickname):
-            return .just(.makeNickname(nickname))
         case let .setNickname(nickname):
-            let model = NickName(nickname: nickname ?? "")
-            var returnModel = NickName(nickname: "")
-            APIService.shared.updateNickName(nicknameInfo: model) { result in
-                switch result {
-                case .success(let nickname):
-                    returnModel = nickname
-                case .failure(let error):
-                    print("error가 발생했습니다.")
-                }
+
+            let newNickname = makeNewNickname(nickname: nickname)
+
+            if newNickname.count > 1 {
+                return APIService.shared.updateNickName(nicknameInfo: NickName(nickname: newNickname))
+                    .asObservable()
+                    .map { _ in
+                        Mutation.setNickname(newNickname, true)
+                    }
+                    .catchAndReturn(.setNickname(newNickname, false))
+            } else {
+                return .just(.setNickname(nickname, true))
             }
-            return .just(.setNickname(nickname))
         }
     }
 
@@ -51,14 +49,22 @@ final class OnboardingSecondReactor: Reactor {
         var newState = state
 
         switch mutation {
-        case let .makeNickname(nickname):
+        case let .setNickname(nickname, isValidNickname):
             newState.nickname = nickname
-            print(nickname)
-        case let .setNickname(nickname):
-            newState.nickname = nickname
-            print(nickname)
+            newState.isValideNickname = isValidNickname
+            print(nickname, isValidNickname)
         }
 
         return newState
+    }
+}
+
+extension OnboardingSecondReactor {
+    func makeNewNickname(nickname: String) -> String {
+
+        var newNickname = nickname.trimmingCharacters(in: .whitespaces)
+        newNickname = nickname.components(separatedBy: ["~","!","@",","," "]).joined()
+
+        return newNickname
     }
 }

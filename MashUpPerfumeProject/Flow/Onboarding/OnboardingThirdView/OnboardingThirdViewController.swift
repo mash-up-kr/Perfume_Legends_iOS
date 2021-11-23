@@ -58,8 +58,8 @@ class OnboardingThirdViewController: BaseViewController, View {
 
     private let femaleButton: SeletableButton = {
         let button = SeletableButton()
-        button.setImage(UIImage(named: "ic_gender_woman_white_disabled_157"), for: .normal)
-        button.setImage(UIImage(named: "ic_gender_woman_white_inabled_157"), for: .selected)
+        button.setImage(UIImage(named: "ic_gender_female_white_disabled_157"), for: .normal)
+        button.setImage(UIImage(named: "ic_gender_female_white_abled_157"), for: .selected)
         button.adjustsImageWhenHighlighted = false
         button.normalTintColor = .white
         button.selectTintColor = .white
@@ -72,8 +72,8 @@ class OnboardingThirdViewController: BaseViewController, View {
 
     private let maleButton: SeletableButton = {
         let button = SeletableButton()
-        button.setImage(UIImage(named: "ic_gender_man_white_disabled_157"), for: .normal)
-        button.setImage(UIImage(named: "ic_gender_man_white_inabled_157"), for: .selected)
+        button.setImage(UIImage(named: "ic_gender_male_white_disabled_157"), for: .normal)
+        button.setImage(UIImage(named: "ic_gender_male_white_abled_157"), for: .selected)
         button.adjustsImageWhenHighlighted = false
         button.normalTintColor = .white
         button.selectTintColor = .white
@@ -238,87 +238,38 @@ extension OnboardingThirdViewController {
     func bind(reactor: OnboardingThirdReactor) {
 
         self.femaleButton.rx.tap
-            .map { Reactor.Action.selectGender(self.femaleButton.isSelected ? nil : .female) }
+            .map { Reactor.Action.selectGender(self.femaleButton.isSelected ? nil : .FEMALE) }
             .bind(to: reactor.action)
             .disposed(by: self.disposeBag)
 
         self.maleButton.rx.tap
-            .map { Reactor.Action.selectGender(self.maleButton.isSelected ? nil : .male) }
+            .map { Reactor.Action.selectGender(self.maleButton.isSelected ? nil : .MALE) }
             .bind(to: reactor.action)
             .disposed(by: self.disposeBag)
 
         self.teenagerButton.rx.tap
-            .map { Reactor.Action.selectAge(self.teenagerButton.isSelected ? nil : .teenager) }
+            .map { Reactor.Action.selectAge(self.teenagerButton.isSelected ? nil : .TEENAGER) }
             .bind(to: reactor.action)
             .disposed(by: self.disposeBag)
 
         self.twentiesButton.rx.tap
-            .map { Reactor.Action.selectAge(self.twentiesButton.isSelected ? nil : .twenties) }
+            .map { Reactor.Action.selectAge(self.twentiesButton.isSelected ? nil : .TWENTIES) }
             .bind(to: reactor.action)
             .disposed(by: self.disposeBag)
 
         self.thirtiesButton.rx.tap
-            .map { Reactor.Action.selectAge(self.thirtiesButton.isSelected ? nil : .thirties) }
+            .map { Reactor.Action.selectAge(self.thirtiesButton.isSelected ? nil : .THIRTIES) }
             .bind(to: reactor.action)
             .disposed(by: self.disposeBag)
 
         self.fouriesButton.rx.tap
-            .map { Reactor.Action.selectAge(self.fouriesButton.isSelected ? nil : .fouries) }
+            .map { Reactor.Action.selectAge(self.fouriesButton.isSelected ? nil : .FOURTIES) }
             .bind(to: reactor.action)
             .disposed(by: self.disposeBag)
 
         self.fiftiesButton.rx.tap
-            .map { Reactor.Action.selectAge(self.fiftiesButton.isSelected ? nil : .fifties) }
+            .map { Reactor.Action.selectAge(self.fiftiesButton.isSelected ? nil : .FIFTIES) }
             .bind(to: reactor.action)
-            .disposed(by: self.disposeBag)
-
-        self.femaleButton.rx.tap
-            .subscribe(onNext: {
-                self.femaleButton.isSelected = !self.femaleButton.isSelected
-                self.maleButton.isSelected = false
-            })
-            .disposed(by: self.disposeBag)
-
-        self.maleButton.rx.tap
-            .subscribe(onNext: {
-                self.maleButton.isSelected = !self.maleButton.isSelected
-                self.femaleButton.isSelected = false
-            })
-            .disposed(by: self.disposeBag)
-
-        self.teenagerButton.rx.tap
-            .subscribe(onNext: {
-                self.teenagerButton.isSelected = !self.teenagerButton.isSelected
-                self.deselectedButtons(seletedButton: self.teenagerButton, buttons: [self.teenagerButton, self.twentiesButton, self.thirtiesButton, self.fouriesButton, self.fiftiesButton])
-            })
-            .disposed(by: self.disposeBag)
-
-        self.twentiesButton.rx.tap
-            .subscribe(onNext: {
-                self.twentiesButton.isSelected = !self.twentiesButton.isSelected
-                self.deselectedButtons(seletedButton: self.twentiesButton, buttons: [self.teenagerButton, self.twentiesButton, self.thirtiesButton, self.fouriesButton, self.fiftiesButton])
-            })
-            .disposed(by: self.disposeBag)
-
-        self.thirtiesButton.rx.tap
-            .subscribe(onNext: {
-                self.thirtiesButton.isSelected = !self.thirtiesButton.isSelected
-                self.deselectedButtons(seletedButton: self.thirtiesButton, buttons: [self.teenagerButton, self.twentiesButton, self.thirtiesButton, self.fouriesButton, self.fiftiesButton])
-            })
-            .disposed(by: self.disposeBag)
-
-        self.fouriesButton.rx.tap
-            .subscribe(onNext: {
-                self.fouriesButton.isSelected = !self.fouriesButton.isSelected
-                self.deselectedButtons(seletedButton: self.fouriesButton, buttons: [self.teenagerButton, self.twentiesButton, self.thirtiesButton, self.fouriesButton, self.fiftiesButton])
-            })
-            .disposed(by: self.disposeBag)
-
-        self.fiftiesButton.rx.tap
-            .subscribe(onNext: {
-                self.fiftiesButton.isSelected = !self.fiftiesButton.isSelected
-                self.deselectedButtons(seletedButton: self.fiftiesButton, buttons: [self.teenagerButton, self.twentiesButton, self.thirtiesButton, self.fouriesButton, self.fiftiesButton])
-            })
             .disposed(by: self.disposeBag)
 
         self.nextButton.rx.tap
@@ -344,25 +295,41 @@ extension OnboardingThirdViewController {
                 self.nextButton.backgroundColor = isEnabled ? UIColor(named: "Black") : UIColor(named: "Gray100")
             })
             .disposed(by: self.disposeBag)
-    }
 
-    private func deselectedButtons(seletedButton: UIButton ,buttons: [UIButton]) {
-        buttons.filter { $0 != seletedButton }.forEach { $0.isSelected = false }
+        reactor.state.map { $0.gender }
+        .distinctUntilChanged()
+        .subscribe(onNext: {
+            self.maleButton.isSelected = $0 == .MALE
+            self.femaleButton.isSelected = $0 == .FEMALE
+        })
+        .disposed(by: disposeBag)
+
+        reactor.state.map { $0.age }
+        .distinctUntilChanged()
+        .subscribe(onNext: {
+            self.teenagerButton.isSelected = $0 == .TEENAGER
+            self.twentiesButton.isSelected = $0 == .TWENTIES
+            self.thirtiesButton.isSelected = $0 == .THIRTIES
+            self.fouriesButton.isSelected = $0 == .FOURTIES
+            self.fiftiesButton.isSelected = $0 == .FIFTIES
+        })
+        .disposed(by: disposeBag)
+
     }
 }
 
 extension OnboardingThirdViewController {
 
     enum Gender: String {
-        case male = "남성"
-        case female = "여성"
+        case MALE
+        case FEMALE
     }
 
     enum Age: String {
-        case teenager = "10대"
-        case twenties = "20대"
-        case thirties = "30대"
-        case fouries = "40대"
-        case fifties = "50대"
+        case TEENAGER
+        case TWENTIES
+        case THIRTIES
+        case FOURTIES
+        case FIFTIES
     }
 }

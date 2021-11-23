@@ -39,6 +39,7 @@ class OnboardingSecondViewController: BaseViewController, View {
         let textField = UITextField()
         textField.layer.cornerRadius = 8
         textField.backgroundColor = UIColor(named: "White")
+        textField.layer.borderWidth = 1
 
         let centeredParagraphStyle = NSMutableParagraphStyle()
         centeredParagraphStyle.alignment = .center
@@ -105,6 +106,7 @@ class OnboardingSecondViewController: BaseViewController, View {
 
         self.navigationController?.isNavigationBarHidden = true
         self.nicknameInValidTitleLabel.isHidden = true
+        self.textField.layer.borderColor = UIColor.white.cgColor
 
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
@@ -123,7 +125,6 @@ extension OnboardingSecondViewController {
     func bind(reactor: OnboardingSecondReactor) {
 
         self.textField.rx.controlEvent([.allTouchEvents])
-            .asObservable()
             .subscribe(onNext: {
                 self.textField.becomeFirstResponder()
             })
@@ -135,21 +136,16 @@ extension OnboardingSecondViewController {
             })
             .disposed(by: self.disposeBag)
 
-        self.textField.rx.text.orEmpty
+        self.textField.rx.text.orEmpty.changed
             .subscribe(onNext: { text in
                 self.trimNickname(text)
             })
             .disposed(by: disposeBag)
 
-        self.textField.rx.text
-            .map { return Reactor.Action.makeNickname($0)}
+        self.textField.rx.text.orEmpty.changed
+            .map { Reactor.Action.setNickname($0) }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
-
-        self.nextButton.rx.tap
-            .map { Reactor.Action.setNickname(reactor.currentState.nickname) }
-            .bind(to: reactor.action)
-            .disposed(by: self.disposeBag)
 
         self.nextButton.rx.tap
             .subscribe(onNext: {
@@ -167,11 +163,32 @@ extension OnboardingSecondViewController {
             })
             .disposed(by: disposeBag)
 
-        // 텍스트 필드 색깔 바꿀 때 사용하는 state 변수 받아와서 사용하는 코드 만들어야함
+        reactor.state
+            .map { $0.isValideNickname }
+            .subscribe(onNext: {
+                if $0 == true {
+                    self.nicknameInValidTitleLabel.isHidden = true
+                    self.textField.layer.borderColor = UIColor.white.cgColor
+                    self.textField.layer.borderWidth = 1
+                } else {
+                    self.nicknameInValidTitleLabel.isHidden = false
+                    self.textField.layer.borderColor = UIColor(red: 249/255, green: 71/255, blue: 71/255, alpha: 1).cgColor
+                    self.textField.layer.borderWidth = 1
+                }
+            })
+            .disposed(by: disposeBag)
+
+        reactor.state
+            .map { $0.nickname }
+            .subscribe(onNext: {
+                self.textField.text = $0
+            })
+            .disposed(by: self.disposeBag)
 
     }
 
     private func trimNickname(_ nickname: String) {
+
         if nickname.count > 6 {
             let index = nickname.index(nickname.startIndex, offsetBy: 6)
             self.textField.text = String(nickname[..<index])
