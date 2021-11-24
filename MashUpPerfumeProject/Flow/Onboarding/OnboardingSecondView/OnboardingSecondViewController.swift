@@ -39,6 +39,7 @@ class OnboardingSecondViewController: BaseViewController, View {
         let textField = UITextField()
         textField.layer.cornerRadius = 8
         textField.backgroundColor = UIColor(named: "White")
+        textField.layer.borderWidth = 1
 
         let centeredParagraphStyle = NSMutableParagraphStyle()
         centeredParagraphStyle.alignment = .center
@@ -47,6 +48,15 @@ class OnboardingSecondViewController: BaseViewController, View {
             attributes: [.paragraphStyle: centeredParagraphStyle])
         textField.textAlignment = NSTextAlignment.center
         return textField
+    }()
+
+    private let nicknameInValidTitleLabel: UILabel = {
+        let label = UILabel()
+        label.text = "이미 존재하는 닉네임입니다."
+        label.textColor = UIColor(red: 249/255, green: 71/255, blue: 71/255, alpha: 1)
+        label.font = UIFont.systemFont(ofSize: 13, weight: .regular)
+        label.textAlignment = .center
+        return label
     }()
 
     private let nextButton: UIButton = {
@@ -65,7 +75,7 @@ class OnboardingSecondViewController: BaseViewController, View {
     override func setLayout() {
         super.setLayout()
 
-        self.view.addSubviews(self.setiondotImageView, self.mainLabel, self.textField, self.nextButton)
+        self.view.addSubviews(self.setiondotImageView, self.mainLabel, self.textField, self.nicknameInValidTitleLabel,self.nextButton)
         NSLayoutConstraint.activate([
 
             self.setiondotImageView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 44),
@@ -81,6 +91,9 @@ class OnboardingSecondViewController: BaseViewController, View {
             self.textField.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
             self.textField.heightAnchor.constraint(equalToConstant: 52),
 
+            self.nicknameInValidTitleLabel.topAnchor.constraint(equalTo: self.textField.bottomAnchor, constant: 14),
+            self.nicknameInValidTitleLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+
             self.nextButton.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
             self.nextButton.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             self.nextButton.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
@@ -92,9 +105,10 @@ class OnboardingSecondViewController: BaseViewController, View {
         super.viewDidLoad()
 
         self.navigationController?.isNavigationBarHidden = true
+        self.nicknameInValidTitleLabel.isHidden = true
+        self.textField.layer.borderColor = UIColor.white.cgColor
 
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
-
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
 
@@ -111,7 +125,6 @@ extension OnboardingSecondViewController {
     func bind(reactor: OnboardingSecondReactor) {
 
         self.textField.rx.controlEvent([.allTouchEvents])
-            .asObservable()
             .subscribe(onNext: {
                 self.textField.becomeFirstResponder()
             })
@@ -123,14 +136,14 @@ extension OnboardingSecondViewController {
             })
             .disposed(by: self.disposeBag)
 
-        self.textField.rx.text.orEmpty
+        self.textField.rx.text.orEmpty.changed
             .subscribe(onNext: { text in
                 self.trimNickname(text)
             })
             .disposed(by: disposeBag)
 
-        self.textField.rx.text
-            .map { return Reactor.Action.makeNickname($0)}
+        self.textField.rx.text.orEmpty.changed
+            .map { Reactor.Action.setNickname($0) }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
 
@@ -149,9 +162,39 @@ extension OnboardingSecondViewController {
                 self.nextButton.backgroundColor = isEnabled ? UIColor(named: "Black") : UIColor(named: "Gray100")
             })
             .disposed(by: disposeBag)
+
+        reactor.state
+            .map { $0.isValideNickname }
+            .subscribe(onNext: {
+                if $0 == true {
+                    self.nicknameInValidTitleLabel.isHidden = true
+                    self.textField.layer.borderColor = UIColor.white.cgColor
+                    self.textField.layer.borderWidth = 1
+                } else {
+                    self.nicknameInValidTitleLabel.isHidden = false
+                    self.textField.layer.borderColor = UIColor(red: 249/255, green: 71/255, blue: 71/255, alpha: 1).cgColor
+                    self.textField.layer.borderWidth = 1
+                }
+            })
+            .disposed(by: disposeBag)
+
+        reactor.state
+            .map { $0.nickname }
+            .subscribe(onNext: {
+                self.textField.text = $0
+            })
+            .disposed(by: self.disposeBag)
+
+        reactor.state
+            .map { $0.isLoading }
+            .distinctUntilChanged()
+            .bind(to: activityIndicator.rx.isAnimating)
+            .disposed(by: self.disposeBag)
+
     }
 
     private func trimNickname(_ nickname: String) {
+
         if nickname.count > 6 {
             let index = nickname.index(nickname.startIndex, offsetBy: 6)
             self.textField.text = String(nickname[..<index])
