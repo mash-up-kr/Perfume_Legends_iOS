@@ -244,6 +244,11 @@ extension OnboardingFourthViewController {
                 self.navigationController?.pushViewController(viewController, animated: false)
             })
             .disposed(by: self.disposeBag)
+
+        reactor.state.map { $0.isLoading }
+        .distinctUntilChanged()
+        .bind(to: activityIndicator.rx.isAnimating)
+        .disposed(by: disposeBag)
     }
 }
 

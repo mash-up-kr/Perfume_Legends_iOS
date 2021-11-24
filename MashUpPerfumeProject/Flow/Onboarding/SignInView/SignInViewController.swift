@@ -79,5 +79,11 @@ extension SignInViewController {
                     self.navigationController?.pushViewController(onboardingFirstViewController, animated: false)
                 }
             })
+
+        reactor.state
+            .map { $0.isLoading }
+            .distinctUntilChanged()
+            .bind(to: activityIndicator.rx.isAnimating)
+            .disposed(by: self.disposeBag)
     }
 }

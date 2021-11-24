@@ -21,6 +21,7 @@ final class SignInReactor: Reactor {
         case setMemberInfo(MemberInfo?, Bool)
         case setLogInInfo(Member)
         case setAccessTokenExistence(Bool)
+        case setIsLoading(Bool)
     }
 
     struct State {
@@ -30,6 +31,7 @@ final class SignInReactor: Reactor {
         var memberInfo: MemberInfo?
         var isSuccess: Bool?
         var accessTokenExistence: Bool?
+        var isLoading = false
     }
 
     var initialState = State()
@@ -41,17 +43,32 @@ final class SignInReactor: Reactor {
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
         case let .requestMemberInfo:
-            return APIService.shared.getMe()
-                .asObservable()
-                .map(MemberInfo.self, atKeyPath: "data.member", using: JSONDecoder(), failsOnEmptyData: false)
-                .map { Mutation.setMemberInfo($0, true) }
-                .catchAndReturn(.setMemberInfo(nil, false))
+
+            return Observable.concat([
+                .just(.setIsLoading(true)),
+
+                APIService.shared.getMe()
+                    .asObservable()
+                    .map(MemberInfo.self, atKeyPath: "data.member", using: JSONDecoder(), failsOnEmptyData: false)
+                    .map { Mutation.setMemberInfo($0, true) }
+                    .catchAndReturn(.setMemberInfo(nil, false)),
+
+                .just(.setIsLoading(false))
+            ])
         case let .postLogInInfo(type, id):
-            return APIService.shared.login(logInInfo: Login(idProviderType: type, idProviderUserId: id))
-                .asObservable()
-                .map(Member.self, atKeyPath: "data", using: JSONDecoder(), failsOnEmptyData: false)
-                .map { Mutation.setLogInInfo($0) }
-                .catchAndReturn(Mutation.setLogInInfo(Member(accessToken: "아아아모르겟다", member: MemberInfo(id: 213123, status: "", name: "", gender: "", ageGroup: ""))))
+
+            return Observable.concat([
+                .just(.setIsLoading(true)),
+
+                APIService.shared.login(logInInfo: Login(idProviderType: type, idProviderUserId: id))
+                    .asObservable()
+                    .map(Member.self, atKeyPath: "data", using: JSONDecoder(), failsOnEmptyData: false)
+                    .map { Mutation.setLogInInfo($0) }
+                    .catchAndReturn(Mutation.setLogInInfo(Member(accessToken: "아아아모르겟다", member: MemberInfo(id: 213123, status: "", name: "", gender: "", ageGroup: "")))),
+
+                .just(.setIsLoading(false))
+            ])
+
         case let .requestAccessToken(accessToken):
             if accessToken != nil {
                 return .just(.setAccessTokenExistence(true))
@@ -68,10 +85,15 @@ final class SignInReactor: Reactor {
         case let .setMemberInfo(memberInfo, isSuccess):
             newState.memberInfo = memberInfo
             newState.isSuccess = isSuccess
+
         case let .setLogInInfo(logInInfo):
             newState.accessToken = logInInfo.accessToken
+
         case let .setAccessTokenExistence(bool):
             newState.accessTokenExistence = bool
+
+        case let .setIsLoading(isLoading):
+            newState.isLoading = isLoading
         }
         print(newState)
 

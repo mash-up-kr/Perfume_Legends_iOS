@@ -21,6 +21,7 @@ final class OnboardingFourthReactor: Reactor {
         case setNoteGroups([NoteGroup])
         case setPerfumeType([Int]?)
         case setMemberInitialize(MemberInfo?)
+        case setIsLoading(Bool)
     }
 
     struct State {
@@ -28,6 +29,7 @@ final class OnboardingFourthReactor: Reactor {
         let age: String?
         var perfumeTypes: [Int]?
         var noteGroups: [NoteGroup]?
+        var isLoading = false
     }
 
     let initialState: State
@@ -39,10 +41,17 @@ final class OnboardingFourthReactor: Reactor {
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
         case .requestNote:
-            return APIService.shared.getNoteGroups()
-                .asObservable()
-                .map([NoteGroup].self, atKeyPath: "data.noteGroups", using: JSONDecoder(), failsOnEmptyData: false)
-                .map { Mutation.setNoteGroups($0) }
+
+            return Observable.concat([
+                .just(.setIsLoading(true)),
+
+                APIService.shared.getNoteGroups()
+                    .asObservable()
+                    .map([NoteGroup].self, atKeyPath: "data.noteGroups", using: JSONDecoder(), failsOnEmptyData: false)
+                    .map { Mutation.setNoteGroups($0) },
+
+                .just(.setIsLoading(false))
+            ])
 
         case let .selectPerfumeType(perfumeTypes):
             return .just(.setPerfumeType(perfumeTypes))
@@ -68,6 +77,9 @@ final class OnboardingFourthReactor: Reactor {
 
         case let .setMemberInitialize(memberInfo):
             break
+
+        case let .setIsLoading(isLoading):
+            newState.isLoading = isLoading
         }
 
         print(newState)

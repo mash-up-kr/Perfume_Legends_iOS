@@ -22,6 +22,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let idProviderType = "UUID"
         let idProviderUserId = UIDevice.current.identifierForVendor!.uuidString
         let accesstoken = UserDefaults.standard.string(forKey: "accesstoken")
+        print("\(idProviderType),\(idProviderUserId), \(accesstoken)")
 
         let signInViewController = SignInViewController()
         signInViewController.reactor = SignInReactor(idProviderType: idProviderType, idProviderUserId: idProviderUserId, accesstoken: accesstoken)

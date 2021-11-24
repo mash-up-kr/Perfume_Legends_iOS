@@ -185,6 +185,12 @@ extension OnboardingSecondViewController {
             })
             .disposed(by: self.disposeBag)
 
+        reactor.state
+            .map { $0.isLoading }
+            .distinctUntilChanged()
+            .bind(to: activityIndicator.rx.isAnimating)
+            .disposed(by: self.disposeBag)
+
     }
 
     private func trimNickname(_ nickname: String) {

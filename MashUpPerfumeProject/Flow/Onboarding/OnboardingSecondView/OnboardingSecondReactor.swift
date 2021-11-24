@@ -17,11 +17,13 @@ final class OnboardingSecondReactor: Reactor {
 
     enum Mutation {
         case setNickname(String?, Bool?)
+        case setIsLoading(Bool)
     }
 
     struct State {
         var nickname: String?
         var isValideNickname: Bool?
+        var isLoading = false
     }
 
     let initialState = State()
@@ -33,12 +35,19 @@ final class OnboardingSecondReactor: Reactor {
             let newNickname = makeNewNickname(nickname: nickname)
 
             if newNickname.count > 1 {
-                return APIService.shared.updateNickName(nicknameInfo: NickName(nickname: newNickname))
-                    .asObservable()
-                    .map { _ in
-                        Mutation.setNickname(newNickname, true)
-                    }
-                    .catchAndReturn(.setNickname(newNickname, false))
+
+                return  Observable.concat([
+                    .just(.setIsLoading(true)),
+
+                    APIService.shared.updateNickName(nicknameInfo: NickName(nickname: newNickname))
+                        .asObservable()
+                        .map { _ in
+                            Mutation.setNickname(newNickname, true)
+                        }
+                        .catchAndReturn(.setNickname(newNickname, false)),
+
+                    .just(.setIsLoading(false))
+                ])
             } else {
                 return .just(.setNickname(nickname, true))
             }
@@ -53,6 +62,9 @@ final class OnboardingSecondReactor: Reactor {
             newState.nickname = nickname
             newState.isValideNickname = isValidNickname
             print(nickname, isValidNickname)
+
+        case let .setIsLoading(isLoading):
+            newState.isLoading = isLoading
         }
 
         return newState
@@ -63,7 +75,7 @@ extension OnboardingSecondReactor {
     func makeNewNickname(nickname: String) -> String {
 
         var newNickname = nickname.trimmingCharacters(in: .whitespaces)
-        newNickname = nickname.components(separatedBy: ["~","!","@",","," "]).joined()
+        newNickname = nickname.components(separatedBy: ["~","!","@",","," ",".","/","?","<",">","#","$","%","^","&","*","(",")","-","_","+","="]).joined()
 
         return newNickname
     }

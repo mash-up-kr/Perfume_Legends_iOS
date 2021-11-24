@@ -304,17 +304,17 @@ extension OnboardingThirdViewController {
         })
         .disposed(by: disposeBag)
 
-        reactor.state.map { $0.age }
-        .distinctUntilChanged()
-        .subscribe(onNext: {
-            self.teenagerButton.isSelected = $0 == .TEENAGER
-            self.twentiesButton.isSelected = $0 == .TWENTIES
-            self.thirtiesButton.isSelected = $0 == .THIRTIES
-            self.fouriesButton.isSelected = $0 == .FOURTIES
-            self.fiftiesButton.isSelected = $0 == .FIFTIES
-        })
-        .disposed(by: disposeBag)
-
+        reactor.state
+            .map { $0.age }
+            .distinctUntilChanged()
+            .subscribe(onNext: {
+                self.teenagerButton.isSelected = $0 == .TEENAGER
+                self.twentiesButton.isSelected = $0 == .TWENTIES
+                self.thirtiesButton.isSelected = $0 == .THIRTIES
+                self.fouriesButton.isSelected = $0 == .FOURTIES
+                self.fiftiesButton.isSelected = $0 == .FIFTIES
+            })
+            .disposed(by: disposeBag)
     }
 }
 
