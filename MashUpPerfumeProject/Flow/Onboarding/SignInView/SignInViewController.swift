@@ -21,18 +21,32 @@ class SignInViewController: BaseViewController, View {
         return label
     }()
 
+    private let imageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "SignInImage")
+        return imageView
+    }()
+
     var disposeBag = DisposeBag()
 
     override func setLayout() {
         super.setLayout()
 
-        self.view.addSubviews(self.titleLabel)
+        self.view.addSubviews(self.imageView)
 
         NSLayoutConstraint.activate([
 
-            self.titleLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-            self.titleLabel.centerYAnchor.constraint(equalTo: self.view.centerYAnchor)
+            self.imageView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 0),
+            self.imageView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 0),
+            self.imageView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: 0),
+            self.imageView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0)
         ])
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        self.navigationController?.isNavigationBarHidden = true
     }
 }
 

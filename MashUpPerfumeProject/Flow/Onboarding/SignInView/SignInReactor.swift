@@ -55,6 +55,7 @@ final class SignInReactor: Reactor {
 
                 .just(.setIsLoading(false))
             ])
+            
         case let .postLogInInfo(type, id):
 
             return Observable.concat([
@@ -64,7 +65,7 @@ final class SignInReactor: Reactor {
                     .asObservable()
                     .map(Member.self, atKeyPath: "data", using: JSONDecoder(), failsOnEmptyData: false)
                     .map { Mutation.setLogInInfo($0) }
-                    .catchAndReturn(Mutation.setLogInInfo(Member(accessToken: "아아아모르겟다", member: MemberInfo(id: 213123, status: "", name: "", gender: "", ageGroup: "")))),
+                    .catchAndReturn(Mutation.setLogInInfo(Member(accessToken: "", member: MemberInfo(id: 213123, status: "", name: "", gender: "", ageGroup: "")))),
 
                 .just(.setIsLoading(false))
             ])
