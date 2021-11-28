@@ -36,15 +36,15 @@ final class PerfumeDetailNameView: UIView {
     private let ownCountLabel: UILabel = {
        let label = UILabel()
         label.textColor = .black
-        label.font = .systemFont(ofSize: 12, weight: .bold)
-        label.text = "0명이 이 향수를 가지고 있어요."
-        label.isHidden = true
+        label.font = .systemFont(ofSize: 12)
+        label.text = "0명이 이 향수에 관심있어요."
         
         return label
     }()
     
     private let diggingButton: UIButton = {
         let button = UIButton()
+        button.setImage(UIImage(named: "ic_dig_black_23"), for: .normal)
         button.layer.cornerRadius = 25
         button.layer.borderColor = UIColor(white: 0, alpha: 0.25).cgColor
         button.layer.borderWidth = 0.5

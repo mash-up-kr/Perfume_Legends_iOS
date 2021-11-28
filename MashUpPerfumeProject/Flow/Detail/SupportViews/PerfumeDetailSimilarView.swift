@@ -49,8 +49,8 @@ final class PerfumeDetailSimilarView: UIView {
             titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
             
             stackView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 32),
-            stackView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            stackView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
             stackView.heightAnchor.constraint(equalToConstant: 167),
             stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -30),
             
@@ -123,9 +123,9 @@ extension PerfumeDetailSimilarView {
             ])
         }
         
-        func setView(item: SearchResult.Item) {
+        func setView(item: PerfumeDetail.Item) {
             titleLabel.text = item.name
-            if let imageURL = URL(string: item.thumbnailImageUrl) {
+            if let imageURL = URL(string: item.image) {
                 perfumeImageView.kf.setImage(with: imageURL, placeholder: nil, options: nil, completionHandler: nil)
             }
         }

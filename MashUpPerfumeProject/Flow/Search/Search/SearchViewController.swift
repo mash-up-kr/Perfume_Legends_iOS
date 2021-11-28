@@ -205,6 +205,8 @@ final class SearchViewController: BaseViewController, View {
 
 extension SearchViewController {
     func bind(reactor: SearchReactor) {
+        reactor.action.onNext(.requestNoteGroups)
+        
         searchTextField.rx.controlEvent(.editingDidBegin)
             .subscribe(onNext: { [weak self] in
                 self?.isHiddenTitle = true
@@ -232,7 +234,7 @@ extension SearchViewController {
             })
             .disposed(by: disposeBag)
         
-        reactor.state.map { $0.notes }
+        reactor.state.map { $0.noteGroups }
         .bind(to: collectionView.rx.items(cellIdentifier: OnboardingCollectionViewCell.reuseIdentifier, cellType: OnboardingCollectionViewCell.self)) { index, element, cell in
             cell.configure(element)
         }.disposed(by: disposeBag)
@@ -253,7 +255,7 @@ extension SearchViewController {
         }
         .disposed(by: disposeBag)
         
-        collectionView.rx.modelSelected(OnboardingFourthViewController.CollectionViewModel.self)
+        collectionView.rx.modelSelected(NoteGroup.self)
             .subscribe(onNext: { [weak self] in
                 guard let self = self else { return }
                 self.pushNoteGroupViewController(id: $0.id)

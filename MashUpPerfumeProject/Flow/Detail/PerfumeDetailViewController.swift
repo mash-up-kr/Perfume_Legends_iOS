@@ -76,6 +76,12 @@ extension PerfumeDetailViewController {
     func bind(reactor: PerfumeDetailReactor) {
         reactor.action.onNext(.requestPerfume)
         
+        notesView.rx.note.compactMap { $0 }
+            .distinctUntilChanged()
+            .map { Reactor.Action.updateSelectedNote($0) }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
         reactor.state.compactMap { $0.perfumeDetail }
         .subscribe(onNext: { [weak self] in
             guard let self = self else { return }
@@ -86,6 +92,12 @@ extension PerfumeDetailViewController {
             self.similarView.setView(perfumeDetail: $0)
             
         })
+        .disposed(by: disposeBag)
+        
+        reactor.state.compactMap { $0.notes }
+        .bind(to: notesView.collectionView.rx.items(cellIdentifier: PerfumeDetailNotesView.NoteCell.reuseIdentifier, cellType: PerfumeDetailNotesView.NoteCell.self)) { index, element, cell in
+            cell.configure(title: element)
+        }
         .disposed(by: disposeBag)
     }
 }

@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 final class PerfumeDetailNotesView: UIView {
     private let titleLabel: UILabel = {
@@ -17,7 +19,24 @@ final class PerfumeDetailNotesView: UIView {
         return label
     }()
     
-    private let noteButton = NoteButton()
+    fileprivate let noteButton = NoteButton()
+    
+    var collectionView: ContentsizedCollectionView = {
+
+        let flowlayout = UICollectionViewFlowLayout()
+        flowlayout.minimumInteritemSpacing = 18
+        flowlayout.minimumLineSpacing = 18
+        flowlayout.sectionInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
+
+        let itemWidth = ((UIScreen.main.bounds.width - 76) / 3)
+        flowlayout.itemSize = CGSize(width: itemWidth, height: 45)
+
+        let collectionView = ContentsizedCollectionView(frame: .zero, collectionViewLayout: flowlayout)
+        collectionView.backgroundColor = .clear
+        collectionView.register(NoteCell.self, forCellWithReuseIdentifier: NoteCell.reuseIdentifier)
+
+        return collectionView
+    }()
         
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -32,7 +51,7 @@ final class PerfumeDetailNotesView: UIView {
     }
     
     private func setLayout() {
-        addSubviews(titleLabel, noteButton)
+        addSubviews(titleLabel, noteButton, collectionView)
         
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 30),
@@ -41,13 +60,23 @@ final class PerfumeDetailNotesView: UIView {
             
             noteButton.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 32),
             noteButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-            noteButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20)
+            
+            collectionView.topAnchor.constraint(equalTo: noteButton.bottomAnchor, constant: 32),
+            collectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -30)
         ])
     }
 }
 
+extension Reactive where Base: PerfumeDetailNotesView {
+    var note: PublishRelay<NoteCase?> {
+        base.noteButton.note
+    }
+}
+
 extension PerfumeDetailNotesView {
-    private final class NoteButton: UIView {
+    fileprivate final class NoteButton: UIView {
         private let stackView: UIStackView = {
             let stackView = UIStackView()
             stackView.axis = .horizontal
@@ -83,16 +112,22 @@ extension PerfumeDetailNotesView {
             return button
         }()
         
+        private var disposeBag = DisposeBag()
+        
+        var note: PublishRelay<NoteCase?> = .init()
+        
         override init(frame: CGRect) {
             super.init(frame: frame)
             
             setLayout()
+            bind()
         }
         
         required init?(coder: NSCoder) {
             super.init(coder: coder)
             
             setLayout()
+            bind()
         }
         
         private func setLayout() {
@@ -120,14 +155,84 @@ extension PerfumeDetailNotesView {
             setButtonState(baseButton, isSelected: false)
         }
         
-        
-        
         private func setButtonState(_ button: UIButton, isSelected: Bool) {
             button.backgroundColor = isSelected ? .skyBlue : .clear
             button.setTitleColor(isSelected ? .white : .gray200 , for: .normal)
             button.layer.borderWidth = isSelected ? .zero : 1
             button.layer.borderColor = isSelected ? nil : UIColor.gray100.cgColor
             button.titleLabel?.font = .systemFont(ofSize: 14, weight: isSelected ? .bold : .regular)
+        }
+        
+        private func bind() {
+            topButton.rx.tap
+                .map { NoteCase.top }
+                .bind(to: note)
+                .disposed(by: disposeBag)
+            
+            middleButton.rx.tap
+                .map { NoteCase.middle }
+                .bind(to: note)
+                .disposed(by: disposeBag)
+            
+            baseButton.rx.tap
+                .map { NoteCase.base }
+                .bind(to: note)
+                .disposed(by: disposeBag)
+            
+            note
+                .distinctUntilChanged()
+                .subscribe(onNext: { [weak self] in
+                    guard let self = self else { return }
+                    self.setButtonState(self.topButton, isSelected: $0 == .top)
+                    self.setButtonState(self.middleButton, isSelected: $0 == .middle)
+                    self.setButtonState(self.baseButton, isSelected: $0 == .base)
+                })
+                .disposed(by: disposeBag)
+        }
+    }
+}
+
+extension PerfumeDetailNotesView {
+    final class NoteCell: UICollectionViewCell {
+        private let titleLabel: UILabel = {
+            let label = UILabel()
+            label.textColor = .black
+            label.font = .systemFont(ofSize: 14)
+            label.numberOfLines = 2
+            label.textAlignment = .center
+            
+            return label
+        }()
+        
+        override init(frame: CGRect) {
+            super.init(frame: frame)
+            
+            setLayout()
+            layer.cornerRadius = 8
+            backgroundColor = .whiteGray
+        }
+        
+        required init?(coder: NSCoder) {
+            super.init(coder: coder)
+            
+            setLayout()
+            layer.cornerRadius = 8
+            backgroundColor = .whiteGray
+        }
+        
+        private func setLayout() {
+            contentView.addSubviews(titleLabel)
+            
+            NSLayoutConstraint.activate([
+                titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
+                titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+                titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+                titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            ])
+        }
+        
+        func configure(title: String?) {
+            titleLabel.text = title
         }
     }
 }

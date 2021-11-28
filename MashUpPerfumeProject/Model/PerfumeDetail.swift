@@ -17,7 +17,7 @@ struct PerfumeDetail: Decodable, Equatable {
     let imageUrl: String
     let thumbnailImageUrl: String
     let notes: Notes
-    let similarPerfumes: [SearchResult.Item]
+    let similarPerfumes: [Item]
     
     struct Accord: Decodable, Equatable {
         let backgroundColor: String
@@ -33,4 +33,17 @@ struct PerfumeDetail: Decodable, Equatable {
         let top: [String]
         let unknown: [String]
     }
+    
+    struct Item: Decodable, Equatable {
+        let id: Int
+        let name: String
+        let image: String
+    }
+}
+
+enum NoteCase {
+    case top
+    case middle
+    case base
+    case unknown
 }
