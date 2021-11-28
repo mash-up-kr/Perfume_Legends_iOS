@@ -90,15 +90,23 @@ extension PerfumeDetailViewController {
             }
             self.detailNameView.setView(perfumeDetail: $0)
             self.similarView.setView(perfumeDetail: $0)
-            
         })
         .disposed(by: disposeBag)
+        
+        reactor.state.compactMap { $0.perfumeDetail?.accords }
+            .distinctUntilChanged()
+            .subscribe(onNext: { [weak self] in
+                guard let self = self else { return }
+                self.accordsView.setView(accords: $0)
+            })
+            .disposed(by: disposeBag)
         
         reactor.state.compactMap { $0.notes }
         .bind(to: notesView.collectionView.rx.items(cellIdentifier: PerfumeDetailNotesView.NoteCell.reuseIdentifier, cellType: PerfumeDetailNotesView.NoteCell.self)) { index, element, cell in
             cell.configure(title: element)
         }
         .disposed(by: disposeBag)
+        
     }
 }
 

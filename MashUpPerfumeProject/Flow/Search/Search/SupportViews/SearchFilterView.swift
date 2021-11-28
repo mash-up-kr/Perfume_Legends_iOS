@@ -49,7 +49,7 @@ final class SearchFilterView: UIView {
     
     private let disposeBag = DisposeBag()
     
-    fileprivate var filter: PublishRelay<SearchFilter?> = .init()
+    fileprivate var filter: PublishRelay<SearchFilter> = .init()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -111,7 +111,7 @@ final class SearchFilterView: UIView {
 }
 
 extension Reactive where Base: SearchFilterView {
-    var filter: PublishRelay<SearchFilter?> {
+    var filter: PublishRelay<SearchFilter> {
         base.filter
     }
 }

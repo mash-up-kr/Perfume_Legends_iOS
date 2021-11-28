@@ -14,16 +14,20 @@ final class SearchReactor: Reactor {
     enum Action {
         case requestNoteGroups
         case requestSearch(text: String?)
+        case requestChangeFilter(SearchFilter)
     }
     
     enum Mutation {
         case setNoteGroups([NoteGroup])
         case setSearchResult([SearchResult.Item])
+        case setQuery(String?)
+        case setFilter(SearchFilter)
         case setIsLoading(Bool)
     }
     
     struct State {
         var noteGroups: [NoteGroup] = []
+        var query: String?
         var filter: SearchFilter = .all
         var items: [SearchResult.Item]?
         var isLoading = false
@@ -55,7 +59,7 @@ final class SearchReactor: Reactor {
             return Observable.concat([
                 .just(.setIsLoading(true)),
                 
-                requestSearch(query: query)
+                requestSearch(query: query, filter: currentState.filter)
                     .asObservable()
                     .map {
                         log(String(data: $0.data, encoding: .utf8))
@@ -63,6 +67,27 @@ final class SearchReactor: Reactor {
                     }
                     .map(SearchResult.self, atKeyPath: "data", using: JSONDecoder(), failsOnEmptyData: false)
                     .map { Mutation.setSearchResult($0.items) },
+                
+                .just(.setQuery(query)),
+            
+                .just(.setIsLoading(false))
+            ])
+            
+        case let .requestChangeFilter(filter):
+            guard let query = currentState.query, query != "" else { return .just(.setSearchResult([])) }
+            return Observable.concat([
+                .just(.setIsLoading(true)),
+                
+                requestSearch(query: query, filter: filter)
+                    .asObservable()
+                    .map {
+                        log(String(data: $0.data, encoding: .utf8))
+                        return $0
+                    }
+                    .map(SearchResult.self, atKeyPath: "data", using: JSONDecoder(), failsOnEmptyData: false)
+                    .map { Mutation.setSearchResult($0.items) },
+                
+                .just(.setFilter(filter)),
             
                 .just(.setIsLoading(false))
             ])
@@ -75,6 +100,12 @@ final class SearchReactor: Reactor {
         case let .setNoteGroups(noteGroups):
             newState.noteGroups = noteGroups
             
+        case let .setQuery(query):
+            newState.query = query
+            
+        case let .setFilter(filter):
+            newState.filter = filter
+            
         case let .setSearchResult(items):
             newState.items = items
             
@@ -86,7 +117,7 @@ final class SearchReactor: Reactor {
 }
 
 extension SearchReactor {
-    private func requestSearch(query: String) -> Single<Response> {
-        APIService.shared.requestSearch(query: query)
+    private func requestSearch(query: String, filter: SearchFilter) -> Single<Response> {
+        APIService.shared.requestSearch(query: query, filter: filter)
     }
 }

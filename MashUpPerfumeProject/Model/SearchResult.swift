@@ -47,7 +47,7 @@ extension SearchResult {
 }
 
 enum SearchFilter: String {
-    case all = "all"
-    case brand = "brand"
-    case perfume = "perfume"
+    case all = "ALL"
+    case brand = "BRAND"
+    case perfume = "PERFUME"
 }

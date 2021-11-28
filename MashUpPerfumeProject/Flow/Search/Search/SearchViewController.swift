@@ -214,6 +214,11 @@ extension SearchViewController {
     func bind(reactor: SearchReactor) {
         reactor.action.onNext(.requestNoteGroups)
         
+        filterView.rx.filter
+            .map { Reactor.Action.requestChangeFilter($0) }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
         searchTextField.rx.controlEvent(.editingDidBegin)
             .subscribe(onNext: { [weak self] in
                 self?.isHiddenTitle = true
