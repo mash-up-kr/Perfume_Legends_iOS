@@ -85,6 +85,8 @@ final class SearchViewController: BaseViewController, View {
         return view
     }()
     
+    private let filterView = SearchFilterView()
+    
     private let tableView: UITableView = {
         let tableView = UITableView()
         tableView.backgroundColor = .clear
@@ -92,6 +94,7 @@ final class SearchViewController: BaseViewController, View {
         tableView.keyboardDismissMode = .onDrag
         tableView.register(SearchBrandTableViewCell.self, forCellReuseIdentifier: SearchBrandTableViewCell.reuseIdentifier)
         tableView.register(SearchPerfumeTableViewCell.self, forCellReuseIdentifier: SearchPerfumeTableViewCell.reuseIdentifier)
+        tableView.contentInset.top = 20
         
         return tableView
     }()
@@ -152,7 +155,7 @@ final class SearchViewController: BaseViewController, View {
         view.addSubviews(topDummyView)
         textFieldStackView.addArrangedSubviews(searchTextField, cancelButton)
         noteCollectionBackgroundView.addSubviews(noteGroupCollectionTitleLabel, collectionView)
-        perfumeTableBackgroundView.addSubviews(tableView)
+        perfumeTableBackgroundView.addSubviews(filterView, tableView)
         
         
         titleLabelTopConstraint = titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 23)
@@ -195,7 +198,11 @@ final class SearchViewController: BaseViewController, View {
             perfumeTableBackgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             perfumeTableBackgroundView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             
-            tableView.topAnchor.constraint(equalTo: perfumeTableBackgroundView.topAnchor),
+            filterView.topAnchor.constraint(equalTo: perfumeTableBackgroundView.topAnchor, constant: 12),
+            filterView.leadingAnchor.constraint(equalTo: perfumeTableBackgroundView.leadingAnchor),
+            filterView.trailingAnchor.constraint(equalTo: perfumeTableBackgroundView.trailingAnchor),
+            
+            tableView.topAnchor.constraint(equalTo: filterView.bottomAnchor),
             tableView.leadingAnchor.constraint(equalTo: perfumeTableBackgroundView.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: perfumeTableBackgroundView.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: perfumeTableBackgroundView.bottomAnchor),

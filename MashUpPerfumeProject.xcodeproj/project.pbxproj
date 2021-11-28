@@ -74,6 +74,8 @@
 		B1F1E754273FE0B200C519E8 /* UITableViewCell+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F1E753273FE0B200C519E8 /* UITableViewCell+Extension.swift */; };
 		B1F1E756273FE14700C519E8 /* UICollectionViewCell+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F1E755273FE14700C519E8 /* UICollectionViewCell+Extension.swift */; };
 		B1F1E758273FE1A900C519E8 /* SearchPerfumeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F1E757273FE1A900C519E8 /* SearchPerfumeTableViewCell.swift */; };
+		B1FF23E427537BC000DEAFD8 /* UnderlineButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1FF23E327537BC000DEAFD8 /* UnderlineButton.swift */; };
+		B1FF23E627537DD800DEAFD8 /* SearchFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1FF23E527537DD800DEAFD8 /* SearchFilterView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -136,6 +138,8 @@
 		B1F1E753273FE0B200C519E8 /* UITableViewCell+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+Extension.swift"; sourceTree = "<group>"; };
 		B1F1E755273FE14700C519E8 /* UICollectionViewCell+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionViewCell+Extension.swift"; sourceTree = "<group>"; };
 		B1F1E757273FE1A900C519E8 /* SearchPerfumeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPerfumeTableViewCell.swift; sourceTree = "<group>"; };
+		B1FF23E327537BC000DEAFD8 /* UnderlineButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnderlineButton.swift; sourceTree = "<group>"; };
+		B1FF23E527537DD800DEAFD8 /* SearchFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFilterView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -168,9 +172,9 @@
 				9D0CC587273E7FA0005F22EA /* NickName.swift */,
 				9D9B04AC274009D100ED76D3 /* NoteGroup.swift */,
 				9D63ADF4273EB89B009A05CF /* Member.swift */,
-                B13B7B83273D6E6400156CEC /* Note.swift */,
-                B19EC957274AB296006FF5B8 /* PerfumeDetail.swift */,
-                B1DAC71E273FEDB3009326C0 /* SearchResult.swift */,
+				B13B7B83273D6E6400156CEC /* Note.swift */,
+				B19EC957274AB296006FF5B8 /* PerfumeDetail.swift */,
+				B1DAC71E273FEDB3009326C0 /* SearchResult.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -354,6 +358,7 @@
 			isa = PBXGroup;
 			children = (
 				B11DBFFB273AC910008166AF /* SearchTextField.swift */,
+				B1FF23E527537DD800DEAFD8 /* SearchFilterView.swift */,
 				B1F1E751273FDEA400C519E8 /* SearchBrandTableViewCell.swift */,
 				B1F1E757273FE1A900C519E8 /* SearchPerfumeTableViewCell.swift */,
 			);
@@ -426,6 +431,7 @@
 			children = (
 				B12EB70E2736A1E900103E42 /* SeparatorView.swift */,
 				9D2D5C3A2737F730005E1AF6 /* ContentsizedCollectionView.swift */,
+				B1FF23E327537BC000DEAFD8 /* UnderlineButton.swift */,
 				9D2D5C3C2737F74A005E1AF6 /* SeletableButton.swift */,
 			);
 			path = Components;
@@ -537,6 +543,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B1FF23E627537DD800DEAFD8 /* SearchFilterView.swift in Sources */,
 				B11E60402708CCA5002B1294 /* SearchViewController.swift in Sources */,
 				B1F1E752273FDEA400C519E8 /* SearchBrandTableViewCell.swift in Sources */,
 				B1F1E756273FE14700C519E8 /* UICollectionViewCell+Extension.swift in Sources */,
@@ -587,6 +594,7 @@
 				B19EC95A274AB989006FF5B8 /* PerfumeCollectionViewCell.swift in Sources */,
 				B1F1E754273FE0B200C519E8 /* UITableViewCell+Extension.swift in Sources */,
 				B1F1E758273FE1A900C519E8 /* SearchPerfumeTableViewCell.swift in Sources */,
+				B1FF23E427537BC000DEAFD8 /* UnderlineButton.swift in Sources */,
 				B12EB70627368E5B00103E42 /* UIStackView+Extension.swift in Sources */,
 				B1F1E750273FB00600C519E8 /* NoteGroupTableViewHeader.swift in Sources */,
 				B13B7B84273D6E6400156CEC /* Note.swift in Sources */,

@@ -24,6 +24,7 @@ final class SearchReactor: Reactor {
     
     struct State {
         var noteGroups: [NoteGroup] = []
+        var filter: SearchFilter = .all
         var items: [SearchResult.Item]?
         var isLoading = false
     }
