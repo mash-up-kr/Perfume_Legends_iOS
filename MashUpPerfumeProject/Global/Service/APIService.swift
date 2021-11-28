@@ -33,4 +33,9 @@ extension APIService {
     func requestPerfume(id: Int) -> Single<Response> {
         provider.rx.request(.requestPerfume(id: id))
     }
+    
+    func requestNotePerfumes(id: Int) -> Single<Response> {
+        provider.rx.request(.requestNotePerfumes(id: id))
+    }
 }
+

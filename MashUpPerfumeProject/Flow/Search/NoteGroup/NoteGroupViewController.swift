@@ -59,6 +59,13 @@ extension NoteGroupViewController {
             }
             .disposed(by: disposeBag)
         
+        tableView.rx.modelSelected(Note.self)
+            .subscribe(onNext: { [weak self] in
+                guard let self = self else { return }
+                self.pushNoteCollectionViewController(id: $0.id)
+            })
+            .disposed(by: disposeBag)
+        
         reactor.state.map { $0.isLoading }
         .distinctUntilChanged()
         .bind(to: activityIndicator.rx.isAnimating)
@@ -66,3 +73,12 @@ extension NoteGroupViewController {
     }
 }
 
+extension NoteGroupViewController {
+    private func pushNoteCollectionViewController(id: Int) {
+        let viewController = NoteCollectionViewController()
+        let reactor = NoteCollectionReactor(id: id)
+        viewController.reactor = reactor
+        
+        navigationController?.pushViewController(viewController, animated: true)
+    }
+}

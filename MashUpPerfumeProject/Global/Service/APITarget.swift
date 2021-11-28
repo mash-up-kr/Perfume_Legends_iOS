@@ -14,6 +14,7 @@ enum APITarget: TargetType {
     case requestNoteGroups(id: Int)
     case requestSearch(query: String)
     case requestPerfume(id: Int)
+    case requestNotePerfumes(id: Int)
     
     var baseURL: URL {
         // baseURL - 서버의 도메인
@@ -35,6 +36,9 @@ enum APITarget: TargetType {
             
         case let .requestPerfume(id):
             return "/perfumes/\(id)"
+            
+        case let .requestNotePerfumes(id):
+            return "/notes/\(id)"
         }
     }
     var method: Moya.Method {
@@ -50,6 +54,9 @@ enum APITarget: TargetType {
             return .post
             
         case .requestPerfume:
+            return .get
+            
+        case .requestNotePerfumes:
             return .get
         }
     }
@@ -75,6 +82,9 @@ enum APITarget: TargetType {
             return .requestParameters(parameters: ["name": query], encoding: JSONEncoding.default)
             
         case .requestPerfume:
+            return .requestPlain
+            
+        case .requestNotePerfumes:
             return .requestPlain
         }
         

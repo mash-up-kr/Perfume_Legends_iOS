@@ -233,7 +233,7 @@ extension SearchViewController {
             .disposed(by: disposeBag)
         
         reactor.state.map { $0.notes }
-        .bind(to: collectionView.rx.items(cellIdentifier: OnboardingCollectionViewCell.reuseIdentifier, cellType:   OnboardingCollectionViewCell.self)) { index, element, cell in
+        .bind(to: collectionView.rx.items(cellIdentifier: OnboardingCollectionViewCell.reuseIdentifier, cellType: OnboardingCollectionViewCell.self)) { index, element, cell in
             cell.configure(element)
         }.disposed(by: disposeBag)
         

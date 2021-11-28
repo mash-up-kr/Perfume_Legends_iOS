@@ -79,7 +79,7 @@ extension PerfumeDetailViewController {
         reactor.state.compactMap { $0.perfumeDetail }
         .subscribe(onNext: { [weak self] in
             guard let self = self else { return }
-            if let imageURL = URL(string: $0.thumbnailImageUrl) {
+            if let imageURL = URL(string: $0.imageUrl) {
                 self.perfumeImageView.kf.setImage(with: imageURL)
             }
             self.detailNameView.setView(perfumeDetail: $0)
