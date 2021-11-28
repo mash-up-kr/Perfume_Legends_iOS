@@ -18,11 +18,19 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let scene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: scene)
-        let onboardingViewController = SearchViewController()
-        onboardingViewController.reactor = SearchReactor()
-        
-        let rootNavigationViewController = UINavigationController(rootViewController: onboardingViewController)
-        window?.rootViewController = rootNavigationViewController
+
+        let idProviderType = "UUID"
+        let idProviderUserId = UIDevice.current.identifierForVendor!.uuidString
+        let accesstoken = UserDefaults.standard.string(forKey: "accesstoken")
+        print("\(idProviderType),\(idProviderUserId), \(accesstoken)")
+
+//        let signInViewController = SignInViewController()
+//        signInViewController.reactor = SignInReactor(idProviderType: idProviderType, idProviderUserId: idProviderUserId, accesstoken: accesstoken)
+//        let rootNavigationViewController = UINavigationController(rootViewController: signInViewController)
+//        self.window?.rootViewController = rootNavigationViewController
+        let vc = SearchViewController()
+        vc.reactor = SearchReactor()
+        self.window?.rootViewController = UINavigationController(rootViewController: vc)
         window?.makeKeyAndVisible()
     }
 
@@ -53,7 +61,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
     }
-
-
 }
 
+extension SceneDelegate {
+//    func
+}

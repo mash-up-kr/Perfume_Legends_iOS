@@ -1,0 +1,15 @@
+{
+  "images" : [
+    {
+      "filename" : "ic_gender_male_white_disabled_157.pdf",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  },
+  "properties" : {
+    "preserves-vector-representation" : true
+  }
+}

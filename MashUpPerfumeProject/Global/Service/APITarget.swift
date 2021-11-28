@@ -10,12 +10,17 @@ import Moya
 
 enum APITarget: TargetType {
     // 1. User - Authorization
-    case login(access: String) // 로그인
     case requestNoteGroups(id: Int)
     case requestSearch(query: String)
     case requestPerfume(id: Int)
     case requestNotePerfumes(id: Int)
-    
+    case initialize(initialize: Initialize)
+    case login(login: Login) // 로그인
+    case getMe
+    case updateNickName(nickName: NickName)
+    case getNoteGroups
+
+
     var baseURL: URL {
         // baseURL - 서버의 도메인
         return URL(string: "http://3.35.167.190/api/v1")!
@@ -24,10 +29,6 @@ enum APITarget: TargetType {
     // 세부 경로
     var path: String {
         switch self {
-        // 1. User - Authorization
-        case .login:
-            return "/user/login"
-            
         case let .requestNoteGroups(id):
             return "/note-groups/\(id)"
             
@@ -39,14 +40,26 @@ enum APITarget: TargetType {
             
         case let .requestNotePerfumes(id):
             return "/notes/\(id)"
+        case .initialize:
+            return "/members/initialize"
+            
+        case .login:
+            return "/members/login"
+            
+        case .getMe:
+            return "/members/me"
+            
+        case .updateNickName:
+            return "/members/me/nickname"
+            
+        case .getNoteGroups:
+            return "/note-groups"
         }
     }
+
     var method: Moya.Method {
         // method - 통신 method (get, post, put, delete ...)
         switch self {
-        case .login:
-            return .post
-            
         case .requestNoteGroups:
             return .get
             
@@ -57,6 +70,21 @@ enum APITarget: TargetType {
             return .get
             
         case .requestNotePerfumes:
+            return .get
+            
+        case .initialize:
+            return .post
+            
+        case .login:
+            return .post
+            
+        case .getMe:
+            return .get
+            
+        case .updateNickName:
+            return .put
+            
+        case .getNoteGroups:
             return .get
         }
     }
@@ -72,9 +100,6 @@ enum APITarget: TargetType {
         // 파라미터가 없을 때는 - .requestPlain
         // 파라미터 존재시에는 - .requestParameters(parameters: ["first_name": firstName, "last_name": lastName], encoding: JSONEncoding.default)
         switch self {
-        case .login(let access):
-            return .requestParameters(parameters: ["access_token": access], encoding: JSONEncoding.default)
-            
         case .requestNoteGroups:
             return .requestPlain
             
@@ -86,8 +111,23 @@ enum APITarget: TargetType {
             
         case .requestNotePerfumes:
             return .requestPlain
+            
+        case .initialize(let initialize):
+            return .requestJSONEncodable(initialize)
+            
+        case .login(let login):
+            return .requestJSONEncodable(login)
+            
+        case .getMe:
+            return .requestPlain
+//        case .updateNickName(let nickname):
+//            return .requestParameters(parameters: ["nickname": nickname], encoding: JSONEncoding.default)
+        case .updateNickName(let nickName):
+            return .requestJSONEncodable(nickName)
+            
+        case .getNoteGroups:
+            return .requestPlain
         }
-        
     }
     
     /// The type of validation to perform on the request. Default is `.none`.
@@ -103,6 +143,11 @@ enum APITarget: TargetType {
 //        case .login:
 //            return ["Content-Type":"application/json"]
 //        }
-        return ["Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhY20tYXBpLWRldmVsb3AiLCJtZW1iZXJJZCI6MjQ1ODU5fQ.t2stUH5_C8HcpjJb_IFtwG5o4xN5AAPgozvHxIPbTbM"]
+
+        if let accesstoken = UserDefaults.standard.string(forKey: "accesstoken") {
+            return ["Authorization": "Bearer \(accesstoken)"]
+        } else {
+            return ["Authorization": ""]
+        }
     }
 }
