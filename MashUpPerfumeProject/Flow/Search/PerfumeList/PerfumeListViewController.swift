@@ -39,6 +39,8 @@ final class PerfumeListViewController: BaseViewController, View {
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
+        
+        setIndicator()
     }
 }
 
@@ -55,6 +57,11 @@ extension PerfumeListViewController {
                 return cell
             }
             .disposed(by: disposeBag)
+        
+        reactor.state.map { $0.isLoading }
+        .distinctUntilChanged()
+        .bind(to: activityIndicator.rx.isAnimating)
+        .disposed(by: disposeBag)
         
         tableView.rx.modelSelected(SearchResult.Item.self)
             .subscribe(onNext: { [weak self] in

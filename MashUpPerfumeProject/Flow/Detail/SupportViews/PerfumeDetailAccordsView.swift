@@ -62,7 +62,7 @@ final class PerfumeDetailAccordsView: UIView {
     }
     
     func setView(accords: [PerfumeDetail.Accord]) {
-        firstAccordView.setView(accords: [accords[0]], font: .systemFont(ofSize: 14))
+        firstAccordView.setView(accords: [accords[0]], font: .systemFont(ofSize: 18, weight: .bold), textColor: .black)
         secondAccordView.setView(accords: [accords[1]], font: .systemFont(ofSize: 14))
         thirdAccordView.setView(accords: [accords[2]], font: .systemFont(ofSize: 14))
         fourthAccordView.setView(accords: Array(accords[3...(accords.count - 1)]), font: .systemFont(ofSize: 14), isColor: false)
@@ -74,7 +74,7 @@ extension PerfumeDetailAccordsView {
         private let topColorImageView: UIImageView = {
             let imageView = UIImageView()
             imageView.image = UIImage(named: "Frame")?.withRenderingMode(.alwaysTemplate)
-            imageView.tintColor = .gray200
+            imageView.tintColor = UIColor(red: 242/255, green: 242/255, blue: 242/255, alpha: 1)
             imageView.contentMode = .bottom
             
             return imageView
@@ -82,7 +82,7 @@ extension PerfumeDetailAccordsView {
         
         private let middleColorView: UIView = {
             let view = UIView()
-            view.backgroundColor = .gray200
+            view.backgroundColor = UIColor(red: 242/255, green: 242/255, blue: 242/255, alpha: 1)
             
             return view
         }()
@@ -144,10 +144,10 @@ extension PerfumeDetailAccordsView {
             ])
         }
         
-        func setView(accords: [PerfumeDetail.Accord], font: UIFont, isColor: Bool = true) {
+        func setView(accords: [PerfumeDetail.Accord], font: UIFont, textColor: UIColor = .gray200, isColor: Bool = true) {
             accords.forEach {
                 let label = UILabel()
-                label.textColor = .gray200
+                label.textColor = textColor
                 label.font = font
                 label.text = $0.name
                 if isColor {

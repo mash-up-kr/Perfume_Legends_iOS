@@ -38,6 +38,8 @@ final class NoteCollectionViewController: BaseViewController, View {
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
+        
+        setIndicator()
     }
 }
 
@@ -50,6 +52,11 @@ extension NoteCollectionViewController {
         .bind(to: collectionView.rx.items(cellIdentifier: PerfumeCollectionViewCell.reuseIdentifier, cellType: PerfumeCollectionViewCell.self)) { index, element, cell in
             cell.configure(item: element)
         }
+        .disposed(by: disposeBag)
+        
+        reactor.state.map { $0.isLoading }
+        .distinctUntilChanged()
+        .bind(to: activityIndicator.rx.isAnimating)
         .disposed(by: disposeBag)
         
         collectionView.rx.modelSelected(SearchResult.Item.self)
