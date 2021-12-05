@@ -51,7 +51,23 @@ extension NoteCollectionViewController {
             cell.configure(item: element)
         }
         .disposed(by: disposeBag)
+        
+        collectionView.rx.modelSelected(SearchResult.Item.self)
+            .subscribe(onNext: { [weak self] in
+                guard let self = self else { return }
+                self.pushPerfumeDetailViewController(id: $0.id)
+            })
+            .disposed(by: disposeBag)
     }
 }
 
+extension NoteCollectionViewController {
+    private func pushPerfumeDetailViewController(id: Int) {
+        let viewController = PerfumeDetailViewController()
+        let reactor = PerfumeDetailReactor(id: id)
+        viewController.reactor = reactor
+        
+        navigationController?.pushViewController(viewController, animated: true)
+    }
+}
 

@@ -39,9 +39,9 @@ final class NoteCollectionReactor: Reactor {
             return Observable.concat([
                 .just(.setIsLoading(true)),
                 
-                requestNotePerfumes(id: currentState.id)
+                getPerfumes(id: currentState.id)
                     .asObservable()
-                    .map([SearchResult.Item].self, atKeyPath: "data.note.perfumes")
+                    .map([SearchResult.Item].self, atKeyPath: "data.perfumes")
                     .map { Mutation.setPerfumes($0) }
                     .catch {
                         log($0)
@@ -67,7 +67,7 @@ final class NoteCollectionReactor: Reactor {
 }
 
 extension NoteCollectionReactor {
-    private func requestNotePerfumes(id: Int) -> Single<Response>{
-        APIService.shared.requestNotePerfumes(id: id)
+    private func getPerfumes(id: Int) -> Single<Response>{
+        APIService.shared.getPerfumes(noteId: id)
     }
 }

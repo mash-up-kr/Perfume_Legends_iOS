@@ -12,6 +12,9 @@ final class PerfumeCollectionViewCell: UICollectionViewCell {
     private let perfumeImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
+        imageView.backgroundColor = .white
+        imageView.layer.cornerRadius = 8
+        imageView.clipsToBounds = true
         
         return imageView
     }()
@@ -21,6 +24,7 @@ final class PerfumeCollectionViewCell: UICollectionViewCell {
         label.font = .systemFont(ofSize: 12, weight: .bold)
         label.textColor = .gray100
         label.text = "brandName"
+        label.textAlignment = .center
         
         return label
     }()
@@ -31,6 +35,7 @@ final class PerfumeCollectionViewCell: UICollectionViewCell {
         label.textColor = .black
         label.text = "brandName"
         label.numberOfLines = 2
+        label.textAlignment = .center
         
         return label
     }()
@@ -82,6 +87,7 @@ final class PerfumeCollectionViewCell: UICollectionViewCell {
 extension PerfumeCollectionViewCell {
     func configure(item: SearchResult.Item) {
         titleLabel.text = item.name
+        brandLabel.text = item.brandName
         if let imageURL = URL(string: item.thumbnailImageUrl) {
             perfumeImageView.kf.setImage(with: imageURL, placeholder: nil, options: nil, completionHandler: nil)
         }
