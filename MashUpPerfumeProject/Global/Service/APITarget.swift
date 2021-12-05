@@ -19,6 +19,7 @@ enum APITarget: TargetType {
     case getMe
     case updateNickName(nickName: NickName)
     case getNoteGroups
+    case getPerfumes(brandId: Int?, noteId: Int?, page: Int?)
 
 
     var baseURL: URL {
@@ -54,6 +55,9 @@ enum APITarget: TargetType {
             
         case .getNoteGroups:
             return "/note-groups"
+            
+        case .getPerfumes:
+            return "/perfumes"
         }
     }
 
@@ -85,6 +89,9 @@ enum APITarget: TargetType {
             return .put
             
         case .getNoteGroups:
+            return .get
+            
+        case .getPerfumes:
             return .get
         }
     }
@@ -130,6 +137,15 @@ enum APITarget: TargetType {
             
         case .getNoteGroups:
             return .requestPlain
+            
+        case let .getPerfumes(brandId, noteId, page):
+            let params: [String: Any?] = [
+                "brandId": brandId,
+                "noteId": noteId,
+                "page": page
+            ]
+            
+            return .requestParameters(parameters: params.compactMapValues { $0 }, encoding: URLEncoding.default)
         }
     }
     

@@ -61,7 +61,7 @@ final class SearchViewController: BaseViewController, View {
         return label
     }()
     
-    private var collectionView: ContentsizedCollectionView = {
+    private let collectionView: ContentsizedCollectionView = {
 
         let flowlayout = UICollectionViewFlowLayout()
         flowlayout.minimumInteritemSpacing = 12
@@ -254,7 +254,7 @@ extension SearchViewController {
                 guard let self = self else { return }
                 switch $0.type {
                 case .brand:
-                    break
+                    self.pushPerfumeListViewController(id: $0.id)
                 case .perfume:
                     self.pushPerfumeDetailViewController(id: $0.id)
                 case .none:
@@ -307,6 +307,14 @@ extension SearchViewController {
     private func pushPerfumeDetailViewController(id: Int) {
         let viewController = PerfumeDetailViewController()
         let reactor = PerfumeDetailReactor(id: id)
+        viewController.reactor = reactor
+        
+        navigationController?.pushViewController(viewController, animated: true)
+    }
+    
+    private func pushPerfumeListViewController(id: Int) {
+        let viewController = PerfumeListViewController()
+        let reactor = PerfumeListReactor(id: id)
         viewController.reactor = reactor
         
         navigationController?.pushViewController(viewController, animated: true)

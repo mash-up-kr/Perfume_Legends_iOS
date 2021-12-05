@@ -54,5 +54,10 @@ extension APIService {
     func requestNotePerfumes(id: Int) -> Single<Response> {
         provider.rx.request(.requestNotePerfumes(id: id))
     }
+
+    func getPerfumes(brandId: Int? = nil, noteId: Int? = nil, page: Int? = nil) -> Single<Response> {
+        provider.rx.request(.getPerfumes(brandId: brandId, noteId: noteId, page: page))
+    }
+    
 }
 
