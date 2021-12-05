@@ -106,7 +106,7 @@ enum APITarget: TargetType {
         case let .requestSearch(query, filter):
             return .requestParameters(parameters:
                                         ["name": query,
-                                         "filter": filter.rawValue],
+                                         "type": filter.rawValue],
                                       encoding: JSONEncoding.default)
             
         case .requestPerfume:

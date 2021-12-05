@@ -34,6 +34,7 @@ extension SearchResult {
         let id: Int
         let name: String
         let thumbnailImageUrl: String
+        let brandName: String?
         
         var type: SearchType?
     }

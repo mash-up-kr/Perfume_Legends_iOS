@@ -97,6 +97,7 @@ final class SearchPerfumeTableViewCell: UITableViewCell {
 extension SearchPerfumeTableViewCell {
     func configure(item: SearchResult.Item) {
         titleLabel.text = item.name
+        brandLabel.text = item.brandName
         if let imageURL = URL(string: item.thumbnailImageUrl) {
             perfumeImageView.kf.setImage(with: imageURL, placeholder: nil, options: nil, completionHandler: nil)
         }

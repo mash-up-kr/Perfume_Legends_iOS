@@ -15,6 +15,7 @@ final class SearchReactor: Reactor {
         case requestNoteGroups
         case requestSearch(text: String?)
         case requestChangeFilter(SearchFilter)
+        case requestResetSearch
     }
     
     enum Mutation {
@@ -22,6 +23,7 @@ final class SearchReactor: Reactor {
         case setSearchResult([SearchResult.Item])
         case setQuery(String?)
         case setFilter(SearchFilter)
+        case setResetSearch
         case setIsLoading(Bool)
     }
     
@@ -75,6 +77,7 @@ final class SearchReactor: Reactor {
             
         case let .requestChangeFilter(filter):
             guard let query = currentState.query, query != "" else { return .just(.setSearchResult([])) }
+            log(filter.rawValue)
             return Observable.concat([
                 .just(.setIsLoading(true)),
                 
@@ -91,6 +94,9 @@ final class SearchReactor: Reactor {
             
                 .just(.setIsLoading(false))
             ])
+            
+        case .requestResetSearch:
+            return .just(.setResetSearch)
         }
     }
     
@@ -108,6 +114,11 @@ final class SearchReactor: Reactor {
             
         case let .setSearchResult(items):
             newState.items = items
+            
+        case .setResetSearch:
+            newState.query = nil
+            newState.filter = .all
+            newState.items = nil
             
         case let .setIsLoading(isLoading):
             newState.isLoading = isLoading

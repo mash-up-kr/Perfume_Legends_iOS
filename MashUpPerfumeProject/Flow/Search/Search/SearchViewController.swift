@@ -224,13 +224,7 @@ extension SearchViewController {
                 self?.isHiddenTitle = true
             })
             .disposed(by: disposeBag)
-        
-//        searchTextField.rx.controlEvent(.editingDidEnd)
-//            .subscribe(onNext: { [weak self] in
-//                self?.isHiddenTitle = false
-//            })
-//            .disposed(by: disposeBag)
-        
+
         searchTextField.rx.text.changed
             .distinctUntilChanged()
             .throttle(.milliseconds(300), latest: true, scheduler: MainScheduler.asyncInstance)
@@ -239,33 +233,14 @@ extension SearchViewController {
             .disposed(by: disposeBag)
         
         cancelButton.rx.tap
-            .subscribe(onNext: { [weak self] in
+            .do(onNext: { [weak self] in
                 self?.view.endEditing(true)
                 self?.searchTextField.text = nil
                 self?.isHiddenTitle = false
             })
+            .map { Reactor.Action.requestResetSearch }
+            .bind(to: reactor.action)
             .disposed(by: disposeBag)
-        
-        reactor.state.map { $0.noteGroups }
-        .bind(to: collectionView.rx.items(cellIdentifier: OnboardingCollectionViewCell.reuseIdentifier, cellType: OnboardingCollectionViewCell.self)) { index, element, cell in
-            cell.configure(element)
-        }.disposed(by: disposeBag)
-        
-        reactor.state.compactMap { $0.items }
-        .distinctUntilChanged()
-        .bind(to: tableView.rx.items) { tableView, row, element in
-            let indexPath = IndexPath(row: row, section: 0)
-            if element.type == .brand {
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchBrandTableViewCell.reuseIdentifier, for: indexPath) as? SearchBrandTableViewCell else { return .init() }
-                cell.configure(item: element)
-                return cell
-            } else {
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchPerfumeTableViewCell.reuseIdentifier, for: indexPath) as? SearchPerfumeTableViewCell else { return .init() }
-                cell.configure(item: element)
-                return cell
-            }
-        }
-        .disposed(by: disposeBag)
         
         collectionView.rx.modelSelected(NoteGroup.self)
             .subscribe(onNext: { [weak self] in
@@ -286,6 +261,36 @@ extension SearchViewController {
                     break
                 }
             })
+            .disposed(by: disposeBag)
+        
+        reactor.state.map { $0.noteGroups }
+            .do(onNext : { [weak self] _ in
+                self?.tableView.setContentOffset(.zero, animated: false)
+            })
+            .bind(to: collectionView.rx.items(cellIdentifier: OnboardingCollectionViewCell.reuseIdentifier, cellType: OnboardingCollectionViewCell.self)) { index, element, cell in
+                cell.configure(element)
+            }
+            .disposed(by: disposeBag)
+        
+        reactor.state.compactMap { $0.items }
+            .distinctUntilChanged()
+            .bind(to: tableView.rx.items) { tableView, row, element in
+                let indexPath = IndexPath(row: row, section: 0)
+                if element.type == .brand {
+                    guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchBrandTableViewCell.reuseIdentifier, for: indexPath) as? SearchBrandTableViewCell else { return .init() }
+                    cell.configure(item: element)
+                    return cell
+                } else {
+                    guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchPerfumeTableViewCell.reuseIdentifier, for: indexPath) as? SearchPerfumeTableViewCell else { return .init() }
+                    cell.configure(item: element)
+                    return cell
+                }
+            }
+            .disposed(by: disposeBag)
+        
+        reactor.state.map { $0.filter }
+            .distinctUntilChanged()
+            .bind(to: filterView.rx.filter)
             .disposed(by: disposeBag)
     }
 }
