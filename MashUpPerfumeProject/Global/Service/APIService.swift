@@ -37,3 +37,27 @@ struct APIService {
         provider.rx.request(.login(login: logInInfo))
     }
 }
+
+extension APIService {
+    func requestNoteGroups(id: Int) -> Single<Response> {
+        provider.rx.request(.requestNoteGroups(id: id))
+    }
+    
+    func requestSearch(query: String, filter: SearchFilter = .all, page: Int) -> Single<Response> {
+        provider.rx.request(.requestSearch(query: query, filter: filter, page: page))
+    }
+    
+    func requestPerfume(id: Int) -> Single<Response> {
+        provider.rx.request(.requestPerfume(id: id))
+    }
+    
+    func requestNotePerfumes(id: Int) -> Single<Response> {
+        provider.rx.request(.requestNotePerfumes(id: id))
+    }
+
+    func getPerfumes(brandId: Int? = nil, noteId: Int? = nil, page: Int? = nil) -> Single<Response> {
+        provider.rx.request(.getPerfumes(brandId: brandId, noteId: noteId, page: page))
+    }
+    
+}
+

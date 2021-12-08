@@ -10,11 +10,16 @@ import Moya
 
 enum APITarget: TargetType {
     // 1. User - Authorization
+    case requestNoteGroups(id: Int)
+    case requestSearch(query: String, filter: SearchFilter, page: Int)
+    case requestPerfume(id: Int)
+    case requestNotePerfumes(id: Int)
     case initialize(initialize: Initialize)
     case login(login: Login) // 로그인
     case getMe
     case updateNickName(nickName: NickName)
     case getNoteGroups
+    case getPerfumes(brandId: Int?, noteId: Int?, page: Int?)
 
 
     var baseURL: URL {
@@ -25,24 +30,68 @@ enum APITarget: TargetType {
     // 세부 경로
     var path: String {
         switch self {
-        // 1. User - Authorization
-        case .initialize: return "/members/initialize"
-        case .login: return "/members/login"
-        case .getMe: return "/members/me"
-        case .updateNickName: return "/members/me/nickname"
+        case let .requestNoteGroups(id):
+            return "/note-groups/\(id)"
+            
+        case .requestSearch:
+            return "/search"
+            
+        case let .requestPerfume(id):
+            return "/perfumes/\(id)"
+            
+        case let .requestNotePerfumes(id):
+            return "/notes/\(id)"
+        case .initialize:
+            return "/members/initialize"
+            
+        case .login:
+            return "/members/login"
+            
+        case .getMe:
+            return "/members/me"
+            
+        case .updateNickName:
+            return "/members/me/nickname"
+            
         case .getNoteGroups:
             return "/note-groups"
+            
+        case .getPerfumes:
+            return "/perfumes"
         }
     }
 
     var method: Moya.Method {
         // method - 통신 method (get, post, put, delete ...)
         switch self {
-        case .initialize: return .post
-        case .login: return .post
-        case .getMe: return .get
-        case .updateNickName: return .put
+        case .requestNoteGroups:
+            return .get
+            
+        case .requestSearch:
+            return .post
+            
+        case .requestPerfume:
+            return .get
+            
+        case .requestNotePerfumes:
+            return .get
+            
+        case .initialize:
+            return .post
+            
+        case .login:
+            return .post
+            
+        case .getMe:
+            return .get
+            
+        case .updateNickName:
+            return .put
+            
         case .getNoteGroups:
+            return .get
+            
+        case .getPerfumes:
             return .get
         }
     }
@@ -58,18 +107,46 @@ enum APITarget: TargetType {
         // 파라미터가 없을 때는 - .requestPlain
         // 파라미터 존재시에는 - .requestParameters(parameters: ["first_name": firstName, "last_name": lastName], encoding: JSONEncoding.default)
         switch self {
+        case .requestNoteGroups:
+            return .requestPlain
+            
+        case let .requestSearch(query, filter, page):
+            return .requestParameters(parameters:
+                                        ["name": query,
+                                         "type": filter.rawValue,
+                                         "page": page],                                        
+                                      encoding: JSONEncoding.default)
+            
+        case .requestPerfume:
+            return .requestPlain
+            
+        case .requestNotePerfumes:
+            return .requestPlain
+            
         case .initialize(let initialize):
             return .requestJSONEncodable(initialize)
+            
         case .login(let login):
             return .requestJSONEncodable(login)
+            
         case .getMe:
             return .requestPlain
 //        case .updateNickName(let nickname):
 //            return .requestParameters(parameters: ["nickname": nickname], encoding: JSONEncoding.default)
         case .updateNickName(let nickName):
             return .requestJSONEncodable(nickName)
+            
         case .getNoteGroups:
             return .requestPlain
+            
+        case let .getPerfumes(brandId, noteId, page):
+            let params: [String: Any?] = [
+                "brandId": brandId,
+                "noteId": noteId,
+                "page": page
+            ]
+            
+            return .requestParameters(parameters: params.compactMapValues { $0 }, encoding: URLEncoding.default)
         }
     }
     
@@ -82,13 +159,15 @@ enum APITarget: TargetType {
     /// The headers to be used in the request.
     var headers: [String: String]? {
         // headers - HTTP header
+//        switch self {
+//        case .login:
+//            return ["Content-Type":"application/json"]
+//        }
 
         if let accesstoken = UserDefaults.standard.string(forKey: "accesstoken") {
             return ["Authorization": "Bearer \(accesstoken)"]
         } else {
             return ["Authorization": ""]
         }
-
-//        return ["Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhY20tYXBpLWRldmVsb3AiLCJtZW1iZXJJZCI6MjQ1ODU5fQ.t2stUH5_C8HcpjJb_IFtwG5o4xN5AAPgozvHxIPbTbM"]
     }
 }

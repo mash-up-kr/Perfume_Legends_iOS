@@ -250,5 +250,12 @@ extension OnboardingFourthViewController {
     struct CollectionViewModel {
         let image: UIImage?
         let title: String?
+        let id: Int?
+        
+        init(image: UIImage?, title: String?, id: Int? = nil) {
+            self.image = image
+            self.title = title
+            self.id = id
+        }
     }
 }
