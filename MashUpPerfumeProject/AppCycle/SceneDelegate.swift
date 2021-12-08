@@ -20,16 +20,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: scene)
 
         let idProviderType = "UUID"
-//        let idProviderUserId = UIDevice.current.identifierForVendor!.uuidString
-        UserDefaults.standard.set(nil, forKey: "accesstoken")
-        let idProviderUserId = "adlsknaslkdnalkqwqeytejlcsncalkacnlakrdsnakaslcknaknlslaslckasjaslkcnaslaslcsdklcadsnklcappnpqslc;asknnaslkcasnlkkcanclascnaapoxcnaspivadpvanpxamzxczxmkllanlknqepfqnywfiu"
+        let idProviderUserId = UIDevice.current.identifierForVendor!.uuidString
         let accesstoken = UserDefaults.standard.string(forKey: "accesstoken")
         print("\(idProviderType),\(idProviderUserId), \(accesstoken)")
 
-//        let signInViewController = SignInViewController()
-//        signInViewController.reactor = SignInReactor(idProviderType: idProviderType, idProviderUserId: idProviderUserId, accesstoken: accesstoken)
-//        let rootNavigationViewController = UINavigationController(rootViewController: signInViewController)
-//        self.window?.rootViewController = rootNavigationViewController
+        let signInViewController = SignInViewController()
+        signInViewController.reactor = SignInReactor(idProviderType: idProviderType, idProviderUserId: idProviderUserId, accesstoken: accesstoken)
+        let rootNavigationViewController = UINavigationController(rootViewController: signInViewController)
+        self.window?.rootViewController = rootNavigationViewController
+
         let vc = SearchViewController()
         vc.reactor = SearchReactor()
         self.window?.rootViewController = UINavigationController(rootViewController: vc)
