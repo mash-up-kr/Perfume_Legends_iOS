@@ -15,12 +15,6 @@ import RxMoya
 class SignInViewController: BaseViewController, View {
     let provider = MoyaProvider<APITarget>()
 
-    private let titleLabel: UILabel = {
-        let label = UILabel()
-        label.text = "테스트 라벨입니다."
-        return label
-    }()
-
     private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "SignInImage")
@@ -87,6 +81,10 @@ extension SignInViewController {
                     let viewController = ViewController()
                     viewController.reactor = NewReactor()
                     self.navigationController?.pushViewController(viewController, animated: false)
+
+//                    let onboardingFirstViewController = OnboardingFirstViewController()
+//                    onboardingFirstViewController.reactor = OnboardingReactor()
+//                    self.navigationController?.pushViewController(onboardingFirstViewController, animated: false)
                 } else {
                     let onboardingFirstViewController = OnboardingFirstViewController()
                     onboardingFirstViewController.reactor = OnboardingReactor()

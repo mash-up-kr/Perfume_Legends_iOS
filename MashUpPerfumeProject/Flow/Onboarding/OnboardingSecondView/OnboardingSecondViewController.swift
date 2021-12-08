@@ -124,37 +124,6 @@ class OnboardingSecondViewController: BaseViewController, View {
 extension OnboardingSecondViewController {
     func bind(reactor: OnboardingSecondReactor) {
 
-        self.textField.rx.controlEvent([.allTouchEvents])
-            .subscribe(onNext: {
-                self.textField.becomeFirstResponder()
-            })
-            .disposed(by: self.disposeBag)
-
-        self.textField.rx.controlEvent(.editingDidEndOnExit)
-            .subscribe(onNext: {
-                self.textField.resignFirstResponder()
-            })
-            .disposed(by: self.disposeBag)
-
-        self.textField.rx.text.orEmpty.changed
-            .subscribe(onNext: { text in
-                self.trimNickname(text)
-            })
-            .disposed(by: disposeBag)
-
-        self.textField.rx.text.orEmpty.changed
-            .map { Reactor.Action.setNickname($0) }
-            .bind(to: reactor.action)
-            .disposed(by: disposeBag)
-
-        self.nextButton.rx.tap
-            .subscribe(onNext: {
-                let onboardingThirdViewController = OnboardingThirdViewController()
-                onboardingThirdViewController.reactor = OnboardingThirdReactor()
-                self.navigationController?.pushViewController(onboardingThirdViewController, animated: false)
-            })
-            .disposed(by: self.disposeBag)
-
         reactor.state
             .map { 1 < $0.nickname?.count ?? 0 && $0.nickname?.count ?? 0 < 7 }
             .subscribe(onNext: { isEnabled in
@@ -191,6 +160,36 @@ extension OnboardingSecondViewController {
             .bind(to: activityIndicator.rx.isAnimating)
             .disposed(by: self.disposeBag)
 
+        self.textField.rx.controlEvent([.allTouchEvents])
+            .subscribe(onNext: {
+                self.textField.becomeFirstResponder()
+            })
+            .disposed(by: self.disposeBag)
+
+        self.textField.rx.controlEvent(.editingDidEndOnExit)
+            .subscribe(onNext: {
+                self.textField.resignFirstResponder()
+            })
+            .disposed(by: self.disposeBag)
+
+        self.textField.rx.text.orEmpty.changed
+            .subscribe(onNext: { text in
+                self.trimNickname(text)
+            })
+            .disposed(by: disposeBag)
+
+        self.textField.rx.text.orEmpty.changed
+            .map { Reactor.Action.setNickname($0) }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+
+        self.nextButton.rx.tap
+            .subscribe(onNext: {
+                let onboardingThirdViewController = OnboardingThirdViewController()
+                onboardingThirdViewController.reactor = OnboardingThirdReactor()
+                self.navigationController?.pushViewController(onboardingThirdViewController, animated: false)
+            })
+            .disposed(by: self.disposeBag)
     }
 
     private func trimNickname(_ nickname: String) {

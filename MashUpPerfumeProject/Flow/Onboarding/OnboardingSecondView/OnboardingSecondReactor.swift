@@ -31,8 +31,8 @@ final class OnboardingSecondReactor: Reactor {
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
         case let .setNickname(nickname):
-
-            let newNickname = makeNewNickname(nickname: nickname)
+            
+            let newNickname = removeSpecialCharacters(nickname: nickname)
 
             if newNickname.count > 1 {
 
@@ -46,7 +46,7 @@ final class OnboardingSecondReactor: Reactor {
                         }
                         .catchAndReturn(.setNickname(newNickname, false)),
 
-                    .just(.setIsLoading(false))
+                        .just(.setIsLoading(false))
                 ])
             } else {
                 return .just(.setNickname(nickname, true))
@@ -72,11 +72,35 @@ final class OnboardingSecondReactor: Reactor {
 }
 
 extension OnboardingSecondReactor {
-    func makeNewNickname(nickname: String) -> String {
+    func removeSpecialCharacters(nickname: String) -> String {
 
         var newNickname = nickname.trimmingCharacters(in: .whitespaces)
         newNickname = nickname.components(separatedBy: ["~","!","@",","," ",".","/","?","<",">","#","$","%","^","&","*","(",")","-","_","+","="]).joined()
 
         return newNickname
     }
+
+//    func matchString(input: String) -> String {
+//
+//        let strArray = Array(input)
+//
+//        let pattern = "[ㄱ-ㅎㅏ-ㅣ가-힣a-zA-Z0-9]"
+//
+//        var resultString = ""
+//        if strArray.count > 0 {
+//            if let regex = try? NSRegularExpression(pattern: pattern, options: .caseInsensitive) {
+//                for index in 0..<strArray.count {
+//                    let checkString = regex.matches(in: String(strArray[index]), options: [], range: NSRange(location: 0, length: 1))
+//                    if checkString.count == 0 {
+//                        continue
+//                    } else {
+//                        resultString += String(strArray[index])
+//                    }
+//                }
+//            }
+//            return resultString
+//        } else {
+//            return input
+//        }
+//    }
 }

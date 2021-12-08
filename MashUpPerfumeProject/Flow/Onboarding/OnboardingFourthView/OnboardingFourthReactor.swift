@@ -20,7 +20,7 @@ final class OnboardingFourthReactor: Reactor {
     enum Mutation {
         case setNoteGroups([NoteGroup])
         case setPerfumeType([Int]?)
-        case setMemberInitialize(MemberInfo?)
+        case setMemberInitialize(Bool)
         case setIsLoading(Bool)
     }
 
@@ -30,6 +30,7 @@ final class OnboardingFourthReactor: Reactor {
         var perfumeTypes: [Int]?
         var noteGroups: [NoteGroup]?
         var isLoading = false
+        var isMemberInfoInitialize = false
     }
 
     let initialState: State
@@ -57,11 +58,19 @@ final class OnboardingFourthReactor: Reactor {
             return .just(.setPerfumeType(perfumeTypes))
             
         case let .setMemberInitialize(gender, age, perfumeTypes):
-            return APIService.shared.initializeInfo(model: Initialize(gender: gender, ageGroup: age, noteGroupsIds: perfumeTypes))
-                .asObservable()
-                .map(MemberInfo.self, atKeyPath: "data.member", using: JSONDecoder(), failsOnEmptyData: false)
-                .map { Mutation.setMemberInitialize($0) }
-            
+
+            return Observable.concat([
+                .just(.setIsLoading(true)),
+
+                APIService.shared.initializeInfo(model: Initialize(gender: gender, ageGroup: age, noteGroupIds: perfumeTypes))
+                    .asObservable()
+                    .map { _ in
+                        Mutation.setMemberInitialize(true)
+                    }
+                    .catchAndReturn(.setMemberInitialize(false)),
+
+                .just(.setIsLoading(false))
+            ])
         }
     }
 
@@ -75,14 +84,14 @@ final class OnboardingFourthReactor: Reactor {
         case let .setPerfumeType(perfumeTypes):
             newState.perfumeTypes = perfumeTypes
 
-        case let .setMemberInitialize(memberInfo):
-            break
+        case let .setMemberInitialize(isMemberInfoInitialize):
+            newState.isMemberInfoInitialize = isMemberInfoInitialize
 
         case let .setIsLoading(isLoading):
             newState.isLoading = isLoading
         }
 
-        print(newState)
+        print("\(newState.perfumeTypes), \(newState.age), \(newState.gender), \(newState.isMemberInfoInitialize)")
 
         return newState
     }
