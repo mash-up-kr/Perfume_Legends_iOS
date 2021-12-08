@@ -10,5 +10,5 @@ import Foundation
 struct Initialize: Codable {
     let gender: String?
     let ageGroup: String?
-    let noteGroupsIds: [Int]?
+    let noteGroupIds: [Int]?
 }

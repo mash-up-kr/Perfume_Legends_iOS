@@ -20,7 +20,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: scene)
 
         let idProviderType = "UUID"
-        let idProviderUserId = UIDevice.current.identifierForVendor!.uuidString
+//        let idProviderUserId = UIDevice.current.identifierForVendor!.uuidString
+        UserDefaults.standard.set(nil, forKey: "accesstoken")
+        let idProviderUserId = "adlsknaslkdnalkqwqeytejlcsncalkacnlakrdsnakaslcknaknlslaslckasjaslkcnaslaslcsdklcadsnklcappnpqslc;asknnaslkcasnlkkcanclascnaapoxcnaspivadpvanpxamzxczxmkllanlknqepfqnywfiu"
         let accesstoken = UserDefaults.standard.string(forKey: "accesstoken")
         print("\(idProviderType),\(idProviderUserId), \(accesstoken)")
 
@@ -58,8 +60,4 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
     }
-}
-
-extension SceneDelegate {
-//    func
 }

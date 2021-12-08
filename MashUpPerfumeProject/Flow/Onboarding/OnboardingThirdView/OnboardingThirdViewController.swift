@@ -237,6 +237,34 @@ class OnboardingThirdViewController: BaseViewController, View {
 extension OnboardingThirdViewController {
     func bind(reactor: OnboardingThirdReactor) {
 
+        reactor.state
+            .map { $0.gender != nil && $0.age != nil }
+            .subscribe(onNext: { isEnabled in
+                self.nextButton.isEnabled = isEnabled
+                self.nextButton.backgroundColor = isEnabled ? UIColor(named: "Black") : UIColor(named: "Gray100")
+            })
+            .disposed(by: self.disposeBag)
+
+        reactor.state.map { $0.gender }
+        .distinctUntilChanged()
+        .subscribe(onNext: {
+            self.maleButton.isSelected = $0 == .MALE
+            self.femaleButton.isSelected = $0 == .FEMALE
+        })
+        .disposed(by: disposeBag)
+
+        reactor.state
+            .map { $0.age }
+            .distinctUntilChanged()
+            .subscribe(onNext: {
+                self.teenagerButton.isSelected = $0 == .TEENAGER
+                self.twentiesButton.isSelected = $0 == .TWENTIES
+                self.thirtiesButton.isSelected = $0 == .THIRTIES
+                self.fouriesButton.isSelected = $0 == .FOURTIES
+                self.fiftiesButton.isSelected = $0 == .FIFTIES
+            })
+            .disposed(by: disposeBag)
+
         self.femaleButton.rx.tap
             .map { Reactor.Action.selectGender(self.femaleButton.isSelected ? nil : .FEMALE) }
             .bind(to: reactor.action)
@@ -287,34 +315,6 @@ extension OnboardingThirdViewController {
                 self.navigationController?.pushViewController(onboardingFourthViewController, animated: false)
             })
             .disposed(by: self.disposeBag)
-
-        reactor.state
-            .map { $0.gender != nil && $0.age != nil }
-            .subscribe(onNext: { isEnabled in
-                self.nextButton.isEnabled = isEnabled
-                self.nextButton.backgroundColor = isEnabled ? UIColor(named: "Black") : UIColor(named: "Gray100")
-            })
-            .disposed(by: self.disposeBag)
-
-        reactor.state.map { $0.gender }
-        .distinctUntilChanged()
-        .subscribe(onNext: {
-            self.maleButton.isSelected = $0 == .MALE
-            self.femaleButton.isSelected = $0 == .FEMALE
-        })
-        .disposed(by: disposeBag)
-
-        reactor.state
-            .map { $0.age }
-            .distinctUntilChanged()
-            .subscribe(onNext: {
-                self.teenagerButton.isSelected = $0 == .TEENAGER
-                self.twentiesButton.isSelected = $0 == .TWENTIES
-                self.thirtiesButton.isSelected = $0 == .THIRTIES
-                self.fouriesButton.isSelected = $0 == .FOURTIES
-                self.fiftiesButton.isSelected = $0 == .FIFTIES
-            })
-            .disposed(by: disposeBag)
     }
 }
 

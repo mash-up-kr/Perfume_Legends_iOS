@@ -14,11 +14,7 @@ import RxMoya
 
 class OnboardingFourthViewController: BaseViewController, View {
 
-//    private var age: BehaviorRelay<OnboardingThirdViewController.Gender>?
-//    private var gender: BehaviorRelay<OnboardingThirdViewController.Age>?
     private let perfumeTypesModel = BehaviorRelay<[Int]>(value: [])
-
-//    private var collectionViewModel = Observable.of([CollectionViewModel(image: UIImage(named: "citrus_yellow"), title: "CITRUS"), CollectionViewModel(image: UIImage(named: "fruits&vegetables _purple"), title: "FRUITS &\nVEGETABLE"), CollectionViewModel(image: UIImage(named: "flowers_pink"), title: "FLOWERS"), CollectionViewModel(image: UIImage(named: "whiteFlowers_skyblue"), title: "WHITE FLOWERS"), CollectionViewModel(image: UIImage(named: "greens_green"), title: "GREENS"), CollectionViewModel(image: UIImage(named: "spices_brown"), title: "SPICES"), CollectionViewModel(image: UIImage(named: "sweets&gourmand_pink"), title: "SWEETS &\nGOURMAND"), CollectionViewModel(image: UIImage(named: "woods_brown"), title: "WOODS"), CollectionViewModel(image: UIImage(named: "resins&balsams_brown"), title: "RESINS & BALSAMS"), CollectionViewModel(image: UIImage(named: "animalic_orange"), title: "ANIMALIC"), CollectionViewModel(image: UIImage(named: "beverages_red"), title: "BEVERAGES"), CollectionViewModel(image: UIImage(named: "natural&systhetic_blue"), title: "NATURAL &\nSYNTHETIC"), CollectionViewModel(image: UIImage(named: "uncategorized_black"), title: "UNCATEGORIZED")])
 
     let provider = MoyaProvider<APITarget>()
 
@@ -112,12 +108,6 @@ class OnboardingFourthViewController: BaseViewController, View {
 
     var disposeBag = DisposeBag()
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        //        self.navigationController?.isNavigationBarHidden = true
-    }
-
     override func setLayout() {
         super.setLayout()
 
@@ -192,18 +182,34 @@ extension OnboardingFourthViewController {
             })
             .disposed(by: self.disposeBag)
 
-        self.collectionView.rx.itemSelected
-            .subscribe(onNext: { indexPath in
+        reactor.state
+            .map { $0.isMemberInfoInitialize }
+            .subscribe(onNext: {
+                if $0 == true {
+                    let viewController = ViewController()
+                    viewController.reactor = NewReactor()
+                    self.navigationController?.pushViewController(viewController, animated: false)
+                }
+            })
+            .disposed(by: self.disposeBag)
+
+        reactor.state.map { $0.isLoading }
+        .distinctUntilChanged()
+        .bind(to: activityIndicator.rx.isAnimating)
+        .disposed(by: disposeBag)
+
+        self.collectionView.rx.modelSelected(NoteGroup.self)
+            .subscribe(onNext: {
                 var array = self.perfumeTypesModel.value
-                array.append(indexPath.item)
+                array.append($0.id)
                 self.perfumeTypesModel.accept(array)
             })
             .disposed(by: self.disposeBag)
 
-        self.collectionView.rx.itemDeselected
-            .subscribe(onNext: { indexPath in
+        self.collectionView.rx.modelDeselected(NoteGroup.self)
+            .subscribe(onNext: {
                 var array = self.perfumeTypesModel.value
-                if let index = array.firstIndex(of: indexPath.item) {
+                if let index = array.firstIndex(of: $0.id) {
                     array.remove(at: index)
                     self.perfumeTypesModel.accept(array)
                 }
@@ -225,7 +231,7 @@ extension OnboardingFourthViewController {
             .disposed(by: self.disposeBag)
 
         self.nextButton.rx.tap
-            .map { return Reactor.Action.setMemberInitialize(reactor.currentState.gender, reactor.currentState.age, reactor.currentState.perfumeTypes) }
+            .map { Reactor.Action.setMemberInitialize(reactor.currentState.gender, reactor.currentState.age, reactor.currentState.perfumeTypes) }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
 
@@ -236,19 +242,6 @@ extension OnboardingFourthViewController {
                 self.navigationController?.pushViewController(viewController, animated: false)
             })
             .disposed(by: self.disposeBag)
-
-        self.nextButton.rx.tap
-            .subscribe(onNext: {
-                let viewController = ViewController()
-                viewController.reactor = NewReactor()
-                self.navigationController?.pushViewController(viewController, animated: false)
-            })
-            .disposed(by: self.disposeBag)
-
-        reactor.state.map { $0.isLoading }
-        .distinctUntilChanged()
-        .bind(to: activityIndicator.rx.isAnimating)
-        .disposed(by: disposeBag)
     }
 }
 
@@ -257,23 +250,5 @@ extension OnboardingFourthViewController {
     struct CollectionViewModel {
         let image: UIImage?
         let title: String?
-    }
-}
-
-extension OnboardingFourthViewController {
-
-    enum PerfumeType: Int {
-        case citrus
-        case fruitsAndvegetables
-        case flowers
-        case whiteflowers
-        case greens
-        case spices
-        case sweetsAndgourmand
-        case woods
-        case resinsAndbalsams
-        case animalic
-        case beverages
-        case naturalAndsynthetic
     }
 }
