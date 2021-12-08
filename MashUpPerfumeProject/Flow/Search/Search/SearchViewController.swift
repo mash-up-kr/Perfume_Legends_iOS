@@ -215,6 +215,9 @@ extension SearchViewController {
         reactor.action.onNext(.requestNoteGroups)
         
         filterView.rx.filter
+            .do(afterNext : { [weak self] _ in
+                self?.tableView.setContentOffset(.zero, animated: false)
+            })
             .map { Reactor.Action.requestChangeFilter($0) }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
@@ -228,6 +231,9 @@ extension SearchViewController {
         searchTextField.rx.text.changed
             .distinctUntilChanged()
             .throttle(.milliseconds(300), latest: true, scheduler: MainScheduler.asyncInstance)
+            .do(afterNext : { [weak self] _ in
+                self?.tableView.setContentOffset(.zero, animated: false)
+            })
             .map { Reactor.Action.requestSearch(text: $0) }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
@@ -263,10 +269,17 @@ extension SearchViewController {
             })
             .disposed(by: disposeBag)
         
+        tableView.rx.contentOffset
+            .filter { [weak self] offset in
+                guard let self = self,
+                    self.tableView.frame.height > 0 else { return false }
+                return offset.y + self.tableView.frame.height >= self.tableView.contentSize.height - 100
+            }
+            .map { _ in Reactor.Action.requestMore }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
         reactor.state.map { $0.noteGroups }
-            .do(onNext : { [weak self] _ in
-                self?.tableView.setContentOffset(.zero, animated: false)
-            })
             .bind(to: collectionView.rx.items(cellIdentifier: OnboardingCollectionViewCell.reuseIdentifier, cellType: OnboardingCollectionViewCell.self)) { index, element, cell in
                 cell.configure(element)
             }

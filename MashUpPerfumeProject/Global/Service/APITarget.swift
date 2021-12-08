@@ -11,7 +11,7 @@ import Moya
 enum APITarget: TargetType {
     // 1. User - Authorization
     case requestNoteGroups(id: Int)
-    case requestSearch(query: String, filter: SearchFilter)
+    case requestSearch(query: String, filter: SearchFilter, page: Int)
     case requestPerfume(id: Int)
     case requestNotePerfumes(id: Int)
     case initialize(initialize: Initialize)
@@ -110,10 +110,11 @@ enum APITarget: TargetType {
         case .requestNoteGroups:
             return .requestPlain
             
-        case let .requestSearch(query, filter):
+        case let .requestSearch(query, filter, page):
             return .requestParameters(parameters:
                                         ["name": query,
-                                         "type": filter.rawValue],
+                                         "type": filter.rawValue,
+                                         "page": page],                                        
                                       encoding: JSONEncoding.default)
             
         case .requestPerfume:

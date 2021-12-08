@@ -43,8 +43,8 @@ extension APIService {
         provider.rx.request(.requestNoteGroups(id: id))
     }
     
-    func requestSearch(query: String, filter: SearchFilter = .all) -> Single<Response> {
-        provider.rx.request(.requestSearch(query: query, filter: filter))
+    func requestSearch(query: String, filter: SearchFilter = .all, page: Int) -> Single<Response> {
+        provider.rx.request(.requestSearch(query: query, filter: filter, page: page))
     }
     
     func requestPerfume(id: Int) -> Single<Response> {
