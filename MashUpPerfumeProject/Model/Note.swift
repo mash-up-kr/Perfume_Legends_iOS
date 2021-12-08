@@ -13,3 +13,11 @@ struct Note: Decodable, Equatable {
     let description: String
     let thumbnailImageUrl: String
 }
+
+struct NoteGroupDetail: Decodable, Equatable {
+    let notes: [Note]
+    let id: Int
+    let name: String
+    let description: String
+    let customName: String
+}

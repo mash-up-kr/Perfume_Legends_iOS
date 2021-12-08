@@ -5,8 +5,8 @@
 //  Created by Hochan Lee on 2021/11/13.
 //
 
-import Foundation
 import UIKit
+import Kingfisher
 
 final class NoteGroupTableViewHeader: UIView {
     private let noteImageView = UIImageView()
@@ -25,6 +25,7 @@ final class NoteGroupTableViewHeader: UIView {
         label.font = .systemFont(ofSize: 12, weight: .medium)
         label.textColor = .gray700
         label.text = "descriptionLabel"
+        label.numberOfLines = 3
         
         return label
     }()
@@ -62,5 +63,16 @@ final class NoteGroupTableViewHeader: UIView {
             descriptionLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
             descriptionLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -38)
         ])
+    }
+}
+
+extension NoteGroupTableViewHeader {
+    func setView(title: String, description: String, customName: String) {
+        noteLabel.text = title
+        descriptionLabel.text = description
+        noteImageView.image = UIImage(named: customName)
+//        if let url = URL(string: imageURL) {
+//            noteImageView.kf.setImage(with: url)
+//        }
     }
 }

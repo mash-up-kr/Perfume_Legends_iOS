@@ -16,14 +16,14 @@ final class NoteGroupReactor: Reactor {
     }
     
     enum Mutation {
-        case setNotes([Note])
+        case setNotes(NoteGroupDetail)
         case setIsLoading(Bool)
     }
     
     struct State {
         let id: Int?
         
-        var notes = [Note]()
+        var noteGroup: NoteGroupDetail?
         var isLoading = false
     }
     
@@ -43,11 +43,8 @@ final class NoteGroupReactor: Reactor {
                 
                 requestNoteGroups(id: id)
                     .asObservable()
-                    .map([Note].self, atKeyPath: "data.noteGroup.notes", using: JSONDecoder(), failsOnEmptyData: false)
-                    .map {
-                        log($0)
-                        return Mutation.setNotes($0)
-                    },
+                    .map(NoteGroupDetail.self, atKeyPath: "data.noteGroup")
+                    .map { Mutation.setNotes($0)},
             
                 .just(.setIsLoading(false))
             ])
@@ -57,8 +54,8 @@ final class NoteGroupReactor: Reactor {
     func reduce(state: State, mutation: Mutation) -> State {
         var newState = state
         switch mutation {
-        case let .setNotes(notes):
-            newState.notes = notes
+        case let .setNotes(noteGroup):
+            newState.noteGroup = noteGroup
             
         case let .setIsLoading(isLoading):
             newState.isLoading = isLoading

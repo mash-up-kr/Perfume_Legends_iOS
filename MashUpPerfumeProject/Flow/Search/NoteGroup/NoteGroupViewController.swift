@@ -15,7 +15,6 @@ final class NoteGroupViewController: BaseViewController, View {
         tableView.register(NoteTableViewCell.self, forCellReuseIdentifier: NoteTableViewCell.reuseIdentifier)
         tableView.backgroundColor = .clear
         tableView.separatorStyle = .none
-//        tableView.contentInset.top = 133
         
         return tableView
     }()
@@ -30,7 +29,8 @@ final class NoteGroupViewController: BaseViewController, View {
         navigationController?.isNavigationBarHidden = false
         navigationItem.title = "NOTE"
         
-     tableView.tableHeaderView = headerView
+        tableView.tableHeaderView = headerView
+        tableView.tableHeaderView?.widthAnchor.constraint(equalTo: tableView.widthAnchor).isActive = true
     }
     
     override func setLayout() {
@@ -52,11 +52,22 @@ extension NoteGroupViewController {
     func bind(reactor: NoteGroupReactor) {
         reactor.action.onNext(.requestNotes)
         
-        reactor.state.map { $0.notes }
+        reactor.state.compactMap { $0.noteGroup?.notes }
             .distinctUntilChanged()
             .bind(to: tableView.rx.items(cellIdentifier: NoteTableViewCell.reuseIdentifier, cellType: NoteTableViewCell.self)) { index, note, cell in
                 cell.configure(note: note)
             }
+            .disposed(by: disposeBag)
+        
+        reactor.state.compactMap { $0.noteGroup }
+            .distinctUntilChanged()
+            .subscribe(onNext: { [weak self] in
+                guard let self = self else { return }
+                self.headerView.setView(title: $0.name, description: $0.description, customName: $0.customName)
+                self.headerView.layoutIfNeeded()
+                self.tableView.reloadData()
+//                self.tableView.contentInset.bottom = self.headerView.bounds.height
+            })
             .disposed(by: disposeBag)
         
         tableView.rx.modelSelected(Note.self)
